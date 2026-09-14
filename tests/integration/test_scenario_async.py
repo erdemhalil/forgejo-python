@@ -5,7 +5,7 @@ from __future__ import annotations
 import asyncio
 from typing import TYPE_CHECKING
 
-import httpx
+import httpx2
 import pytest
 from harness import ADMIN_PASSWORD, ADMIN_USERNAME, USER_USERNAME
 
@@ -54,11 +54,11 @@ async def test_async_anonymous_errors_and_client_injection(server: ForgejoServer
         with pytest.raises(pyfj.UnauthorizedError):
             await anonymous.user.get()
 
-    async with httpx.AsyncClient() as injected:
+    async with httpx2.AsyncClient() as injected:
         client = pyfj.AsyncForgejo(server.base_url, token=server.admin_token, client=injected)
         try:
             assert (await client.user.get()).login == ADMIN_USERNAME
-            with pytest.raises(TypeError, match="injected httpx client"):
+            with pytest.raises(TypeError, match="injected httpx2 client"):
                 pyfj.AsyncForgejo(server.base_url, client=injected, timeout=5.0)
         finally:
             await client.aclose()

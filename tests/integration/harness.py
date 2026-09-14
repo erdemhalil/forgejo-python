@@ -41,7 +41,7 @@ from dataclasses import dataclass
 from functools import cached_property
 from typing import TYPE_CHECKING, Literal, TypeVar, cast
 
-import httpx
+import httpx2
 from testcontainers.core.container import DockerContainer, ExecConfig
 from testcontainers.core.docker_client import DockerClient
 
@@ -187,7 +187,7 @@ def _container(image: str) -> DockerContainer:
     )
 
 
-def _wait_for_version(client: httpx.Client, base_url: str, *, server: ForgejoServer) -> None:
+def _wait_for_version(client: httpx2.Client, base_url: str, *, server: ForgejoServer) -> None:
     """Poll ``/api/v1/version`` until the instance answers or the deadline passes."""
     url = f"{base_url}/api/v1/version"
     deadline = time.monotonic() + READY_TIMEOUT_SECONDS
@@ -195,10 +195,10 @@ def _wait_for_version(client: httpx.Client, base_url: str, *, server: ForgejoSer
     while time.monotonic() < deadline:
         try:
             response = client.get(url)
-            if response.status_code == httpx.codes.OK:
+            if response.status_code == httpx2.codes.OK:
                 return
             last_error = RuntimeError(f"GET {url} returned HTTP {response.status_code}: {response.text[:200]}")
-        except httpx.HTTPError as exc:
+        except httpx2.HTTPError as exc:
             last_error = exc
         time.sleep(READY_POLL_INTERVAL)
     container_logs = server.logs()
@@ -239,7 +239,7 @@ def start_forgejo() -> ForgejoServer:
             user_token="",
         )
         try:
-            with httpx.Client(timeout=5.0) as client:
+            with httpx2.Client(timeout=5.0) as client:
                 _wait_for_version(client, base_url, server=server)
             _seed_users(server)
             with pyfj.Forgejo(base_url, token=server.admin_token, timeout=CLIENT_TIMEOUT) as admin:
@@ -469,7 +469,7 @@ class Seed:
                 default_branch="main" if auto_init else None,
             )
         except pyfj.APIError as exc:
-            if exc.status_code != httpx.codes.CONFLICT:
+            if exc.status_code != httpx2.codes.CONFLICT:
                 raise
             return self._cache_put(cache_key, RepoRef(owner=USER_USERNAME, name=name))
         ref = RepoRef(
@@ -504,7 +504,7 @@ class Seed:
                 default_branch="main" if auto_init else None,
             )
         except pyfj.APIError as exc:
-            if exc.status_code != httpx.codes.CONFLICT:
+            if exc.status_code != httpx2.codes.CONFLICT:
                 raise
             return self._cache_put(cache_key, RepoRef(owner=owner, name=name))
         ref = RepoRef(
@@ -521,7 +521,7 @@ class Seed:
         try:
             organization = self.admin.orgs.create(username=self.name("org"), full_name="pyfj integration org")
         except pyfj.APIError as exc:
-            if exc.status_code != httpx.codes.CONFLICT:
+            if exc.status_code != httpx2.codes.CONFLICT:
                 raise
             return self.name("org")
         return organization.username or self.name("org")
@@ -815,7 +815,7 @@ class Seed:
         try:
             self.admin.orgs.create(username=name, full_name=f"pyfj {key} org")
         except pyfj.APIError as exc:
-            if exc.status_code != httpx.codes.CONFLICT:
+            if exc.status_code != httpx2.codes.CONFLICT:
                 raise
         return self._cache_put(cache_key, name)
 

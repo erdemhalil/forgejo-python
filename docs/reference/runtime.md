@@ -9,7 +9,7 @@ Non-2xx responses raise a typed exception; list operations return a lazy paginat
 
 ## Errors
 
-All exceptions descend from `ForgejoError`. `APIError` carries `status_code`, `body`, and the raw `httpx.Response`; transport failures raise `TransportError`, and responses that do not match the Spec raise `DecodeError`.
+All exceptions descend from `ForgejoError`. `APIError` carries `status_code`, `body`, and the raw `httpx2.Response`; transport failures raise `TransportError`, and responses that do not match the Spec raise `DecodeError`.
 
 ::: pyfj.ForgejoError
 

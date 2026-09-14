@@ -1,13 +1,13 @@
 """HTTP clients and the frozen generated-code contract.
 
 The public clients are :class:`Forgejo` (sync) and :class:`AsyncForgejo`
-(async): thin, fully typed wrappers over :mod:`httpx` that apply credentials,
+(async): thin, fully typed wrappers over :mod:`httpx2` that apply credentials,
 session policy, error mapping, pagination, and decoding.
 
 Frozen generated-code contract
 ==============================
 
-Generated namespace methods never touch httpx. They format the path, build
+Generated namespace methods never touch httpx2. They format the path, build
 parameters, call a request hook, and decode through
 :func:`pyfj._runtime.decode.decode`. The hook signatures below are frozen;
 generated code is written against them.
@@ -25,7 +25,7 @@ Sync hooks::
         files: Mapping[str, object] | None = None,  # multipart file parts
         content: bytes | str | None = None,  # raw request body
         headers: Mapping[str, str] | None = None,  # extra request headers (e.g. Accept)
-    ) -> httpx.Response: ...
+    ) -> httpx2.Response: ...
 
 
     def _paginate(
@@ -59,7 +59,7 @@ and pulled with ``async for``. ``decode`` is shared by both.
 ``_request`` and ``_paginate`` raise a mapped :class:`APIError` for any
 non-2xx status and :class:`TransportError` for network failures; they always
 return a 2xx response otherwise. ``client.request(...)`` is the escape hatch:
-it applies auth and session headers, returns the raw ``httpx.Response``, and
+it applies auth and session headers, returns the raw ``httpx2.Response``, and
 performs no status or transport mapping.
 
 Namespace-binding contract
@@ -112,7 +112,7 @@ from contextvars import ContextVar
 from typing import TYPE_CHECKING, ClassVar, Generic, Self, TypeVar, cast
 from urllib.parse import urlsplit, urlunsplit
 
-import httpx
+import httpx2
 from pydantic import BaseModel
 
 from pyfj._runtime.auth import Auth
@@ -134,13 +134,13 @@ _DEFAULT_FOLLOW_REDIRECTS = False
 _DEFAULT_VERIFY = True
 
 ModelT = TypeVar("ModelT", bound=BaseModel)
-_ClientT = TypeVar("_ClientT", httpx.Client, httpx.AsyncClient)
+_ClientT = TypeVar("_ClientT", httpx2.Client, httpx2.AsyncClient)
 
 # Accepted query-parameter values; None-valued entries are dropped by the hooks.
 QueryValue = str | int | float | bool | None | Sequence[str | int | float | bool | None]
 QueryParams = Mapping[str, QueryValue]
 
-# Accepted multipart file values, mirroring httpx's file-tuple shapes.
+# Accepted multipart file values, mirroring httpx2's file-tuple shapes.
 FileContent = bytes | str
 FilePart = (
     FileContent
@@ -174,7 +174,7 @@ def _api_root(instance_url: str) -> str:
 
 
 def _clean_params(params: Mapping[str, object] | None) -> dict[str, object] | None:
-    """Drop ``None``-valued query parameters (httpx would coerce them to "")."""
+    """Drop ``None``-valued query parameters (httpx2 would coerce them to "")."""
     if params is None:
         return None
     return {key: value for key, value in params.items() if value is not None}
@@ -183,7 +183,7 @@ def _clean_params(params: Mapping[str, object] | None) -> dict[str, object] | No
 class _BaseClient(Generic[_ClientT]):
     """Shared configuration for :class:`Forgejo` and :class:`AsyncForgejo`."""
 
-    _httpx_class: ClassVar[type[httpx.Client | httpx.AsyncClient]]
+    _httpx2_class: ClassVar[type[httpx2.Client | httpx2.AsyncClient]]
     _client: _ClientT
 
     def __init__(
@@ -194,7 +194,7 @@ class _BaseClient(Generic[_ClientT]):
         auth: tuple[str, str] | None = None,
         otp: str | None = None,
         sudo: str | None = None,
-        timeout: float | httpx.Timeout = _DEFAULT_TIMEOUT,
+        timeout: float | httpx2.Timeout = _DEFAULT_TIMEOUT,
         follow_redirects: bool = _DEFAULT_FOLLOW_REDIRECTS,
         verify: bool | ssl.SSLContext = _DEFAULT_VERIFY,
         client: _ClientT | None = None,
@@ -218,7 +218,7 @@ class _BaseClient(Generic[_ClientT]):
     def _create_client(
         cls,
         *,
-        timeout: float | httpx.Timeout,
+        timeout: float | httpx2.Timeout,
         follow_redirects: bool,
         verify: bool | ssl.SSLContext,
     ) -> _ClientT:
@@ -228,11 +228,11 @@ class _BaseClient(Generic[_ClientT]):
         self,
         client: _ClientT,
         *,
-        timeout: float | httpx.Timeout,
+        timeout: float | httpx2.Timeout,
         follow_redirects: bool,
         verify: bool | ssl.SSLContext,
     ) -> None:
-        """Reject transport arguments when the caller supplies an httpx client."""
+        """Reject transport arguments when the caller supplies an httpx2 client."""
         problems: list[str] = []
         if timeout != _DEFAULT_TIMEOUT:
             problems.append("timeout")
@@ -242,10 +242,10 @@ class _BaseClient(Generic[_ClientT]):
             problems.append("verify")
         if problems:
             arguments = ", ".join(problems)
-            message = f"transport arguments cannot be combined with an injected httpx client: {arguments}"
+            message = f"transport arguments cannot be combined with an injected httpx2 client: {arguments}"
             raise TypeError(message)
-        if not isinstance(client, self._httpx_class):
-            expected = f"{self._httpx_class.__module__}.{self._httpx_class.__name__}"
+        if not isinstance(client, self._httpx2_class):
+            expected = f"{self._httpx2_class.__module__}.{self._httpx2_class.__name__}"
             actual = f"{type(client).__module__}.{type(client).__name__}"
             message = f"expected an {expected} instance, got {actual}"
             raise TypeError(message)
@@ -340,7 +340,7 @@ class _SudoScope:
         self.__exit__(exc_type, exc, traceback)
 
 
-class Forgejo(_BaseClient[httpx.Client]):
+class Forgejo(_BaseClient[httpx2.Client]):
     """Synchronous client for one Forgejo instance.
 
     Args:
@@ -356,11 +356,11 @@ class Forgejo(_BaseClient[httpx.Client]):
         sudo: default value of the ``Sudo`` header; :attr:`sudo` overrides it
             for the current context and :meth:`sudo_as` scopes it to a block.
         timeout: request timeout; defaults to 30 seconds.
-        follow_redirects: whether httpx follows redirects; defaults to
+        follow_redirects: whether httpx2 follows redirects; defaults to
             ``False``, so documented 3xx responses surface as ``APIError``.
         verify: TLS verification; pass an :class:`ssl.SSLContext` for custom
             certificate authorities.
-        client: a preconfigured :class:`httpx.Client`. Passing one rejects
+        client: a preconfigured :class:`httpx2.Client`. Passing one rejects
             ``timeout`` / ``follow_redirects`` / ``verify`` (their defaults
             excepted) to avoid ambiguity.
 
@@ -370,17 +370,17 @@ class Forgejo(_BaseClient[httpx.Client]):
     current task or thread only.
     """
 
-    _httpx_class = httpx.Client
+    _httpx2_class = httpx2.Client
 
     @classmethod
     def _create_client(
         cls,
         *,
-        timeout: float | httpx.Timeout,
+        timeout: float | httpx2.Timeout,
         follow_redirects: bool,
         verify: bool | ssl.SSLContext,
-    ) -> httpx.Client:
-        return httpx.Client(timeout=timeout, follow_redirects=follow_redirects, verify=verify)
+    ) -> httpx2.Client:
+        return httpx2.Client(timeout=timeout, follow_redirects=follow_redirects, verify=verify)
 
     def request(
         self,
@@ -392,7 +392,7 @@ class Forgejo(_BaseClient[httpx.Client]):
         data: Mapping[str, object] | None = None,
         files: Mapping[str, object] | None = None,
         headers: Mapping[str, str] | None = None,
-    ) -> httpx.Response:
+    ) -> httpx2.Response:
         """Send a raw request to the instance and return the raw response.
 
         Escape hatch for endpoints newer than the vendored Spec: auth and
@@ -421,7 +421,7 @@ class Forgejo(_BaseClient[httpx.Client]):
         files: Mapping[str, object] | None = None,
         content: bytes | str | None = None,
         headers: Mapping[str, str] | None = None,
-    ) -> httpx.Response:
+    ) -> httpx2.Response:
         """Send a request, raising mapped errors; frozen generated-code hook."""
         request = self._build_request(
             method,
@@ -435,7 +435,7 @@ class Forgejo(_BaseClient[httpx.Client]):
         )
         try:
             response = self._send(request)
-        except httpx.TransportError as exc:
+        except httpx2.TransportError as exc:
             raise TransportError(request.method, str(request.url), exc) from exc
         if not response.is_success:
             raise api_error(response)
@@ -484,7 +484,7 @@ class Forgejo(_BaseClient[httpx.Client]):
         files: Mapping[str, object] | None = None,
         content: bytes | str | None = None,
         headers: Mapping[str, str] | None = None,
-    ) -> httpx.Request:
+    ) -> httpx2.Request:
         return self._client.build_request(
             method,
             self._url(path),
@@ -496,7 +496,7 @@ class Forgejo(_BaseClient[httpx.Client]):
             headers=self._headers(headers),
         )
 
-    def _send(self, request: httpx.Request) -> httpx.Response:
+    def _send(self, request: httpx2.Request) -> httpx2.Response:
         if self._auth.authorizes_requests:
             # pyfj credentials own the Authorization header; an injected
             # client's own auth flow must not overwrite it.
@@ -504,7 +504,7 @@ class Forgejo(_BaseClient[httpx.Client]):
         return self._client.send(request)
 
     def close(self) -> None:
-        """Close the underlying httpx client (also when it was injected)."""
+        """Close the underlying httpx2 client (also when it was injected)."""
         self._client.close()
 
     def __enter__(self) -> Self:
@@ -519,24 +519,24 @@ class Forgejo(_BaseClient[httpx.Client]):
         self.close()
 
 
-class AsyncForgejo(_BaseClient[httpx.AsyncClient]):
+class AsyncForgejo(_BaseClient[httpx2.AsyncClient]):
     """Asynchronous client for one Forgejo instance.
 
     Arguments and behaviour mirror :class:`Forgejo`; it is an async context
     manager and exposes :meth:`aclose`.
     """
 
-    _httpx_class = httpx.AsyncClient
+    _httpx2_class = httpx2.AsyncClient
 
     @classmethod
     def _create_client(
         cls,
         *,
-        timeout: float | httpx.Timeout,
+        timeout: float | httpx2.Timeout,
         follow_redirects: bool,
         verify: bool | ssl.SSLContext,
-    ) -> httpx.AsyncClient:
-        return httpx.AsyncClient(timeout=timeout, follow_redirects=follow_redirects, verify=verify)
+    ) -> httpx2.AsyncClient:
+        return httpx2.AsyncClient(timeout=timeout, follow_redirects=follow_redirects, verify=verify)
 
     async def request(
         self,
@@ -548,7 +548,7 @@ class AsyncForgejo(_BaseClient[httpx.AsyncClient]):
         data: Mapping[str, object] | None = None,
         files: Mapping[str, object] | None = None,
         headers: Mapping[str, str] | None = None,
-    ) -> httpx.Response:
+    ) -> httpx2.Response:
         """Send a raw request to the instance and return the raw response.
 
         Escape hatch for endpoints newer than the vendored Spec: auth and
@@ -577,7 +577,7 @@ class AsyncForgejo(_BaseClient[httpx.AsyncClient]):
         files: Mapping[str, object] | None = None,
         content: bytes | str | None = None,
         headers: Mapping[str, str] | None = None,
-    ) -> httpx.Response:
+    ) -> httpx2.Response:
         """Send a request, raising mapped errors; frozen generated-code hook."""
         request = self._build_request(
             method,
@@ -591,7 +591,7 @@ class AsyncForgejo(_BaseClient[httpx.AsyncClient]):
         )
         try:
             response = await self._send(request)
-        except httpx.TransportError as exc:
+        except httpx2.TransportError as exc:
             raise TransportError(request.method, str(request.url), exc) from exc
         if not response.is_success:
             raise api_error(response)
@@ -640,7 +640,7 @@ class AsyncForgejo(_BaseClient[httpx.AsyncClient]):
         files: Mapping[str, object] | None = None,
         content: bytes | str | None = None,
         headers: Mapping[str, str] | None = None,
-    ) -> httpx.Request:
+    ) -> httpx2.Request:
         return self._client.build_request(
             method,
             self._url(path),
@@ -652,7 +652,7 @@ class AsyncForgejo(_BaseClient[httpx.AsyncClient]):
             headers=self._headers(headers),
         )
 
-    async def _send(self, request: httpx.Request) -> httpx.Response:
+    async def _send(self, request: httpx2.Request) -> httpx2.Response:
         if self._auth.authorizes_requests:
             # pyfj credentials own the Authorization header; an injected
             # client's own auth flow must not overwrite it.
@@ -660,7 +660,7 @@ class AsyncForgejo(_BaseClient[httpx.AsyncClient]):
         return await self._client.send(request)
 
     async def aclose(self) -> None:
-        """Close the underlying httpx client (also when it was injected)."""
+        """Close the underlying httpx2 client (also when it was injected)."""
         await self._client.aclose()
 
     async def __aenter__(self) -> Self:

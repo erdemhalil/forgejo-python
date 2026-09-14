@@ -6,7 +6,7 @@ import importlib.metadata
 import ssl
 from typing import cast
 
-import httpx
+import httpx2
 import pytest
 from _helpers import async_client, record_requests, sync_client
 
@@ -28,7 +28,7 @@ from pyfj._runtime import AsyncForgejo, Forgejo, NotFoundError
 )
 def test_base_url_normalisation(instance_url: str, expected: str) -> None:
     seen, handler = record_requests()
-    with Forgejo(instance_url, client=httpx.Client(transport=httpx.MockTransport(handler))) as client:
+    with Forgejo(instance_url, client=httpx2.Client(transport=httpx2.MockTransport(handler))) as client:
         client.request("GET", "/version")
     assert str(seen[0].url) == expected
 
@@ -67,7 +67,7 @@ def test_session_defaults(monkeypatch: pytest.MonkeyPatch) -> None:
         def close(self) -> None:
             pass
 
-    monkeypatch.setattr(httpx, "Client", FakeClient)
+    monkeypatch.setattr(httpx2, "Client", FakeClient)
     with Forgejo("https://forgejo.test"):
         pass
     assert captured["timeout"] == 30.0
@@ -86,7 +86,7 @@ def test_verify_accepts_ssl_context(monkeypatch: pytest.MonkeyPatch) -> None:
             pass
 
     context = ssl.create_default_context()
-    monkeypatch.setattr(httpx, "Client", FakeClient)
+    monkeypatch.setattr(httpx2, "Client", FakeClient)
     with Forgejo("https://forgejo.test", verify=context):
         pass
     assert captured["verify"] is context
@@ -102,7 +102,7 @@ async def test_async_session_defaults(monkeypatch: pytest.MonkeyPatch) -> None:
         async def aclose(self) -> None:
             pass
 
-    monkeypatch.setattr(httpx, "AsyncClient", FakeAsyncClient)
+    monkeypatch.setattr(httpx2, "AsyncClient", FakeAsyncClient)
     async with AsyncForgejo("https://forgejo.test"):
         pass
     assert captured["timeout"] == 30.0
@@ -111,33 +111,33 @@ async def test_async_session_defaults(monkeypatch: pytest.MonkeyPatch) -> None:
 
 
 def test_timeout_rejected_with_injected_client() -> None:
-    with httpx.Client() as http_client, pytest.raises(TypeError, match="timeout"):
+    with httpx2.Client() as http_client, pytest.raises(TypeError, match="timeout"):
         Forgejo("https://forgejo.test", client=http_client, timeout=5.0)
 
 
 def test_follow_redirects_rejected_with_injected_client() -> None:
-    with httpx.Client() as http_client, pytest.raises(TypeError, match="follow_redirects"):
+    with httpx2.Client() as http_client, pytest.raises(TypeError, match="follow_redirects"):
         Forgejo("https://forgejo.test", client=http_client, follow_redirects=True)
 
 
 def test_verify_rejected_with_injected_client() -> None:
-    with httpx.Client() as http_client, pytest.raises(TypeError, match="verify"):
+    with httpx2.Client() as http_client, pytest.raises(TypeError, match="verify"):
         Forgejo("https://forgejo.test", client=http_client, verify=False)
 
 
-def test_wrong_httpx_client_type_is_rejected() -> None:
-    with pytest.raises(TypeError, match=r"httpx\.Client"):
-        Forgejo("https://forgejo.test", client=cast("httpx.Client", httpx.AsyncClient()))
+def test_wrong_httpx2_client_type_is_rejected() -> None:
+    with pytest.raises(TypeError, match=r"httpx2\.Client"):
+        Forgejo("https://forgejo.test", client=cast("httpx2.Client", httpx2.AsyncClient()))
 
 
-async def test_async_wrong_httpx_client_type_is_rejected() -> None:
-    with httpx.Client() as http_client, pytest.raises(TypeError, match=r"httpx\.AsyncClient"):
-        AsyncForgejo("https://forgejo.test", client=cast("httpx.AsyncClient", http_client))
+async def test_async_wrong_httpx2_client_type_is_rejected() -> None:
+    with httpx2.Client() as http_client, pytest.raises(TypeError, match=r"httpx2\.AsyncClient"):
+        AsyncForgejo("https://forgejo.test", client=cast("httpx2.AsyncClient", http_client))
 
 
 def test_request_escape_hatch_skips_error_mapping() -> None:
-    def handler(request: httpx.Request) -> httpx.Response:
-        return httpx.Response(404, json={"message": "not found"}, request=request)
+    def handler(request: httpx2.Request) -> httpx2.Response:
+        return httpx2.Response(404, json={"message": "not found"}, request=request)
 
     with sync_client(handler) as client:
         response = client.request("GET", "/missing")
@@ -145,19 +145,19 @@ def test_request_escape_hatch_skips_error_mapping() -> None:
 
 
 def test_request_hook_maps_errors() -> None:
-    def handler(request: httpx.Request) -> httpx.Response:
-        return httpx.Response(404, json={"message": "not found"}, request=request)
+    def handler(request: httpx2.Request) -> httpx2.Response:
+        return httpx2.Response(404, json={"message": "not found"}, request=request)
 
     with sync_client(handler) as client, pytest.raises(NotFoundError):
         client._request("GET", "/missing")
 
 
 def test_request_escape_hatch_does_not_wrap_transport_errors() -> None:
-    def handler(request: httpx.Request) -> httpx.Response:
+    def handler(request: httpx2.Request) -> httpx2.Response:
         message = "connection refused"
-        raise httpx.ConnectError(message, request=request)
+        raise httpx2.ConnectError(message, request=request)
 
-    with sync_client(handler) as client, pytest.raises(httpx.ConnectError):
+    with sync_client(handler) as client, pytest.raises(httpx2.ConnectError):
         client.request("GET", "/version")
 
 
@@ -194,7 +194,7 @@ def test_extra_headers_are_merged() -> None:
 
 def test_pyfj_credentials_win_over_injected_client_auth() -> None:
     seen, handler = record_requests()
-    http_client = httpx.Client(transport=httpx.MockTransport(handler), auth=("client", "secret"))
+    http_client = httpx2.Client(transport=httpx2.MockTransport(handler), auth=("client", "secret"))
     with Forgejo("https://forgejo.test", token="abc", client=http_client) as client:
         client._request("GET", "/version")
     assert seen[0].headers["Authorization"] == "token abc"
@@ -202,7 +202,7 @@ def test_pyfj_credentials_win_over_injected_client_auth() -> None:
 
 def test_injected_client_auth_is_used_without_pyfj_credentials() -> None:
     seen, handler = record_requests()
-    http_client = httpx.Client(transport=httpx.MockTransport(handler), auth=("client", "secret"))
+    http_client = httpx2.Client(transport=httpx2.MockTransport(handler), auth=("client", "secret"))
     with Forgejo("https://forgejo.test", client=http_client) as client:
         client._request("GET", "/version")
     assert seen[0].headers["Authorization"].startswith("Basic ")
@@ -210,7 +210,7 @@ def test_injected_client_auth_is_used_without_pyfj_credentials() -> None:
 
 def test_context_manager_closes_injected_client() -> None:
     _, handler = record_requests()
-    http_client = httpx.Client(transport=httpx.MockTransport(handler))
+    http_client = httpx2.Client(transport=httpx2.MockTransport(handler))
     with Forgejo("https://forgejo.test", client=http_client):
         assert http_client.is_closed is False
     assert http_client.is_closed is True
@@ -225,7 +225,7 @@ def test_context_manager_closes_owned_client() -> None:
 
 async def test_async_client_requests_and_closes() -> None:
     seen, handler = record_requests()
-    http_client = httpx.AsyncClient(transport=httpx.MockTransport(handler))
+    http_client = httpx2.AsyncClient(transport=httpx2.MockTransport(handler))
     async with AsyncForgejo("https://forgejo.test", client=http_client) as client:
         response = await client.request("GET", "/version")
         assert response.status_code == 200
@@ -235,8 +235,8 @@ async def test_async_client_requests_and_closes() -> None:
 
 
 async def test_async_request_hook_maps_errors() -> None:
-    def handler(request: httpx.Request) -> httpx.Response:
-        return httpx.Response(404, json={"message": "not found"}, request=request)
+    def handler(request: httpx2.Request) -> httpx2.Response:
+        return httpx2.Response(404, json={"message": "not found"}, request=request)
 
     async with async_client(handler) as client:
         with pytest.raises(NotFoundError):

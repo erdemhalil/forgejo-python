@@ -12,7 +12,7 @@ This is the reference for what pyfj is: its public surface, runtime behaviour, a
 
 - Every Operation in the Spec is callable and documented.
 - Fully typed: pydantic v2 models for every schema, annotations everywhere, `py.typed`.
-- `Forgejo` and `AsyncForgejo` expose identical surfaces over httpx.
+- `Forgejo` and `AsyncForgejo` expose identical surfaces over httpx2.
 - Ergonomic: resource namespaces, keyword arguments, lazy pagination, typed exceptions.
 - Reproducible: the generated surface is committed; CI verifies it matches the Spec.
 - Honest: every Operation is either generated or excluded with a documented reason.
@@ -20,7 +20,7 @@ This is the reference for what pyfj is: its public surface, runtime behaviour, a
 ## Non-goals (v1)
 
 - OAuth2 authorization flows (token and basic auth only; the raw OAuth2 endpoints remain callable as Operations).
-- Automatic retries or rate limiting (inject an httpx client for transport-level control).
+- Automatic retries or rate limiting (inject an httpx2 client for transport-level control).
 - Gitea-specific compatibility work (the API lineage is shared; differences are documented, not catered to).
 - More than one supported Forgejo major at a time.
 
@@ -28,11 +28,11 @@ This is the reference for what pyfj is: its public surface, runtime behaviour, a
 
 ### Clients
 
-`Forgejo` and `AsyncForgejo` are the entry points: context managers (`with` / `async with`, plus `close()` / `aclose()`) over httpx, with identical constructor arguments and methods. The constructor takes the instance root — `https://codeberg.org`, or a subpath mount such as `https://host/forgejo`; a URL that already ends in `/api/v1` is accepted and normalised, and invalid URLs raise immediately.
+`Forgejo` and `AsyncForgejo` are the entry points: context managers (`with` / `async with`, plus `close()` / `aclose()`) over httpx2, with identical constructor arguments and methods. The constructor takes the instance root — `https://codeberg.org`, or a subpath mount such as `https://host/forgejo`; a URL that already ends in `/api/v1` is accepted and normalised, and invalid URLs raise immediately.
 
 Credentials are explicit arguments, never environment variables: `token=` is sent as `Authorization: token <value>`, `auth=(user, pass)` enables BasicAuth, and `otp=` sets `X-FORGEJO-OTP`; token and BasicAuth are mutually exclusive. Impersonation is client-scoped rather than a per-method argument — `sudo=` sets the constructor default, `client.sudo` reads or replaces it for the current context, and `client.sudo_as(username)` scopes an override to a `with` / `async with` block that restores the previous value on exit (nesting-safe). Overrides are context-local, not process-global: each client owns a `ContextVar`, so sibling asyncio tasks and threads are isolated, and child tasks created with `asyncio.create_task` inherit the value at creation time.
 
-Passing `client=` injects a preconfigured `httpx.Client` / `AsyncClient`; transport arguments (`timeout`, `verify`, ...) are rejected unless left at their defaults, so the injected client's own configuration applies and is not silently overridden. The generated [client reference](../reference/clients.md) carries the full signatures.
+Passing `client=` injects a preconfigured `httpx2.Client` / `AsyncClient`; transport arguments (`timeout`, `verify`, ...) are rejected unless left at their defaults, so the injected client's own configuration applies and is not silently overridden. The generated [client reference](../reference/clients.md) carries the full signatures.
 
 ### Namespaces
 
@@ -100,7 +100,7 @@ Pagination metadata is not modelled in the Spec (`X-Total-Count` is runtime-only
 
 ```
 ForgejoError
-├── TransportError            network/timeout; wraps httpx.TransportError
+├── TransportError            network/timeout; wraps httpx2.TransportError
 ├── DecodeError               response did not match the Spec
 └── APIError                  any non-2xx; carries status_code, body, response
     ├── BadRequestError           400
@@ -117,7 +117,7 @@ ForgejoError
     └── (other statuses map to APIError itself)
 ```
 
-`APIError` always carries the raw `httpx.Response`; `body` holds parsed JSON when possible, else text. Pydantic validation of user input raises pydantic's `ValidationError` (not wrapped). The generated [errors and pagination reference](../reference/runtime.md) documents every class.
+`APIError` always carries the raw `httpx2.Response`; `body` holds parsed JSON when possible, else text. Pydantic validation of user input raises pydantic's `ValidationError` (not wrapped). The generated [errors and pagination reference](../reference/runtime.md) documents every class.
 
 ### Models
 
@@ -130,7 +130,7 @@ ForgejoError
 
 ### Escape hatch
 
-`client.request(method, path, *, params=None, json=None, data=None, files=None, headers=None) -> httpx.Response` returns the raw response without error mapping — for endpoints newer than the vendored Spec.
+`client.request(method, path, *, params=None, json=None, data=None, files=None, headers=None) -> httpx2.Response` returns the raw response without error mapping — for endpoints newer than the vendored Spec.
 
 ## Runtime
 
@@ -138,17 +138,17 @@ ForgejoError
 
 | Concern | Default | Notes |
 |---|---|---|
-| Timeout | 30s | httpx's 5s default is too tight for forge operations |
-| Retries | none | inject an httpx transport for connection-level retries |
+| Timeout | 30s | httpx2's 5s default is too tight for forge operations |
+| Retries | none | inject an httpx2 transport for connection-level retries |
 | Redirects | not followed | documented 303/304 responses surface as `APIError` |
-| TLS | verified | custom CAs via `verify=ssl.SSLContext` (string paths are deprecated; the injected client remains the escape hatch for full transport control) |
+| TLS | verified via the OS trust store (`truststore`; `SSL_CERT_FILE`/`SSL_CERT_DIR` honored) | custom CAs via `verify=ssl.SSLContext` (string paths are deprecated; the injected client remains the escape hatch for full transport control) |
 | User-Agent | `pyfj/<version>` | |
 | Rate limiting | none | Forgejo does not rate-limit by default |
 | Sudo | none | constructor `sudo=` default; `client.sudo` and `client.sudo_as()` override it per client context, resolved when each request is built |
 
 ### Runtime ↔ generated contract
 
-Generated namespace methods never touch httpx. They build parameters and call the Client's request hook, which applies auth and session policy, then maps non-2xx responses to exceptions; decoding goes through a shared helper. The exact hook signatures are frozen in the module docstring of `src/pyfj/_runtime/client.py`; generated code binds to them.
+Generated namespace methods never touch httpx2. They build parameters and call the Client's request hook, which applies auth and session policy, then maps non-2xx responses to exceptions; decoding goes through a shared helper. The exact hook signatures are frozen in the module docstring of `src/pyfj/_runtime/client.py`; generated code binds to them.
 
 Sketch (the module docstring carries the full contract, including the namespace-binding contract):
 
@@ -169,7 +169,7 @@ The hooks read `client.sudo` when they compose headers, so impersonation resolve
 |---|---|---|
 | Python | 3.11 | `StrEnum`, `Self`; matches the ecosystem |
 | pydantic | 2.7 | latest is 2.13; generated code avoids APIs newer than 2.7 |
-| httpx | 0.28.1 | current stable line; older releases are out of support scope |
+| httpx2 | 2.0 | current stable line; older releases are out of support scope |
 
 ## Compatibility and versioning
 

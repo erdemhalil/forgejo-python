@@ -23,7 +23,7 @@ from typing import TYPE_CHECKING, Generic, TypeVar
 if TYPE_CHECKING:
     from collections.abc import AsyncIterator, Awaitable, Callable, Iterator
 
-    import httpx
+    import httpx2
 
 __all__ = ["AsyncPaginated", "Page", "Paginated", "parse_total_count"]
 
@@ -40,7 +40,7 @@ class Page(Generic[T]):
     total_count: int | None = None
 
 
-def parse_total_count(response: httpx.Response) -> int | None:
+def parse_total_count(response: httpx2.Response) -> int | None:
     """Read ``X-Total-Count`` from ``response``; ``None`` when absent or malformed."""
     value = response.headers.get(TOTAL_COUNT_HEADER)
     if value is None:

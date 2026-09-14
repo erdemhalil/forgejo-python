@@ -30,7 +30,7 @@ from pydantic import BaseModel, ValidationError
 from pyfj._runtime.errors import DecodeError
 
 if TYPE_CHECKING:
-    import httpx
+    import httpx2
 
 __all__ = ["decode"]
 
@@ -46,34 +46,34 @@ _SCALAR_EXPECTATIONS: dict[type, str] = {
 
 
 @overload
-def decode(response: httpx.Response, model: type[ModelT]) -> ModelT: ...
+def decode(response: httpx2.Response, model: type[ModelT]) -> ModelT: ...
 
 
 @overload
-def decode(response: httpx.Response, model: type[list[ModelT]]) -> list[ModelT]: ...
+def decode(response: httpx2.Response, model: type[list[ModelT]]) -> list[ModelT]: ...
 
 
 @overload
-def decode(response: httpx.Response, model: type[ScalarT]) -> ScalarT: ...
+def decode(response: httpx2.Response, model: type[ScalarT]) -> ScalarT: ...
 
 
 @overload
-def decode(response: httpx.Response, model: type[list[ScalarT]]) -> list[ScalarT]: ...
+def decode(response: httpx2.Response, model: type[list[ScalarT]]) -> list[ScalarT]: ...
 
 
 @overload
-def decode(response: httpx.Response, model: type[dict[str, ScalarT]]) -> dict[str, ScalarT]: ...
+def decode(response: httpx2.Response, model: type[dict[str, ScalarT]]) -> dict[str, ScalarT]: ...
 
 
 @overload
-def decode(response: httpx.Response, model: type[bytes]) -> bytes: ...
+def decode(response: httpx2.Response, model: type[bytes]) -> bytes: ...
 
 
 @overload
-def decode(response: httpx.Response, model: None = None) -> None: ...
+def decode(response: httpx2.Response, model: None = None) -> None: ...
 
 
-def decode(response: httpx.Response, model: object | None = None) -> object:
+def decode(response: httpx2.Response, model: object | None = None) -> object:
     """Decode ``response`` to the declared type.
 
     Raises:
@@ -116,7 +116,7 @@ def decode(response: httpx.Response, model: object | None = None) -> object:
     raise DecodeError(response, reason)
 
 
-def _coerce_scalar(value: object, expected: type, response: httpx.Response, *, where: str) -> object:
+def _coerce_scalar(value: object, expected: type, response: httpx2.Response, *, where: str) -> object:
     """Validate one JSON scalar, rejecting booleans where an integer is declared."""
     if expected is bool:
         ok = isinstance(value, bool)
@@ -134,7 +134,7 @@ def _coerce_scalar(value: object, expected: type, response: httpx.Response, *, w
     return value
 
 
-def _decode_json(response: httpx.Response) -> object:
+def _decode_json(response: httpx2.Response) -> object:
     """Parse the response body as JSON, wrapping failures in ``DecodeError``."""
     try:
         return response.json()
@@ -142,7 +142,7 @@ def _decode_json(response: httpx.Response) -> object:
         raise DecodeError(response, str(exc)) from exc
 
 
-def _decode_list(response: httpx.Response, model: type[ModelT]) -> list[ModelT]:
+def _decode_list(response: httpx2.Response, model: type[ModelT]) -> list[ModelT]:
     """Validate a JSON array body to a list of ``model``."""
     payload = _decode_json(response)
     if not isinstance(payload, list):
@@ -158,7 +158,7 @@ def _decode_list(response: httpx.Response, model: type[ModelT]) -> list[ModelT]:
     return items
 
 
-def _decode_scalar_list(response: httpx.Response, expected: type) -> list[object]:
+def _decode_scalar_list(response: httpx2.Response, expected: type) -> list[object]:
     """Validate a JSON array body to a list of scalars."""
     payload = _decode_json(response)
     if not isinstance(payload, list):
@@ -167,7 +167,7 @@ def _decode_scalar_list(response: httpx.Response, expected: type) -> list[object
     return [_coerce_scalar(item, expected, response, where=f"item {index}: ") for index, item in enumerate(payload)]
 
 
-def _decode_scalar_dict(response: httpx.Response, expected: type) -> dict[str, object]:
+def _decode_scalar_dict(response: httpx2.Response, expected: type) -> dict[str, object]:
     """Validate a JSON object body to a dict with string keys and scalar values."""
     payload = _decode_json(response)
     if not isinstance(payload, dict):

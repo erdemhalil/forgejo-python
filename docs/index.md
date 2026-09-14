@@ -10,7 +10,7 @@ A fully typed Python client for the [Forgejo](https://forgejo.org) API — async
 
 - **Complete** — every operation in the Forgejo 16 API is callable, generated from a vendored spec.
 - **Typed** — pydantic v2 models for every schema, annotations everywhere, and a `py.typed` marker.
-- **Dual** — `Forgejo` (sync) and `AsyncForgejo` (async) over httpx, with identical surfaces.
+- **Dual** — `Forgejo` (sync) and `AsyncForgejo` (async) over httpx2, with identical surfaces.
 - **Ergonomic** — resource namespaces, keyword arguments, lazy `Paginated[T]` lists, and typed exceptions.
 
 ## Quickstart
