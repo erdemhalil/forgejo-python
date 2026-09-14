@@ -1,0 +1,1589 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Every model, enum, and type alias generated from the Spec, alphabetically.">
+      
+      
+      
+        <link rel="canonical" href="https://erdemhalil.github.io/forgejo-python/0.1/reference/models/">
+      
+      
+        <link rel="prev" href="../namespaces/users/tokens/">
+      
+      
+        <link rel="next" href="../../development/architecture/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.svg">
+      <meta name="generator" content="zensical-0.0.62">
+    
+    
+      
+        <title>Models - pyfj</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.ce62732f.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.812a03bb.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#models" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="pyfj" class="md-header__button md-logo" aria-label="pyfj" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-braces" viewBox="0 0 24 24"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            pyfj
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Models
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun-moon" viewBox="0 0 24 24"><path d="M12 2v2M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4M19 5l-1.256 1.256M20 12h2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/erdemhalil/forgejo-python" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    erdemhalil/forgejo-python
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="pyfj" class="md-nav__button md-logo" aria-label="pyfj" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-braces" viewBox="0 0 24 24"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"/></svg>
+
+    </a>
+    pyfj
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/erdemhalil/forgejo-python" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    erdemhalil/forgejo-python
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  pyfj
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+  
+    <a href="../../guides/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Guides
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Changelog
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  API reference
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  API reference
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clients/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Clients
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Errors and pagination
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+  
+    <a href="../namespaces/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Namespaces
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="././" class="md-nav__link md-nav__link--active">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Models
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Models
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+  
+    <a href="../../development/architecture/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Development
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#b" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        B
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        C
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#d" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        D
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#e" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        E
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        F
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#g" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        G
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#h" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        H
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#i" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        I
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#l" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        L
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#m" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        M
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#n" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        N
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#o" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        O
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#p" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        P
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#q" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Q
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#r" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        R
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#s" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        S
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#t" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        T
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#u" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        U
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        V
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#w" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        W
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  
+  <span class="md-ellipsis">
+    pyfj
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  
+  <span class="md-ellipsis">
+    API reference
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      <li class="md-path__item">
+        <a href="././" class="md-path__link">
+          
+  
+  <span class="md-ellipsis">
+    Models
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+  
+    
+      
+    
+    <a href="https://github.com/erdemhalil/forgejo-python/raw/main/docs/reference/models/index.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-code-2" viewBox="0 0 24 24"><path d="M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35"/><path d="M14 2v5a1 1 0 0 0 1 1h5M5 16l-3 3 3 3M9 22l3-3-3-3"/></svg>
+    </a>
+  
+
+
+<h1 id="models">Models</h1>
+<p>Every model, enum, and type alias generated from the Spec, alphabetically.</p>
+<p><a href="#a">A</a> · <a href="#b">B</a> · <a href="#c">C</a> · <a href="#d">D</a> · <a href="#e">E</a> · <a href="#f">F</a> · <a href="#g">G</a> · <a href="#h">H</a> · <a href="#i">I</a> · <a href="#l">L</a> · <a href="#m">M</a> · <a href="#n">N</a> · <a href="#o">O</a> · <a href="#p">P</a> · <a href="#q">Q</a> · <a href="#r">R</a> · <a href="#s">S</a> · <a href="#t">T</a> · <a href="#u">U</a> · <a href="#v">V</a> · <a href="#w">W</a></p>
+<h2 id="a">A</h2>
+<ul>
+<li><a href="access_token/#pyfj._generated.models.access_token.AccessToken"><code>AccessToken</code></a> — AccessToken represents an API access token.</li>
+<li><a href="action_artifact/#pyfj._generated.models.action_artifact.ActionArtifact"><code>ActionArtifact</code></a> — ActionArtifact represents an artifact of a workflow run</li>
+<li><a href="action_run/#pyfj._generated.models.action_run.ActionRun"><code>ActionRun</code></a> — ActionRun represents an action run</li>
+<li><a href="action_run_job/#pyfj._generated.models.action_run_job.ActionRunJob"><code>ActionRunJob</code></a> — ActionRunJob represents a job of a run</li>
+<li><a href="action_runner/#pyfj._generated.models.action_runner.ActionRunner"><code>ActionRunner</code></a> — ActionRunner represents a runner</li>
+<li><a href="action_runner/#pyfj._generated.models.action_runner.ActionRunnerStatus"><code>ActionRunnerStatus</code></a> — Status indicates whether this runner is offline, or active, for example.</li>
+<li><a href="action_task/#pyfj._generated.models.action_task.ActionTask"><code>ActionTask</code></a> — ActionTask represents a ActionTask</li>
+<li><a href="action_task_response/#pyfj._generated.models.action_task_response.ActionTaskResponse"><code>ActionTaskResponse</code></a> — ActionTaskResponse returns a ActionTask</li>
+<li><a href="action_variable/#pyfj._generated.models.action_variable.ActionVariable"><code>ActionVariable</code></a> — ActionVariable return value of the query API</li>
+<li><a href="activity/#pyfj._generated.models.activity.Activity"><code>Activity</code></a> — !!! abstract "Usage Documentation"</li>
+<li><a href="activity/#pyfj._generated.models.activity.ActivityOpType"><code>ActivityOpType</code></a> — the type of action</li>
+<li><a href="activity_pub/#pyfj._generated.models.activity_pub.ActivityPub"><code>ActivityPub</code></a> — ActivityPub type</li>
+<li><a href="add_collaborator_option/#pyfj._generated.models.add_collaborator_option.AddCollaboratorOption"><code>AddCollaboratorOption</code></a> — AddCollaboratorOption options when adding a user as a collaborator of a repository</li>
+<li><a href="add_collaborator_option/#pyfj._generated.models.add_collaborator_option.AddCollaboratorOptionPermission"><code>AddCollaboratorOptionPermission</code></a> — Enum where members are also (and must be) strings</li>
+<li><a href="add_time_option/#pyfj._generated.models.add_time_option.AddTimeOption"><code>AddTimeOption</code></a> — AddTimeOption options for adding time to an issue</li>
+<li><a href="annotated_tag/#pyfj._generated.models.annotated_tag.AnnotatedTag"><code>AnnotatedTag</code></a> — AnnotatedTag represents an annotated tag</li>
+<li><a href="annotated_tag_object/#pyfj._generated.models.annotated_tag_object.AnnotatedTagObject"><code>AnnotatedTagObject</code></a> — AnnotatedTagObject contains meta information of the tag object</li>
+<li><a href="api_error/#pyfj._generated.models.api_error.APIError"><code>APIError</code></a> — APIError is an api error with a message</li>
+<li><a href="api_forbidden_error/#pyfj._generated.models.api_forbidden_error.APIForbiddenError"><code>APIForbiddenError</code></a> — !!! abstract "Usage Documentation"</li>
+<li><a href="api_internal_server_error/#pyfj._generated.models.api_internal_server_error.APIInternalServerError"><code>APIInternalServerError</code></a> — !!! abstract "Usage Documentation"</li>
+<li><a href="api_invalid_topics_error/#pyfj._generated.models.api_invalid_topics_error.APIInvalidTopicsError"><code>APIInvalidTopicsError</code></a> — !!! abstract "Usage Documentation"</li>
+<li><a href="api_not_found/#pyfj._generated.models.api_not_found.APINotFound"><code>APINotFound</code></a> — !!! abstract "Usage Documentation"</li>
+<li><a href="api_repo_archived_error/#pyfj._generated.models.api_repo_archived_error.APIRepoArchivedError"><code>APIRepoArchivedError</code></a> — !!! abstract "Usage Documentation"</li>
+<li><a href="api_unauthorized_error/#pyfj._generated.models.api_unauthorized_error.APIUnauthorizedError"><code>APIUnauthorizedError</code></a> — !!! abstract "Usage Documentation"</li>
+<li><a href="api_validation_error/#pyfj._generated.models.api_validation_error.APIValidationError"><code>APIValidationError</code></a> — !!! abstract "Usage Documentation"</li>
+<li><a href="ap_remote_follow_option/#pyfj._generated.models.ap_remote_follow_option.APRemoteFollowOption"><code>APRemoteFollowOption</code></a> — !!! abstract "Usage Documentation"</li>
+<li><a href="attachment/#pyfj._generated.models.attachment.Attachment"><code>Attachment</code></a> — Attachment a generic attachment</li>
+<li><a href="attachment/#pyfj._generated.models.attachment.AttachmentType"><code>AttachmentType</code></a> — Enum where members are also (and must be) strings</li>
+</ul>
+<h2 id="b">B</h2>
+<ul>
+<li><a href="blocked_user/#pyfj._generated.models.blocked_user.BlockedUser"><code>BlockedUser</code></a> — BlockedUser represents a blocked user.</li>
+<li><a href="branch/#pyfj._generated.models.branch.Branch"><code>Branch</code></a> — Branch represents a repository branch</li>
+<li><a href="branch_protection/#pyfj._generated.models.branch_protection.BranchProtection"><code>BranchProtection</code></a> — BranchProtection represents a branch protection for a repository</li>
+</ul>
+<h2 id="c">C</h2>
+<ul>
+<li><a href="changed_file/#pyfj._generated.models.changed_file.ChangedFile"><code>ChangedFile</code></a> — ChangedFile store information about files affected by the pull request</li>
+<li><a href="change_file_operation/#pyfj._generated.models.change_file_operation.ChangeFileOperation"><code>ChangeFileOperation</code></a> — ChangeFileOperation for creating, updating or deleting a file</li>
+<li><a href="change_file_operation/#pyfj._generated.models.change_file_operation.ChangeFileOperationOperation"><code>ChangeFileOperationOperation</code></a> — indicates what to do with the file</li>
+<li><a href="change_files_options/#pyfj._generated.models.change_files_options.ChangeFilesOptions"><code>ChangeFilesOptions</code></a> — ChangeFilesOptions options for creating, updating or deleting multiple files Note: <code>author</code> and</li>
+<li><a href="combined_status/#pyfj._generated.models.combined_status.CombinedStatus"><code>CombinedStatus</code></a> — CombinedStatus holds the combined state of several statuses for a single commit</li>
+<li><a href="comment/#pyfj._generated.models.comment.Comment"><code>Comment</code></a> — Comment represents a comment on a commit or issue</li>
+<li><a href="commit/#pyfj._generated.models.commit.Commit"><code>Commit</code></a> — Commit contains information generated from a Git commit.</li>
+<li><a href="commit_affected_files/#pyfj._generated.models.commit_affected_files.CommitAffectedFiles"><code>CommitAffectedFiles</code></a> — CommitAffectedFiles store information about files affected by the commit</li>
+<li><a href="commit_date_options/#pyfj._generated.models.commit_date_options.CommitDateOptions"><code>CommitDateOptions</code></a> — CommitDateOptions store dates for GIT_AUTHOR_DATE and GIT_COMMITTER_DATE</li>
+<li><a href="commit_meta/#pyfj._generated.models.commit_meta.CommitMeta"><code>CommitMeta</code></a> — CommitMeta contains meta information of a commit in terms of API.</li>
+<li><a href="commit_stats/#pyfj._generated.models.commit_stats.CommitStats"><code>CommitStats</code></a> — CommitStats is statistics for a RepoCommit</li>
+<li><a href="commit_status/#pyfj._generated.models.commit_status.CommitStatus"><code>CommitStatus</code></a> — CommitStatus holds a single status of a single Commit</li>
+<li><a href="commit_status_state/#pyfj._generated.models.commit_status_state.CommitStatusState"><code>CommitStatusState</code></a> — Alias for <code>str</code>.</li>
+<li><a href="commit_user/#pyfj._generated.models.commit_user.CommitUser"><code>CommitUser</code></a> — CommitUser contains information of a user in the context of a commit.</li>
+<li><a href="compare/#pyfj._generated.models.compare.Compare"><code>Compare</code></a> — Compare represents a comparison between two commits.</li>
+<li><a href="contents_response/#pyfj._generated.models.contents_response.ContentsResponse"><code>ContentsResponse</code></a> — ContentsResponse contains information about a repo's entry's (dir, file, symlink, submodule) metadata and</li>
+<li><a href="create_access_token_option/#pyfj._generated.models.create_access_token_option.CreateAccessTokenOption"><code>CreateAccessTokenOption</code></a> — CreateAccessTokenOption options when create access token</li>
+<li><a href="create_branch_protection_option/#pyfj._generated.models.create_branch_protection_option.CreateBranchProtectionOption"><code>CreateBranchProtectionOption</code></a> — CreateBranchProtectionOption options for creating a branch protection</li>
+<li><a href="create_branch_repo_option/#pyfj._generated.models.create_branch_repo_option.CreateBranchRepoOption"><code>CreateBranchRepoOption</code></a> — CreateBranchRepoOption options when creating a branch in a repository</li>
+<li><a href="create_email_option/#pyfj._generated.models.create_email_option.CreateEmailOption"><code>CreateEmailOption</code></a> — CreateEmailOption options when creating email addresses</li>
+<li><a href="create_file_options/#pyfj._generated.models.create_file_options.CreateFileOptions"><code>CreateFileOptions</code></a> — CreateFileOptions options for creating files Note: <code>author</code> and <code>committer</code> are optional (if only one is</li>
+<li><a href="create_fork_option/#pyfj._generated.models.create_fork_option.CreateForkOption"><code>CreateForkOption</code></a> — CreateForkOption options for creating a fork</li>
+<li><a href="create_gpg_key_option/#pyfj._generated.models.create_gpg_key_option.CreateGPGKeyOption"><code>CreateGPGKeyOption</code></a> — CreateGPGKeyOption options create user GPG key</li>
+<li><a href="create_hook_option/#pyfj._generated.models.create_hook_option.CreateHookOption"><code>CreateHookOption</code></a> — CreateHookOption options when create a hook</li>
+<li><a href="create_hook_option_config/#pyfj._generated.models.create_hook_option_config.CreateHookOptionConfig"><code>CreateHookOptionConfig</code></a> — CreateHookOptionConfig has all config options in it required are "content_type" and "url" Required</li>
+<li><a href="create_hook_option/#pyfj._generated.models.create_hook_option.CreateHookOptionType"><code>CreateHookOptionType</code></a> — Enum where members are also (and must be) strings</li>
+<li><a href="create_issue_comment_option/#pyfj._generated.models.create_issue_comment_option.CreateIssueCommentOption"><code>CreateIssueCommentOption</code></a> — CreateIssueCommentOption options for creating a comment on an issue</li>
+<li><a href="create_issue_option/#pyfj._generated.models.create_issue_option.CreateIssueOption"><code>CreateIssueOption</code></a> — CreateIssueOption options to create one issue</li>
+<li><a href="create_key_option/#pyfj._generated.models.create_key_option.CreateKeyOption"><code>CreateKeyOption</code></a> — CreateKeyOption options when creating a key</li>
+<li><a href="create_label_option/#pyfj._generated.models.create_label_option.CreateLabelOption"><code>CreateLabelOption</code></a> — CreateLabelOption options for creating a label</li>
+<li><a href="create_milestone_option/#pyfj._generated.models.create_milestone_option.CreateMilestoneOption"><code>CreateMilestoneOption</code></a> — CreateMilestoneOption options for creating a milestone</li>
+<li><a href="create_milestone_option/#pyfj._generated.models.create_milestone_option.CreateMilestoneOptionState"><code>CreateMilestoneOptionState</code></a> — Enum where members are also (and must be) strings</li>
+<li><a href="create_o_auth2_application_options/#pyfj._generated.models.create_o_auth2_application_options.CreateOAuth2ApplicationOptions"><code>CreateOAuth2ApplicationOptions</code></a> — CreateOAuth2ApplicationOptions holds options to create an oauth2 application</li>
+<li><a href="create_org_option/#pyfj._generated.models.create_org_option.CreateOrgOption"><code>CreateOrgOption</code></a> — CreateOrgOption options for creating an organization</li>
+<li><a href="create_org_option/#pyfj._generated.models.create_org_option.CreateOrgOptionVisibility"><code>CreateOrgOptionVisibility</code></a> — possible values are <code>public</code> (default), <code>limited</code> or <code>private</code></li>
+<li><a href="create_or_update_secret_option/#pyfj._generated.models.create_or_update_secret_option.CreateOrUpdateSecretOption"><code>CreateOrUpdateSecretOption</code></a> — CreateOrUpdateSecretOption defines the properties of the secret to create or update.</li>
+<li><a href="create_pull_request_option/#pyfj._generated.models.create_pull_request_option.CreatePullRequestOption"><code>CreatePullRequestOption</code></a> — CreatePullRequestOption options when creating a pull request</li>
+<li><a href="create_pull_review_comment/#pyfj._generated.models.create_pull_review_comment.CreatePullReviewComment"><code>CreatePullReviewComment</code></a> — CreatePullReviewComment represent a review comment for creation api</li>
+<li><a href="create_pull_review_comment_options/#pyfj._generated.models.create_pull_review_comment_options.CreatePullReviewCommentOptions"><code>CreatePullReviewCommentOptions</code></a> — CreatePullReviewComment represent a review comment for creation api</li>
+<li><a href="create_pull_review_options/#pyfj._generated.models.create_pull_review_options.CreatePullReviewOptions"><code>CreatePullReviewOptions</code></a> — CreatePullReviewOptions are options to create a pull review</li>
+<li><a href="create_push_mirror_option/#pyfj._generated.models.create_push_mirror_option.CreatePushMirrorOption"><code>CreatePushMirrorOption</code></a> — CreatePushMirrorOption represents need information to create a push mirror of a repository.</li>
+<li><a href="create_quota_group_options/#pyfj._generated.models.create_quota_group_options.CreateQuotaGroupOptions"><code>CreateQuotaGroupOptions</code></a> — CreateQutaGroupOptions represents the options for creating a quota group</li>
+<li><a href="create_quota_rule_options/#pyfj._generated.models.create_quota_rule_options.CreateQuotaRuleOptions"><code>CreateQuotaRuleOptions</code></a> — CreateQuotaRuleOptions represents the options for creating a quota rule</li>
+<li><a href="create_release_option/#pyfj._generated.models.create_release_option.CreateReleaseOption"><code>CreateReleaseOption</code></a> — CreateReleaseOption options when creating a release</li>
+<li><a href="create_repo_option/#pyfj._generated.models.create_repo_option.CreateRepoOption"><code>CreateRepoOption</code></a> — CreateRepoOption options when creating repository</li>
+<li><a href="create_repo_option/#pyfj._generated.models.create_repo_option.CreateRepoOptionObjectFormatName"><code>CreateRepoOptionObjectFormatName</code></a> — ObjectFormatName of the underlying git repository</li>
+<li><a href="create_repo_option/#pyfj._generated.models.create_repo_option.CreateRepoOptionTrustModel"><code>CreateRepoOptionTrustModel</code></a> — TrustModel of the repository</li>
+<li><a href="create_status_option/#pyfj._generated.models.create_status_option.CreateStatusOption"><code>CreateStatusOption</code></a> — CreateStatusOption holds the information needed to create a new CommitStatus for a Commit</li>
+<li><a href="create_tag_option/#pyfj._generated.models.create_tag_option.CreateTagOption"><code>CreateTagOption</code></a> — CreateTagOption options when creating a tag</li>
+<li><a href="create_tag_protection_option/#pyfj._generated.models.create_tag_protection_option.CreateTagProtectionOption"><code>CreateTagProtectionOption</code></a> — CreateTagProtectionOption options for creating a tag protection</li>
+<li><a href="create_team_option/#pyfj._generated.models.create_team_option.CreateTeamOption"><code>CreateTeamOption</code></a> — CreateTeamOption options for creating a team</li>
+<li><a href="create_team_option/#pyfj._generated.models.create_team_option.CreateTeamOptionPermission"><code>CreateTeamOptionPermission</code></a> — Enum where members are also (and must be) strings</li>
+<li><a href="create_user_option/#pyfj._generated.models.create_user_option.CreateUserOption"><code>CreateUserOption</code></a> — CreateUserOption create user options</li>
+<li><a href="create_variable_option/#pyfj._generated.models.create_variable_option.CreateVariableOption"><code>CreateVariableOption</code></a> — CreateVariableOption defines the properties of the variable to create.</li>
+<li><a href="create_wiki_page_options/#pyfj._generated.models.create_wiki_page_options.CreateWikiPageOptions"><code>CreateWikiPageOptions</code></a> — CreateWikiPageOptions form for creating wiki</li>
+<li><a href="cron/#pyfj._generated.models.cron.Cron"><code>Cron</code></a> — Cron represents a Cron task</li>
+</ul>
+<h2 id="d">D</h2>
+<ul>
+<li><a href="delete_email_option/#pyfj._generated.models.delete_email_option.DeleteEmailOption"><code>DeleteEmailOption</code></a> — DeleteEmailOption options when deleting email addresses</li>
+<li><a href="delete_file_options/#pyfj._generated.models.delete_file_options.DeleteFileOptions"><code>DeleteFileOptions</code></a> — DeleteFileOptions options for deleting files (used for other File structs below) Note: <code>author</code> and</li>
+<li><a href="delete_labels_option/#pyfj._generated.models.delete_labels_option.DeleteLabelsOption"><code>DeleteLabelsOption</code></a> — DeleteLabelOption options for deleting a label</li>
+<li><a href="deploy_key/#pyfj._generated.models.deploy_key.DeployKey"><code>DeployKey</code></a> — DeployKey a deploy key</li>
+<li><a href="dismiss_pull_review_options/#pyfj._generated.models.dismiss_pull_review_options.DismissPullReviewOptions"><code>DismissPullReviewOptions</code></a> — DismissPullReviewOptions are options to dismiss a pull review</li>
+<li><a href="dispatch_workflow_option/#pyfj._generated.models.dispatch_workflow_option.DispatchWorkflowOption"><code>DispatchWorkflowOption</code></a> — DispatchWorkflowOption options when dispatching a workflow</li>
+<li><a href="dispatch_workflow_run/#pyfj._generated.models.dispatch_workflow_run.DispatchWorkflowRun"><code>DispatchWorkflowRun</code></a> — DispatchWorkflowRun represents a workflow run</li>
+<li><a href="duration/#pyfj._generated.models.duration.Duration"><code>Duration</code></a> — Alias for <code>int</code>.</li>
+</ul>
+<h2 id="e">E</h2>
+<ul>
+<li><a href="edit_attachment_options/#pyfj._generated.models.edit_attachment_options.EditAttachmentOptions"><code>EditAttachmentOptions</code></a> — EditAttachmentOptions options for editing attachments</li>
+<li><a href="edit_branch_protection_option/#pyfj._generated.models.edit_branch_protection_option.EditBranchProtectionOption"><code>EditBranchProtectionOption</code></a> — EditBranchProtectionOption options for editing a branch protection</li>
+<li><a href="edit_deadline_option/#pyfj._generated.models.edit_deadline_option.EditDeadlineOption"><code>EditDeadlineOption</code></a> — EditDeadlineOption options for creating a deadline</li>
+<li><a href="edit_git_hook_option/#pyfj._generated.models.edit_git_hook_option.EditGitHookOption"><code>EditGitHookOption</code></a> — EditGitHookOption options when modifying one Git hook</li>
+<li><a href="edit_hook_option/#pyfj._generated.models.edit_hook_option.EditHookOption"><code>EditHookOption</code></a> — EditHookOption options when modify one hook</li>
+<li><a href="edit_issue_comment_option/#pyfj._generated.models.edit_issue_comment_option.EditIssueCommentOption"><code>EditIssueCommentOption</code></a> — EditIssueCommentOption options for editing a comment</li>
+<li><a href="edit_issue_option/#pyfj._generated.models.edit_issue_option.EditIssueOption"><code>EditIssueOption</code></a> — EditIssueOption options for editing an issue</li>
+<li><a href="edit_label_option/#pyfj._generated.models.edit_label_option.EditLabelOption"><code>EditLabelOption</code></a> — EditLabelOption options for editing a label</li>
+<li><a href="edit_milestone_option/#pyfj._generated.models.edit_milestone_option.EditMilestoneOption"><code>EditMilestoneOption</code></a> — EditMilestoneOption options for editing a milestone</li>
+<li><a href="edit_org_option/#pyfj._generated.models.edit_org_option.EditOrgOption"><code>EditOrgOption</code></a> — EditOrgOption options for editing an organization</li>
+<li><a href="edit_org_option/#pyfj._generated.models.edit_org_option.EditOrgOptionVisibility"><code>EditOrgOptionVisibility</code></a> — possible values are <code>public</code>, <code>limited</code> or <code>private</code></li>
+<li><a href="edit_pull_request_option/#pyfj._generated.models.edit_pull_request_option.EditPullRequestOption"><code>EditPullRequestOption</code></a> — EditPullRequestOption options when modify pull request</li>
+<li><a href="edit_quota_rule_options/#pyfj._generated.models.edit_quota_rule_options.EditQuotaRuleOptions"><code>EditQuotaRuleOptions</code></a> — EditQuotaRuleOptions represents the options for editing a quota rule</li>
+<li><a href="edit_reaction_option/#pyfj._generated.models.edit_reaction_option.EditReactionOption"><code>EditReactionOption</code></a> — EditReactionOption contain the reaction type</li>
+<li><a href="edit_release_option/#pyfj._generated.models.edit_release_option.EditReleaseOption"><code>EditReleaseOption</code></a> — EditReleaseOption options when editing a release</li>
+<li><a href="edit_repo_option/#pyfj._generated.models.edit_repo_option.EditRepoOption"><code>EditRepoOption</code></a> — EditRepoOption options when editing a repository's properties</li>
+<li><a href="edit_tag_protection_option/#pyfj._generated.models.edit_tag_protection_option.EditTagProtectionOption"><code>EditTagProtectionOption</code></a> — EditTagProtectionOption options for editing a tag protection</li>
+<li><a href="edit_team_option/#pyfj._generated.models.edit_team_option.EditTeamOption"><code>EditTeamOption</code></a> — EditTeamOption options for editing a team</li>
+<li><a href="edit_team_option/#pyfj._generated.models.edit_team_option.EditTeamOptionPermission"><code>EditTeamOptionPermission</code></a> — Enum where members are also (and must be) strings</li>
+<li><a href="edit_user_option/#pyfj._generated.models.edit_user_option.EditUserOption"><code>EditUserOption</code></a> — EditUserOption edit user options</li>
+<li><a href="email/#pyfj._generated.models.email.Email"><code>Email</code></a> — Email an email address belonging to a user</li>
+<li><a href="external_tracker/#pyfj._generated.models.external_tracker.ExternalTracker"><code>ExternalTracker</code></a> — ExternalTracker represents settings for external tracker</li>
+<li><a href="external_wiki/#pyfj._generated.models.external_wiki.ExternalWiki"><code>ExternalWiki</code></a> — ExternalWiki represents setting for external wiki</li>
+</ul>
+<h2 id="f">F</h2>
+<ul>
+<li><a href="file_commit_response/#pyfj._generated.models.file_commit_response.FileCommitResponse"><code>FileCommitResponse</code></a> — FileCommitResponse contains information generated from a Git commit for a repo's file.</li>
+<li><a href="file_delete_response/#pyfj._generated.models.file_delete_response.FileDeleteResponse"><code>FileDeleteResponse</code></a> — FileDeleteResponse contains information about a repo's file that was deleted</li>
+<li><a href="file_links_response/#pyfj._generated.models.file_links_response.FileLinksResponse"><code>FileLinksResponse</code></a> — FileLinksResponse contains the links for a repo's file</li>
+<li><a href="file_response/#pyfj._generated.models.file_response.FileResponse"><code>FileResponse</code></a> — FileResponse contains information about a repo's file</li>
+<li><a href="files_response/#pyfj._generated.models.files_response.FilesResponse"><code>FilesResponse</code></a> — FilesResponse contains information about multiple files from a repo</li>
+<li><a href="forge_like/#pyfj._generated.models.forge_like.ForgeLike"><code>ForgeLike</code></a> — ForgeLike activity data type</li>
+<li><a href="forge_outbox/#pyfj._generated.models.forge_outbox.ForgeOutbox"><code>ForgeOutbox</code></a> — ActivityStream OrderedCollection of activities</li>
+</ul>
+<h2 id="g">G</h2>
+<ul>
+<li><a href="general_api_settings/#pyfj._generated.models.general_api_settings.GeneralAPISettings"><code>GeneralAPISettings</code></a> — GeneralAPISettings contains global api settings exposed by it</li>
+<li><a href="general_attachment_settings/#pyfj._generated.models.general_attachment_settings.GeneralAttachmentSettings"><code>GeneralAttachmentSettings</code></a> — GeneralAttachmentSettings contains global Attachment settings exposed by API</li>
+<li><a href="general_repo_settings/#pyfj._generated.models.general_repo_settings.GeneralRepoSettings"><code>GeneralRepoSettings</code></a> — GeneralRepoSettings contains global repository settings exposed by API</li>
+<li><a href="general_ui_settings/#pyfj._generated.models.general_ui_settings.GeneralUISettings"><code>GeneralUISettings</code></a> — GeneralUISettings contains global ui settings exposed by API</li>
+<li><a href="generate_repo_option/#pyfj._generated.models.generate_repo_option.GenerateRepoOption"><code>GenerateRepoOption</code></a> — GenerateRepoOption options when creating repository using a template</li>
+<li><a href="git_blob/#pyfj._generated.models.git_blob.GitBlob"><code>GitBlob</code></a> — GitBlob represents a git blob</li>
+<li><a href="git_entry/#pyfj._generated.models.git_entry.GitEntry"><code>GitEntry</code></a> — GitEntry represents a git tree</li>
+<li><a href="git_hook/#pyfj._generated.models.git_hook.GitHook"><code>GitHook</code></a> — GitHook represents a Git repository hook</li>
+<li><a href="gitignore_template_info/#pyfj._generated.models.gitignore_template_info.GitignoreTemplateInfo"><code>GitignoreTemplateInfo</code></a> — GitignoreTemplateInfo name and text of a gitignore template</li>
+<li><a href="git_object/#pyfj._generated.models.git_object.GitObject"><code>GitObject</code></a> — GitObject represents a Git object.</li>
+<li><a href="git_tree_response/#pyfj._generated.models.git_tree_response.GitTreeResponse"><code>GitTreeResponse</code></a> — GitTreeResponse returns a git tree</li>
+<li><a href="gpg_key/#pyfj._generated.models.gpg_key.GPGKey"><code>GPGKey</code></a> — GPGKey a user GPG key to sign commit and tag in repository</li>
+<li><a href="gpg_key_email/#pyfj._generated.models.gpg_key_email.GPGKeyEmail"><code>GPGKeyEmail</code></a> — GPGKeyEmail an email attached to a GPGKey</li>
+</ul>
+<h2 id="h">H</h2>
+<ul>
+<li><a href="hook/#pyfj._generated.models.hook.Hook"><code>Hook</code></a> — Hook a hook is a web hook when one repository changed</li>
+</ul>
+<h2 id="i">I</h2>
+<ul>
+<li><a href="identity/#pyfj._generated.models.identity.Identity"><code>Identity</code></a> — Identity for a person's identity like an author or committer</li>
+<li><a href="internal_tracker/#pyfj._generated.models.internal_tracker.InternalTracker"><code>InternalTracker</code></a> — InternalTracker represents settings for internal tracker</li>
+<li><a href="issue/#pyfj._generated.models.issue.Issue"><code>Issue</code></a> — Issue represents an issue in a repository</li>
+<li><a href="issue_config/#pyfj._generated.models.issue_config.IssueConfig"><code>IssueConfig</code></a> — !!! abstract "Usage Documentation"</li>
+<li><a href="issue_config_contact_link/#pyfj._generated.models.issue_config_contact_link.IssueConfigContactLink"><code>IssueConfigContactLink</code></a> — !!! abstract "Usage Documentation"</li>
+<li><a href="issue_config_validation/#pyfj._generated.models.issue_config_validation.IssueConfigValidation"><code>IssueConfigValidation</code></a> — !!! abstract "Usage Documentation"</li>
+<li><a href="issue_deadline/#pyfj._generated.models.issue_deadline.IssueDeadline"><code>IssueDeadline</code></a> — IssueDeadline represents an issue deadline</li>
+<li><a href="issue_form_field/#pyfj._generated.models.issue_form_field.IssueFormField"><code>IssueFormField</code></a> — IssueFormField represents a form field</li>
+<li><a href="issue_form_field_type/#pyfj._generated.models.issue_form_field_type.IssueFormFieldType"><code>IssueFormFieldType</code></a> — Alias for <code>str</code>.</li>
+<li><a href="issue_form_field_visible/#pyfj._generated.models.issue_form_field_visible.IssueFormFieldVisible"><code>IssueFormFieldVisible</code></a> — Alias for <code>str</code>.</li>
+<li><a href="issue_labels_option/#pyfj._generated.models.issue_labels_option.IssueLabelsOption"><code>IssueLabelsOption</code></a> — IssueLabelsOption a collection of labels</li>
+<li><a href="issue_meta/#pyfj._generated.models.issue_meta.IssueMeta"><code>IssueMeta</code></a> — IssueMeta basic issue information</li>
+<li><a href="issue_template/#pyfj._generated.models.issue_template.IssueTemplate"><code>IssueTemplate</code></a> — IssueTemplate represents an issue template for a repository</li>
+<li><a href="issue_template_labels/#pyfj._generated.models.issue_template_labels.IssueTemplateLabels"><code>IssueTemplateLabels</code></a> — Type alias for <code>list[str]</code>.</li>
+</ul>
+<h2 id="l">L</h2>
+<ul>
+<li><a href="label/#pyfj._generated.models.label.Label"><code>Label</code></a> — Label a label to an issue or a pr</li>
+<li><a href="label_template/#pyfj._generated.models.label_template.LabelTemplate"><code>LabelTemplate</code></a> — LabelTemplate info of a Label template</li>
+<li><a href="licenses_template_list_entry/#pyfj._generated.models.licenses_template_list_entry.LicensesTemplateListEntry"><code>LicensesTemplateListEntry</code></a> — LicensesListEntry is used for the API</li>
+<li><a href="license_template_info/#pyfj._generated.models.license_template_info.LicenseTemplateInfo"><code>LicenseTemplateInfo</code></a> — LicensesInfo contains information about a License</li>
+<li><a href="list_action_run_response/#pyfj._generated.models.list_action_run_response.ListActionRunResponse"><code>ListActionRunResponse</code></a> — ListActionRunResponse return a list of ActionRun</li>
+</ul>
+<h2 id="m">M</h2>
+<ul>
+<li><a href="markdown_option/#pyfj._generated.models.markdown_option.MarkdownOption"><code>MarkdownOption</code></a> — MarkdownOption markdown options</li>
+<li><a href="markup_option/#pyfj._generated.models.markup_option.MarkupOption"><code>MarkupOption</code></a> — MarkupOption markup options</li>
+<li><a href="merge_pull_request_option/#pyfj._generated.models.merge_pull_request_option.MergePullRequestOption"><code>MergePullRequestOption</code></a> — MergePullRequestForm form for merging Pull Request</li>
+<li><a href="merge_pull_request_option/#pyfj._generated.models.merge_pull_request_option.MergePullRequestOptionDo"><code>MergePullRequestOptionDo</code></a> — Enum where members are also (and must be) strings</li>
+<li><a href="migrate_repo_options/#pyfj._generated.models.migrate_repo_options.MigrateRepoOptions"><code>MigrateRepoOptions</code></a> — MigrateRepoOptions options for migrating repository's this is used to interact with api v1</li>
+<li><a href="migrate_repo_options/#pyfj._generated.models.migrate_repo_options.MigrateRepoOptionsService"><code>MigrateRepoOptionsService</code></a> — Enum where members are also (and must be) strings</li>
+<li><a href="milestone/#pyfj._generated.models.milestone.Milestone"><code>Milestone</code></a> — Milestone milestone is a collection of issues on one repository</li>
+</ul>
+<h2 id="n">N</h2>
+<ul>
+<li><a href="new_issue_pins_allowed/#pyfj._generated.models.new_issue_pins_allowed.NewIssuePinsAllowed"><code>NewIssuePinsAllowed</code></a> — NewIssuePinsAllowed represents an API response that says if new Issue Pins are allowed</li>
+<li><a href="node_info/#pyfj._generated.models.node_info.NodeInfo"><code>NodeInfo</code></a> — NodeInfo contains standardized way of exposing metadata about a server running one of the distributed</li>
+<li><a href="node_info_services/#pyfj._generated.models.node_info_services.NodeInfoServices"><code>NodeInfoServices</code></a> — NodeInfoServices contains the third party sites this server can connect to via their application API</li>
+<li><a href="node_info_software/#pyfj._generated.models.node_info_software.NodeInfoSoftware"><code>NodeInfoSoftware</code></a> — NodeInfoSoftware contains Metadata about server software in use</li>
+<li><a href="node_info_usage/#pyfj._generated.models.node_info_usage.NodeInfoUsage"><code>NodeInfoUsage</code></a> — NodeInfoUsage contains usage statistics for this server</li>
+<li><a href="node_info_usage_users/#pyfj._generated.models.node_info_usage_users.NodeInfoUsageUsers"><code>NodeInfoUsageUsers</code></a> — NodeInfoUsageUsers contains statistics about the users of this server</li>
+<li><a href="note/#pyfj._generated.models.note.Note"><code>Note</code></a> — Note contains information related to a git note</li>
+<li><a href="note_options/#pyfj._generated.models.note_options.NoteOptions"><code>NoteOptions</code></a> — !!! abstract "Usage Documentation"</li>
+<li><a href="notification_count/#pyfj._generated.models.notification_count.NotificationCount"><code>NotificationCount</code></a> — NotificationCount number of unread notifications</li>
+<li><a href="notification_subject/#pyfj._generated.models.notification_subject.NotificationSubject"><code>NotificationSubject</code></a> — NotificationSubject contains the notification subject (Issue/Pull/Commit)</li>
+<li><a href="notification_thread/#pyfj._generated.models.notification_thread.NotificationThread"><code>NotificationThread</code></a> — NotificationThread expose Notification on API</li>
+<li><a href="notify_subject_type/#pyfj._generated.models.notify_subject_type.NotifySubjectType"><code>NotifySubjectType</code></a> — Alias for <code>str</code>.</li>
+</ul>
+<h2 id="o">O</h2>
+<ul>
+<li><a href="o_auth2_application/#pyfj._generated.models.o_auth2_application.OAuth2Application"><code>OAuth2Application</code></a> — OAuth2Application represents an OAuth2 application.</li>
+<li><a href="organization/#pyfj._generated.models.organization.Organization"><code>Organization</code></a> — Organization represents an organization</li>
+<li><a href="organization_permissions/#pyfj._generated.models.organization_permissions.OrganizationPermissions"><code>OrganizationPermissions</code></a> — OrganizationPermissions list different users permissions on an organization</li>
+</ul>
+<h2 id="p">P</h2>
+<ul>
+<li><a href="package/#pyfj._generated.models.package.Package"><code>Package</code></a> — Package represents a package</li>
+<li><a href="package_file/#pyfj._generated.models.package_file.PackageFile"><code>PackageFile</code></a> — PackageFile represents a package file</li>
+<li><a href="payload_commit/#pyfj._generated.models.payload_commit.PayloadCommit"><code>PayloadCommit</code></a> — PayloadCommit represents a commit</li>
+<li><a href="payload_commit_verification/#pyfj._generated.models.payload_commit_verification.PayloadCommitVerification"><code>PayloadCommitVerification</code></a> — PayloadCommitVerification represents the GPG verification of a commit</li>
+<li><a href="payload_user/#pyfj._generated.models.payload_user.PayloadUser"><code>PayloadUser</code></a> — PayloadUser represents the author or committer of a commit</li>
+<li><a href="permission/#pyfj._generated.models.permission.Permission"><code>Permission</code></a> — Permission represents a set of permissions</li>
+<li><a href="pr_branch_info/#pyfj._generated.models.pr_branch_info.PRBranchInfo"><code>PRBranchInfo</code></a> — PRBranchInfo information about a branch</li>
+<li><a href="public_key/#pyfj._generated.models.public_key.PublicKey"><code>PublicKey</code></a> — PublicKey publickey is a user key to push code to repository</li>
+<li><a href="pull_request/#pyfj._generated.models.pull_request.PullRequest"><code>PullRequest</code></a> — PullRequest represents a pull request</li>
+<li><a href="pull_request_meta/#pyfj._generated.models.pull_request_meta.PullRequestMeta"><code>PullRequestMeta</code></a> — PullRequestMeta PR info if an issue is a PR</li>
+<li><a href="pull_review/#pyfj._generated.models.pull_review.PullReview"><code>PullReview</code></a> — PullReview represents a pull request review</li>
+<li><a href="pull_review_comment/#pyfj._generated.models.pull_review_comment.PullReviewComment"><code>PullReviewComment</code></a> — PullReviewComment represents a comment on a pull request review</li>
+<li><a href="pull_review_request_options/#pyfj._generated.models.pull_review_request_options.PullReviewRequestOptions"><code>PullReviewRequestOptions</code></a> — PullReviewRequestOptions are options to add or remove pull review requests</li>
+<li><a href="push_mirror/#pyfj._generated.models.push_mirror.PushMirror"><code>PushMirror</code></a> — PushMirror represents information of a push mirror</li>
+</ul>
+<h2 id="q">Q</h2>
+<ul>
+<li><a href="quota_group/#pyfj._generated.models.quota_group.QuotaGroup"><code>QuotaGroup</code></a> — QuotaGroup represents a quota group</li>
+<li><a href="quota_group_list/#pyfj._generated.models.quota_group_list.QuotaGroupList"><code>QuotaGroupList</code></a> — Type alias for <code>list[pyfj._generated.models.quota_group.QuotaGroup]</code>.</li>
+<li><a href="quota_info/#pyfj._generated.models.quota_info.QuotaInfo"><code>QuotaInfo</code></a> — QuotaInfo represents information about a user's quota</li>
+<li><a href="quota_rule_info/#pyfj._generated.models.quota_rule_info.QuotaRuleInfo"><code>QuotaRuleInfo</code></a> — QuotaRuleInfo contains information about a quota rule</li>
+<li><a href="quota_used/#pyfj._generated.models.quota_used.QuotaUsed"><code>QuotaUsed</code></a> — QuotaUsed represents the quota usage of a user</li>
+<li><a href="quota_used_artifact/#pyfj._generated.models.quota_used_artifact.QuotaUsedArtifact"><code>QuotaUsedArtifact</code></a> — QuotaUsedArtifact represents an artifact counting towards a user's quota</li>
+<li><a href="quota_used_artifact_list/#pyfj._generated.models.quota_used_artifact_list.QuotaUsedArtifactList"><code>QuotaUsedArtifactList</code></a> — Type alias for <code>list[pyfj._generated.models.quota_used_artifact.QuotaUsedArtifact]</code>.</li>
+<li><a href="quota_used_attachment/#pyfj._generated.models.quota_used_attachment.QuotaUsedAttachment"><code>QuotaUsedAttachment</code></a> — QuotaUsedAttachment represents an attachment counting towards a user's quota</li>
+<li><a href="quota_used_attachment/#pyfj._generated.models.quota_used_attachment.QuotaUsedAttachmentContainedIn"><code>QuotaUsedAttachmentContainedIn</code></a> — Context for the attachment: URLs to the containing object</li>
+<li><a href="quota_used_attachment_list/#pyfj._generated.models.quota_used_attachment_list.QuotaUsedAttachmentList"><code>QuotaUsedAttachmentList</code></a> — Type alias for <code>list[pyfj._generated.models.quota_used_attachment.QuotaUsedAttachment]</code>.</li>
+<li><a href="quota_used_package/#pyfj._generated.models.quota_used_package.QuotaUsedPackage"><code>QuotaUsedPackage</code></a> — QuotaUsedPackage represents a package counting towards a user's quota</li>
+<li><a href="quota_used_package_list/#pyfj._generated.models.quota_used_package_list.QuotaUsedPackageList"><code>QuotaUsedPackageList</code></a> — Type alias for <code>list[pyfj._generated.models.quota_used_package.QuotaUsedPackage]</code>.</li>
+<li><a href="quota_used_size/#pyfj._generated.models.quota_used_size.QuotaUsedSize"><code>QuotaUsedSize</code></a> — QuotaUsedSize represents the size-based quota usage of a user</li>
+<li><a href="quota_used_size_assets/#pyfj._generated.models.quota_used_size_assets.QuotaUsedSizeAssets"><code>QuotaUsedSizeAssets</code></a> — QuotaUsedSizeAssets represents the size-based asset usage of a user</li>
+<li><a href="quota_used_size_assets_attachments/#pyfj._generated.models.quota_used_size_assets_attachments.QuotaUsedSizeAssetsAttachments"><code>QuotaUsedSizeAssetsAttachments</code></a> — QuotaUsedSizeAssetsAttachments represents the size-based attachment quota usage of a user</li>
+<li><a href="quota_used_size_assets_packages/#pyfj._generated.models.quota_used_size_assets_packages.QuotaUsedSizeAssetsPackages"><code>QuotaUsedSizeAssetsPackages</code></a> — QuotaUsedSizeAssetsPackages represents the size-based package quota usage of a user</li>
+<li><a href="quota_used_size_git/#pyfj._generated.models.quota_used_size_git.QuotaUsedSizeGit"><code>QuotaUsedSizeGit</code></a> — QuotaUsedSizeGit represents the size-based git (lfs) quota usage of a user</li>
+<li><a href="quota_used_size_repos/#pyfj._generated.models.quota_used_size_repos.QuotaUsedSizeRepos"><code>QuotaUsedSizeRepos</code></a> — QuotaUsedSizeRepos represents the size-based repository quota usage of a user</li>
+</ul>
+<h2 id="r">R</h2>
+<ul>
+<li><a href="reaction/#pyfj._generated.models.reaction.Reaction"><code>Reaction</code></a> — Reaction contain one reaction</li>
+<li><a href="reference/#pyfj._generated.models.reference.Reference"><code>Reference</code></a> — Reference represents a Git reference.</li>
+<li><a href="register_runner_options/#pyfj._generated.models.register_runner_options.RegisterRunnerOptions"><code>RegisterRunnerOptions</code></a> — RegisterRunnerOptions declares the accepted options for registering runners.</li>
+<li><a href="register_runner_response/#pyfj._generated.models.register_runner_response.RegisterRunnerResponse"><code>RegisterRunnerResponse</code></a> — RegisterRunnerResponse contains the details of the just registered runner.</li>
+<li><a href="registration_token/#pyfj._generated.models.registration_token.RegistrationToken"><code>RegistrationToken</code></a> — RegistrationToken is a string used to register a runner with a server</li>
+<li><a href="release/#pyfj._generated.models.release.Release"><code>Release</code></a> — Release represents a repository release</li>
+<li><a href="rename_org_option/#pyfj._generated.models.rename_org_option.RenameOrgOption"><code>RenameOrgOption</code></a> — RenameOrgOption options when renaming an organization</li>
+<li><a href="rename_user_option/#pyfj._generated.models.rename_user_option.RenameUserOption"><code>RenameUserOption</code></a> — RenameUserOption options when renaming a user</li>
+<li><a href="replace_flags_option/#pyfj._generated.models.replace_flags_option.ReplaceFlagsOption"><code>ReplaceFlagsOption</code></a> — ReplaceFlagsOption options when replacing the flags of a repository</li>
+<li><a href="repo_collaborator_permission/#pyfj._generated.models.repo_collaborator_permission.RepoCollaboratorPermission"><code>RepoCollaboratorPermission</code></a> — RepoCollaboratorPermission to get repository permission for a collaborator</li>
+<li><a href="repo_commit/#pyfj._generated.models.repo_commit.RepoCommit"><code>RepoCommit</code></a> — RepoCommit contains information of a commit in the context of a repository.</li>
+<li><a href="repository/#pyfj._generated.models.repository.Repository"><code>Repository</code></a> — Repository represents a repository</li>
+<li><a href="repository_meta/#pyfj._generated.models.repository_meta.RepositoryMeta"><code>RepositoryMeta</code></a> — RepositoryMeta basic repository information</li>
+<li><a href="repository/#pyfj._generated.models.repository.RepositoryObjectFormatName"><code>RepositoryObjectFormatName</code></a> — ObjectFormatName of the underlying git repository</li>
+<li><a href="repo_target_option/#pyfj._generated.models.repo_target_option.RepoTargetOption"><code>RepoTargetOption</code></a> — !!! abstract "Usage Documentation"</li>
+<li><a href="repo_topic_options/#pyfj._generated.models.repo_topic_options.RepoTopicOptions"><code>RepoTopicOptions</code></a> — RepoTopicOptions a collection of repo topic names</li>
+<li><a href="repo_transfer/#pyfj._generated.models.repo_transfer.RepoTransfer"><code>RepoTransfer</code></a> — RepoTransfer represents a pending repo transfer</li>
+<li><a href="review_state_type/#pyfj._generated.models.review_state_type.ReviewStateType"><code>ReviewStateType</code></a> — Alias for <code>str</code>.</li>
+</ul>
+<h2 id="s">S</h2>
+<ul>
+<li><a href="search_results/#pyfj._generated.models.search_results.SearchResults"><code>SearchResults</code></a> — SearchResults results of a successful search</li>
+<li><a href="secret/#pyfj._generated.models.secret.Secret"><code>Secret</code></a> — Secret represents a secret</li>
+<li><a href="server_version/#pyfj._generated.models.server_version.ServerVersion"><code>ServerVersion</code></a> — ServerVersion wraps the version of the server</li>
+<li><a href="set_user_quota_groups_options/#pyfj._generated.models.set_user_quota_groups_options.SetUserQuotaGroupsOptions"><code>SetUserQuotaGroupsOptions</code></a> — SetUserQuotaGroupsOptions represents the quota groups of a user</li>
+<li><a href="state_type/#pyfj._generated.models.state_type.StateType"><code>StateType</code></a> — Alias for <code>str</code>.</li>
+<li><a href="stop_watch/#pyfj._generated.models.stop_watch.StopWatch"><code>StopWatch</code></a> — StopWatch represent a running stopwatch</li>
+<li><a href="submit_pull_review_options/#pyfj._generated.models.submit_pull_review_options.SubmitPullReviewOptions"><code>SubmitPullReviewOptions</code></a> — SubmitPullReviewOptions are options to submit a pending pull review</li>
+<li><a href="sync_fork_info/#pyfj._generated.models.sync_fork_info.SyncForkInfo"><code>SyncForkInfo</code></a> — SyncForkInfo information about syncing a fork</li>
+</ul>
+<h2 id="t">T</h2>
+<ul>
+<li><a href="tag/#pyfj._generated.models.tag.Tag"><code>Tag</code></a> — Tag represents a repository tag</li>
+<li><a href="tag_archive_download_count/#pyfj._generated.models.tag_archive_download_count.TagArchiveDownloadCount"><code>TagArchiveDownloadCount</code></a> — TagArchiveDownloadCount counts how many times a archive was downloaded</li>
+<li><a href="tag_protection/#pyfj._generated.models.tag_protection.TagProtection"><code>TagProtection</code></a> — TagProtection represents a tag protection</li>
+<li><a href="team/#pyfj._generated.models.team.Team"><code>Team</code></a> — Team represents a team in an organization</li>
+<li><a href="team/#pyfj._generated.models.team.TeamPermission"><code>TeamPermission</code></a> — Enum where members are also (and must be) strings</li>
+<li><a href="team_search_results/#pyfj._generated.models.team_search_results.TeamSearchResults"><code>TeamSearchResults</code></a> — TeamSearchResults</li>
+<li><a href="timeline_comment/#pyfj._generated.models.timeline_comment.TimelineComment"><code>TimelineComment</code></a> — TimelineComment represents a timeline comment (comment of any type) on a commit or issue</li>
+<li><a href="time_stamp/#pyfj._generated.models.time_stamp.TimeStamp"><code>TimeStamp</code></a> — Alias for <code>int</code>.</li>
+<li><a href="topic_name/#pyfj._generated.models.topic_name.TopicName"><code>TopicName</code></a> — TopicName a list of repo topic names</li>
+<li><a href="topic_response/#pyfj._generated.models.topic_response.TopicResponse"><code>TopicResponse</code></a> — TopicResponse for returning topics</li>
+<li><a href="topic_search_results/#pyfj._generated.models.topic_search_results.TopicSearchResults"><code>TopicSearchResults</code></a> — TopicSearchResults</li>
+<li><a href="tracked_time/#pyfj._generated.models.tracked_time.TrackedTime"><code>TrackedTime</code></a> — TrackedTime worked time for an issue / pr</li>
+<li><a href="transfer_repo_option/#pyfj._generated.models.transfer_repo_option.TransferRepoOption"><code>TransferRepoOption</code></a> — TransferRepoOption options when transfer a repository's ownership</li>
+</ul>
+<h2 id="u">U</h2>
+<ul>
+<li><a href="update_branch_repo_option/#pyfj._generated.models.update_branch_repo_option.UpdateBranchRepoOption"><code>UpdateBranchRepoOption</code></a> — UpdateBranchRepoOption options when updating a branch in a repository</li>
+<li><a href="update_file_options/#pyfj._generated.models.update_file_options.UpdateFileOptions"><code>UpdateFileOptions</code></a> — UpdateFileOptions options for updating files Note: <code>author</code> and <code>committer</code> are optional (if only one is</li>
+<li><a href="update_repo_avatar_option/#pyfj._generated.models.update_repo_avatar_option.UpdateRepoAvatarOption"><code>UpdateRepoAvatarOption</code></a> — UpdateRepoAvatarUserOption options when updating the repo avatar</li>
+<li><a href="update_user_avatar_option/#pyfj._generated.models.update_user_avatar_option.UpdateUserAvatarOption"><code>UpdateUserAvatarOption</code></a> — UpdateUserAvatarUserOption options when updating the user avatar</li>
+<li><a href="update_variable_option/#pyfj._generated.models.update_variable_option.UpdateVariableOption"><code>UpdateVariableOption</code></a> — UpdateVariableOption defines the properties of the variable to update.</li>
+<li><a href="user/#pyfj._generated.models.user.User"><code>User</code></a> — User represents a user</li>
+<li><a href="user_heatmap_data/#pyfj._generated.models.user_heatmap_data.UserHeatmapData"><code>UserHeatmapData</code></a> — UserHeatmapData represents the data needed to create a heatmap</li>
+<li><a href="user_search_results/#pyfj._generated.models.user_search_results.UserSearchResults"><code>UserSearchResults</code></a> — UserSearchResults</li>
+<li><a href="user_settings/#pyfj._generated.models.user_settings.UserSettings"><code>UserSettings</code></a> — UserSettings represents user settings</li>
+<li><a href="user_settings_options/#pyfj._generated.models.user_settings_options.UserSettingsOptions"><code>UserSettingsOptions</code></a> — UserSettingsOptions represents options to change user settings</li>
+</ul>
+<h2 id="v">V</h2>
+<ul>
+<li><a href="verify_gpg_key_option/#pyfj._generated.models.verify_gpg_key_option.VerifyGPGKeyOption"><code>VerifyGPGKeyOption</code></a> — VerifyGPGKeyOption options verifies user GPG key</li>
+</ul>
+<h2 id="w">W</h2>
+<ul>
+<li><a href="watch_info/#pyfj._generated.models.watch_info.WatchInfo"><code>WatchInfo</code></a> — WatchInfo represents an API watch status of one repository</li>
+<li><a href="wiki_commit/#pyfj._generated.models.wiki_commit.WikiCommit"><code>WikiCommit</code></a> — WikiCommit page commit/revision</li>
+<li><a href="wiki_commit_list/#pyfj._generated.models.wiki_commit_list.WikiCommitList"><code>WikiCommitList</code></a> — WikiCommitList commit/revision list</li>
+<li><a href="wiki_page/#pyfj._generated.models.wiki_page.WikiPage"><code>WikiPage</code></a> — WikiPage a wiki page</li>
+<li><a href="wiki_page_meta_data/#pyfj._generated.models.wiki_page_meta_data.WikiPageMetaData"><code>WikiPageMetaData</code></a> — WikiPageMetaData wiki page meta information</li>
+</ul>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../namespaces/users/tokens/" class="md-footer__link md-footer__link--prev" aria-label="Previous: users.tokens">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                users.tokens
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../development/architecture/" class="md-footer__link md-footer__link--next" aria-label="Next: Architecture">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Architecture
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Erdem Halil — MIT License
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["content.action.view","content.code.copy","content.tabs.link","navigation.footer","navigation.indexes","navigation.instant","navigation.path","navigation.prune","navigation.top","navigation.tracking","search.highlight","toc.follow"],"redirect":null,"search":"../../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":{"provider":"mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.8dcc8e9c.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1512 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="pyfj's public surface, runtime behaviour, and the policies that constrain them.">
+      
+      
+      
+        <link rel="canonical" href="https://erdemhalil.github.io/forgejo-python/0.1/development/architecture/">
+      
+      
+        <link rel="prev" href="../../reference/models/">
+      
+      
+        <link rel="next" href="../codegen/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.svg">
+      <meta name="generator" content="zensical-0.0.62">
+    
+    
+      
+        <title>Architecture - pyfj</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.ce62732f.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.812a03bb.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pyfj-architecture" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="pyfj" class="md-header__button md-logo" aria-label="pyfj" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-braces" viewBox="0 0 24 24"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            pyfj
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Architecture
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun-moon" viewBox="0 0 24 24"><path d="M12 2v2M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4M19 5l-1.256 1.256M20 12h2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/erdemhalil/forgejo-python" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    erdemhalil/forgejo-python
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="pyfj" class="md-nav__button md-logo" aria-label="pyfj" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-braces" viewBox="0 0 24 24"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"/></svg>
+
+    </a>
+    pyfj
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/erdemhalil/forgejo-python" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    erdemhalil/forgejo-python
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  pyfj
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+  
+    <a href="../../guides/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Guides
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Changelog
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+  
+    <a href="../../reference/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  API reference
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Development
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Development
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Goals
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#non-goals-v1" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Non-goals (v1)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-surface" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Public surface
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Public surface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clients" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Clients
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#namespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Namespaces
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-signatures" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Method signatures
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bodies" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Bodies
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pagination" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Pagination
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#responses" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Responses
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Errors
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#models" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Models
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#escape-hatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Escape hatch
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Runtime
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Runtime">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#session-defaults-all-overridable" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Session defaults (all overridable)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtime-generated-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Runtime ↔ generated contract
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependency-floors" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dependency floors
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compatibility-and-versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Compatibility and versioning
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Documentation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../codegen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Code generation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Goals
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#non-goals-v1" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Non-goals (v1)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-surface" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Public surface
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Public surface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clients" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Clients
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#namespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Namespaces
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-signatures" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Method signatures
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bodies" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Bodies
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pagination" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Pagination
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#responses" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Responses
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Errors
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#models" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Models
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#escape-hatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Escape hatch
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Runtime
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Runtime">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#session-defaults-all-overridable" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Session defaults (all overridable)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtime-generated-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Runtime ↔ generated contract
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependency-floors" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dependency floors
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compatibility-and-versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Compatibility and versioning
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Documentation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  
+  <span class="md-ellipsis">
+    pyfj
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      <li class="md-path__item">
+        <a href="././" class="md-path__link">
+          
+  
+  <span class="md-ellipsis">
+    Development
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+  
+    
+      
+    
+    <a href="https://github.com/erdemhalil/forgejo-python/raw/main/docs/development/architecture.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-code-2" viewBox="0 0 24 24"><path d="M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35"/><path d="M14 2v5a1 1 0 0 0 1 1h5M5 16l-3 3 3 3M9 22l3-3-3-3"/></svg>
+    </a>
+  
+
+
+<h1 id="pyfj-architecture">pyfj architecture</h1>
+<p>pyfj is a fully typed Python client for the Forgejo API: complete coverage of the vendored Forgejo 16 Spec, async-first with a complete sync mirror, generated from the Spec and tested against a real Forgejo container. It is published on PyPI as <code>forgejo-python</code>; the import name stays <code>pyfj</code>.</p>
+<p>This is the reference for what pyfj is: its public surface, runtime behaviour, and the policies that constrain both. The generator is specified in <a href="../codegen/">codegen.md</a>.</p>
+<h2 id="goals">Goals</h2>
+<ul>
+<li>Every Operation in the Spec is callable and documented.</li>
+<li>Fully typed: pydantic v2 models for every schema, annotations everywhere, <code>py.typed</code>.</li>
+<li><code>Forgejo</code> and <code>AsyncForgejo</code> expose identical surfaces over httpx.</li>
+<li>Ergonomic: resource namespaces, keyword arguments, lazy pagination, typed exceptions.</li>
+<li>Reproducible: the generated surface is committed; CI verifies it matches the Spec.</li>
+<li>Honest: every Operation is either generated or excluded with a documented reason.</li>
+</ul>
+<h2 id="non-goals-v1">Non-goals (v1)</h2>
+<ul>
+<li>OAuth2 authorization flows (token and basic auth only; the raw OAuth2 endpoints remain callable as Operations).</li>
+<li>Automatic retries or rate limiting (inject an httpx client for transport-level control).</li>
+<li>Gitea-specific compatibility work (the API lineage is shared; differences are documented, not catered to).</li>
+<li>More than one supported Forgejo major at a time.</li>
+</ul>
+<h2 id="public-surface">Public surface</h2>
+<h3 id="clients">Clients</h3>
+<p><code>Forgejo</code> and <code>AsyncForgejo</code> are the entry points: context managers (<code>with</code> / <code>async with</code>, plus <code>close()</code> / <code>aclose()</code>) over httpx, with identical constructor arguments and methods. The constructor takes the instance root — <code>https://codeberg.org</code>, or a subpath mount such as <code>https://host/forgejo</code>; a URL that already ends in <code>/api/v1</code> is accepted and normalised, and invalid URLs raise immediately.</p>
+<p>Credentials are explicit arguments, never environment variables: <code>token=</code> is sent as <code>Authorization: token &lt;value&gt;</code>, <code>auth=(user, pass)</code> enables BasicAuth, and <code>otp=</code> sets <code>X-FORGEJO-OTP</code>; token and BasicAuth are mutually exclusive. Impersonation is client-scoped rather than a per-method argument — <code>sudo=</code> sets the constructor default, <code>client.sudo</code> reads or replaces it for the current context, and <code>client.sudo_as(username)</code> scopes an override to a <code>with</code> / <code>async with</code> block that restores the previous value on exit (nesting-safe). Overrides are context-local, not process-global: each client owns a <code>ContextVar</code>, so sibling asyncio tasks and threads are isolated, and child tasks created with <code>asyncio.create_task</code> inherit the value at creation time.</p>
+<p>Passing <code>client=</code> injects a preconfigured <code>httpx.Client</code> / <code>AsyncClient</code>; transport arguments (<code>timeout</code>, <code>verify</code>, ...) are rejected unless left at their defaults, so the injected client's own configuration applies and is not silently overridden. The generated <a href="../../reference/clients/">client reference</a> carries the full signatures.</p>
+<h3 id="namespaces">Namespaces</h3>
+<p>Operations are grouped into resource namespaces derived from the Spec's path structure — not from the Spec's tags, which bundle most of the surface into one.</p>
+<ul>
+<li><a href="../../reference/namespaces/repos/">repos</a> — repositories, issues, pull requests, releases, and everything under them</li>
+<li><a href="../../reference/namespaces/user/">user</a> — the authenticated user</li>
+<li><a href="../../reference/namespaces/users/">users</a> — other users</li>
+<li><a href="../../reference/namespaces/orgs/">orgs</a> — organizations</li>
+<li><a href="../../reference/namespaces/teams/">teams</a> — teams, their members, and their repositories</li>
+<li><a href="../../reference/namespaces/admin/">admin</a> — instance administration</li>
+<li><a href="../../reference/namespaces/notifications/">notifications</a> — notification threads</li>
+<li><a href="../../reference/namespaces/packages/">packages</a> — package registries and their files</li>
+<li><a href="../../reference/namespaces/settings/">settings</a> — instance settings</li>
+<li><a href="../../reference/namespaces/activitypub/">activitypub</a> — federation endpoints</li>
+<li><a href="../../reference/namespaces/misc/">misc</a> — standalone endpoints (version, licenses, markdown, markup, gitignore, label, nodeinfo, signing-key, topics, actions, ...)</li>
+</ul>
+<p>Sub-resources nest further: <a href="../../reference/namespaces/repos/issues/"><code>client.repos.issues.create(...)</code></a>, <a href="../../reference/namespaces/repos/issues/comments/"><code>client.repos.issues.comments.update(...)</code></a>. The exact mapping is a reviewed artifact (<code>codegen/mapping.toml</code> plus a naming report), governed by <a href="../codegen/">codegen.md</a>. Every Operation is reachable exactly once; deprecated Operations are generated and flagged; Operations that cannot work are excluded with a documented reason in <code>codegen/registry.toml</code>.</p>
+<h3 id="method-signatures">Method signatures</h3>
+<ul>
+<li>Path parameters are positional: <code>client.repos.get(owner, repo)</code>.</li>
+<li>Everything else is keyword-only: query parameters, body fields, pagination controls.</li>
+<li>Query parameters whose value is <code>None</code> are omitted.</li>
+</ul>
+<h3 id="bodies">Bodies</h3>
+<p>Body operations take flat keyword-only arguments generated from the body
+model; bodies are serialized with wire aliases and <code>None</code>-valued fields are
+omitted:</p>
+<div class="highlight"><pre><span></span><code><span class="n">client</span><span class="o">.</span><span class="n">repos</span><span class="o">.</span><span class="n">issues</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">"owner"</span><span class="p">,</span> <span class="s2">"repo"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Bug"</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="s2">"..."</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>When the body's model has required fields, those become required
+  keyword-only parameters and the body is always sent — regardless of whether
+  the Spec marks the body required. Required fields are enforced statically by
+  the signature, not by pydantic validation after the fact.</li>
+<li>Bodies whose models have no required fields are optional: every flat field
+  is <code>X | None = None</code> and no body is sent when all of them are <code>None</code>.</li>
+<li>A body field whose name collides with a path, query, or form parameter is
+  exposed with a mechanical <code>body_</code> prefix (<code>body_owner</code>, <code>body_repo</code>,
+  <code>body_index</code>, <code>body_username</code>), and the method docstring names its wire
+  field.</li>
+</ul>
+<h3 id="pagination">Pagination</h3>
+<p>List operations return <code>Paginated[T]</code> (sync) / <code>AsyncPaginated[T]</code> (async):</p>
+<ul>
+<li>Iterating walks pages transparently; <code>limit</code> controls page size (the server caps it, 50 by default).</li>
+<li><code>.total_count</code> is populated from <code>X-Total-Count</code> when the server sends it, else <code>None</code>.</li>
+<li><code>.page(n)</code> fetches a single page explicitly; passing <code>page=</code> starts iteration at that page.</li>
+</ul>
+<p>Pagination metadata is not modelled in the Spec (<code>X-Total-Count</code> is runtime-only); behaviour is pinned by integration tests.</p>
+<h3 id="responses">Responses</h3>
+<ul>
+<li>Success responses decode to their model type; 204/205 → <code>None</code>; <code>text/*</code> and <code>text/html</code> → <code>str</code>; <code>application/zip</code> and octet-stream → <code>bytes</code>.</li>
+<li>JSON scalars and containers of scalars also decode through the same hook: <code>bool</code>, <code>int</code>, <code>float</code>, <code>list[str]</code>, and string-keyed maps of scalars.</li>
+<li>A documented response that cannot be decoded raises <code>DecodeError</code>.</li>
+<li>Non-2xx responses raise the mapped exception (below); they are never returned.</li>
+</ul>
+<h3 id="errors">Errors</h3>
+<div class="highlight"><pre><span></span><code>ForgejoError
+├── TransportError            network/timeout; wraps httpx.TransportError
+├── DecodeError               response did not match the Spec
+└── APIError                  any non-2xx; carries status_code, body, response
+    ├── BadRequestError           400
+    ├── UnauthorizedError         401
+    ├── ForbiddenError            403
+    ├── NotFoundError             404
+    ├── MethodNotAllowedError     405
+    ├── ConflictError             409
+    ├── PreconditionFailedError   412
+    ├── PayloadTooLargeError      413
+    ├── UnprocessableEntityError  422
+    ├── LockedError               423
+    ├── ServerError               5xx
+    └── (other statuses map to APIError itself)
+</code></pre></div>
+<p><code>APIError</code> always carries the raw <code>httpx.Response</code>; <code>body</code> holds parsed JSON when possible, else text. Pydantic validation of user input raises pydantic's <code>ValidationError</code> (not wrapped). The generated <a href="../../reference/runtime/">errors and pagination reference</a> documents every class.</p>
+<h3 id="models">Models</h3>
+<ul>
+<li>pydantic v2, <code>extra="allow"</code> (new server fields do not break parsing), <code>populate_by_name=True</code>.</li>
+<li>Field names snake_case; wire aliases preserved where they differ.</li>
+<li>String enums become <code>StrEnum</code>; <code>date-time</code>/<code>date</code> become <code>datetime</code>/<code>date</code>.</li>
+<li>All models are re-exported from <code>pyfj</code> and importable from <code>pyfj.models</code>.</li>
+<li>One deliberate shadow: the Spec also defines an <code>APIError</code> model; <code>pyfj.APIError</code> is the runtime exception, so the model stays importable as <code>pyfj.models.APIError</code>.</li>
+<li>Every model carries the Spec's description as a docstring; every field carries it as a pydantic <code>Field(description=...)</code> value (visible in <code>model_fields[...].description</code> and JSON Schema).</li>
+</ul>
+<h3 id="escape-hatch">Escape hatch</h3>
+<p><code>client.request(method, path, *, params=None, json=None, data=None, files=None, headers=None) -&gt; httpx.Response</code> returns the raw response without error mapping — for endpoints newer than the vendored Spec.</p>
+<h2 id="runtime">Runtime</h2>
+<h3 id="session-defaults-all-overridable">Session defaults (all overridable)</h3>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>Default</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Timeout</td>
+<td>30s</td>
+<td>httpx's 5s default is too tight for forge operations</td>
+</tr>
+<tr>
+<td>Retries</td>
+<td>none</td>
+<td>inject an httpx transport for connection-level retries</td>
+</tr>
+<tr>
+<td>Redirects</td>
+<td>not followed</td>
+<td>documented 303/304 responses surface as <code>APIError</code></td>
+</tr>
+<tr>
+<td>TLS</td>
+<td>verified</td>
+<td>custom CAs via <code>verify=ssl.SSLContext</code> (string paths are deprecated; the injected client remains the escape hatch for full transport control)</td>
+</tr>
+<tr>
+<td>User-Agent</td>
+<td><code>pyfj/&lt;version&gt;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Rate limiting</td>
+<td>none</td>
+<td>Forgejo does not rate-limit by default</td>
+</tr>
+<tr>
+<td>Sudo</td>
+<td>none</td>
+<td>constructor <code>sudo=</code> default; <code>client.sudo</code> and <code>client.sudo_as()</code> override it per client context, resolved when each request is built</td>
+</tr>
+</tbody>
+</table>
+<h3 id="runtime-generated-contract">Runtime ↔ generated contract</h3>
+<p>Generated namespace methods never touch httpx. They build parameters and call the Client's request hook, which applies auth and session policy, then maps non-2xx responses to exceptions; decoding goes through a shared helper. The exact hook signatures are frozen in the module docstring of <code>src/pyfj/_runtime/client.py</code>; generated code binds to them.</p>
+<p>Sketch (the module docstring carries the full contract, including the namespace-binding contract):</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># sync</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span><span class="s2">"GET"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"/repos/</span><span class="si">{</span><span class="n">owner</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">repo</span><span class="si">}</span><span class="s2">/issues"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">query</span><span class="p">)</span>
+<span class="k">return</span> <span class="n">decode</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">Issue</span><span class="p">)</span>  <span class="c1"># also: list[Issue], str, bytes, None (204/205)</span>
+
+<span class="c1"># pagination</span>
+<span class="k">return</span> <span class="n">client</span><span class="o">.</span><span class="n">_paginate</span><span class="p">(</span><span class="s2">"GET"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"/repos/</span><span class="si">{</span><span class="n">owner</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">repo</span><span class="si">}</span><span class="s2">/issues"</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">Issue</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">query</span><span class="p">,</span> <span class="n">page</span><span class="o">=</span><span class="n">page</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">)</span>
+</code></pre></div>
+<p>The hooks read <code>client.sudo</code> when they compose headers, so impersonation resolves at send time; pagination therefore picks up the effective value on every page fetch.</p>
+<h2 id="dependency-floors">Dependency floors</h2>
+<table>
+<thead>
+<tr>
+<th>Dependency</th>
+<th>Floor</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Python</td>
+<td>3.11</td>
+<td><code>StrEnum</code>, <code>Self</code>; matches the ecosystem</td>
+</tr>
+<tr>
+<td>pydantic</td>
+<td>2.7</td>
+<td>latest is 2.13; generated code avoids APIs newer than 2.7</td>
+</tr>
+<tr>
+<td>httpx</td>
+<td>0.28.1</td>
+<td>current stable line; older releases are out of support scope</td>
+</tr>
+</tbody>
+</table>
+<h2 id="compatibility-and-versioning">Compatibility and versioning</h2>
+<ul>
+<li>pyfj versions itself with SemVer; <code>0.x</code> until the surface is proven, then <code>1.0</code>.</li>
+<li>Forgejo <strong>16.x</strong> is the supported major. Forgejo guarantees API compatibility within a major; the vendored Spec is refreshed on Forgejo minor/patch releases and integration tests catch drift.</li>
+<li>A new Forgejo major arrives as a dedicated PR: swap the Spec, regenerate, publish the compatibility report (operations added/removed/changed) derived from the diff. Minor pyfj release — or major if operations broke.</li>
+<li>Deprecated Operations are generated and flagged; they disappear when upstream removes them.</li>
+</ul>
+<h2 id="documentation">Documentation</h2>
+<p>The site is built from <code>docs/</code> with <a href="https://zensical.org">Zensical</a> and mkdocstrings-python, configured in <code>mkdocs.yml</code>. It is versioned with mike and deployed to GitHub Pages: <code>main</code> publishes the <code>dev</code> alias, release tags publish <code>X.Y</code> plus the <code>stable</code> alias. Link validation is strict, so broken internal links fail CI.</p>
+<ul>
+<li>User docs: <code>docs/</code> — <code>index.md</code>, <code>getting-started.md</code>, and <code>docs/guides/</code>; the generated API reference lives under <code>docs/reference/</code></li>
+<li>Engineering reference: <code>docs/development/</code></li>
+<li>Human contributor workflow: <code>CONTRIBUTING.md</code>; agent contract: <code>AGENTS.md</code></li>
+</ul>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../reference/models/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Models">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Models
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../codegen/" class="md-footer__link md-footer__link--next" aria-label="Next: Code generation">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Code generation
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Erdem Halil — MIT License
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["content.action.view","content.code.copy","content.tabs.link","navigation.footer","navigation.indexes","navigation.instant","navigation.path","navigation.prune","navigation.top","navigation.tracking","search.highlight","toc.follow"],"redirect":null,"search":"../../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":{"provider":"mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.8dcc8e9c.min.js"></script>
+      
+    
+  </body>
+</html>

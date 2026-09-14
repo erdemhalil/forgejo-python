@@ -1,0 +1,2849 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Repository represents a repository">
+      
+      
+      
+        <link rel="canonical" href="https://erdemhalil.github.io/forgejo-python/0.1/reference/models/repository/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.svg">
+      <meta name="generator" content="zensical-0.0.62">
+    
+    
+      
+        <title>Repository - pyfj</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../../assets/stylesheets/modern/main.ce62732f.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/modern/palette.812a03bb.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#repository" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="pyfj" class="md-header__button md-logo" aria-label="pyfj" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-braces" viewBox="0 0 24 24"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            pyfj
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Repository
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun-moon" viewBox="0 0 24 24"><path d="M12 2v2M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4M19 5l-1.256 1.256M20 12h2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/erdemhalil/forgejo-python" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    erdemhalil/forgejo-python
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="pyfj" class="md-nav__button md-logo" aria-label="pyfj" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-braces" viewBox="0 0 24 24"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"/></svg>
+
+    </a>
+    pyfj
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/erdemhalil/forgejo-python" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    erdemhalil/forgejo-python
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  pyfj
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+  
+    <a href="../../../guides/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Guides
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Changelog
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+  
+    <a href="../../" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  API reference
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+  
+    <a href="../../../development/architecture/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Development
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Repository
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Repository">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.allow_fast_forward_only_merge" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        allow_fast_forward_only_merge
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.allow_merge_commits" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        allow_merge_commits
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.allow_rebase" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        allow_rebase
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.allow_rebase_explicit" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        allow_rebase_explicit
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.allow_rebase_update" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        allow_rebase_update
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.allow_squash_merge" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        allow_squash_merge
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.archived" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        archived
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.archived_at" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        archived_at
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.avatar_url" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        avatar_url
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.clone_url" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        clone_url
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.created_at" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        created_at
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.default_allow_maintainer_edit" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        default_allow_maintainer_edit
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.default_branch" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        default_branch
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.default_delete_branch_after_merge" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        default_delete_branch_after_merge
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.default_merge_style" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        default_merge_style
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.default_update_style" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        default_update_style
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.description" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        description
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.empty" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        empty
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.external_tracker" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        external_tracker
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.external_wiki" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        external_wiki
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.fork" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        fork
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.forks_count" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        forks_count
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.full_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        full_name
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.globally_editable_wiki" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        globally_editable_wiki
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.has_actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        has_actions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.has_issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        has_issues
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.has_packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        has_packages
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.has_projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        has_projects
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.has_pull_requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        has_pull_requests
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.has_releases" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        has_releases
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.has_wiki" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        has_wiki
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.has_wiki_contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        has_wiki_contents
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.html_url" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        html_url
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.id" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        id
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.ignore_whitespace_conflicts" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ignore_whitespace_conflicts
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.internal" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        internal
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.internal_tracker" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        internal_tracker
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.language" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        language
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.languages_url" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        languages_url
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.link" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        link
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.mirror" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        mirror
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.mirror_interval" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        mirror_interval
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.mirror_updated" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        mirror_updated
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.name" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        name
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.object_format_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        object_format_name
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.open_issues_count" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        open_issues_count
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.open_pr_counter" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        open_pr_counter
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.original_url" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        original_url
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.owner" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        owner
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.parent" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        parent
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        permissions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.private" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        private
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.release_counter" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        release_counter
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.repo_transfer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        repo_transfer
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.size" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        size
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.ssh_url" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ssh_url
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.stars_count" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        stars_count
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.template" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        template
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        topics
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.updated_at" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        updated_at
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.url" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        url
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.watchers_count" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        watchers_count
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.website" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        website
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.wiki_branch" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        wiki_branch
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.wiki_clone_url" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        wiki_clone_url
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.Repository.wiki_ssh_url" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        wiki_ssh_url
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.RepositoryObjectFormatName" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        RepositoryObjectFormatName
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RepositoryObjectFormatName">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.RepositoryObjectFormatName.SHA1" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        SHA1
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyfj._generated.models.repository.RepositoryObjectFormatName.SHA256" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        SHA256
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#used-by" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Used by
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+  
+    
+      
+    
+    <a href="https://github.com/erdemhalil/forgejo-python/raw/main/docs/reference/models/repository.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-code-2" viewBox="0 0 24 24"><path d="M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35"/><path d="M14 2v5a1 1 0 0 0 1 1h5M5 16l-3 3 3 3M9 22l3-3-3-3"/></svg>
+    </a>
+  
+
+
+<h1 id="repository">Repository</h1>
+<p>Import from <code>pyfj</code> or <code>pyfj.models</code> as <code>Repository</code>.</p>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="pyfj._generated.models.repository.Repository" class="doc doc-heading">
+            <span class="doc doc-object-name doc-class-name">Repository</span>
+
+
+</h2>
+
+
+    <div class="doc doc-contents first">
+
+
+
+        <p>Repository represents a repository</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.allow_fast_forward_only_merge" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">allow_fast_forward_only_merge</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">allow_fast_forward_only_merge</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.allow_merge_commits" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">allow_merge_commits</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">allow_merge_commits</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.allow_rebase" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">allow_rebase</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">allow_rebase</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.allow_rebase_explicit" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">allow_rebase_explicit</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">allow_rebase_explicit</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.allow_rebase_update" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">allow_rebase_update</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">allow_rebase_update</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.allow_squash_merge" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">allow_squash_merge</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">allow_squash_merge</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.archived" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">archived</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">archived</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.archived_at" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">archived_at</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">archived_at</span><span class="p">:</span> <span class="n"><span title="datetime.datetime">datetime</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.avatar_url" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">avatar_url</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">avatar_url</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.clone_url" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">clone_url</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">clone_url</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.created_at" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">created_at</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">created_at</span><span class="p">:</span> <span class="n"><span title="datetime.datetime">datetime</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.default_allow_maintainer_edit" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">default_allow_maintainer_edit</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">default_allow_maintainer_edit</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.default_branch" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">default_branch</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">default_branch</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.default_delete_branch_after_merge" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">default_delete_branch_after_merge</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">default_delete_branch_after_merge</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.default_merge_style" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">default_merge_style</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">default_merge_style</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.default_update_style" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">default_update_style</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">default_update_style</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.description" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">description</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">description</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.empty" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">empty</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">empty</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.external_tracker" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">external_tracker</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">external_tracker</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="&lt;span class=&quot;doc doc-object-name doc-class-name&quot;&gt;ExternalTracker&lt;/span&gt;" href="../external_tracker/#pyfj._generated.models.external_tracker.ExternalTracker">ExternalTracker</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.external_wiki" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">external_wiki</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">external_wiki</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="&lt;span class=&quot;doc doc-object-name doc-class-name&quot;&gt;ExternalWiki&lt;/span&gt;" href="../external_wiki/#pyfj._generated.models.external_wiki.ExternalWiki">ExternalWiki</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.fork" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">fork</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">fork</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.forks_count" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">forks_count</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">forks_count</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.full_name" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">full_name</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">full_name</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.globally_editable_wiki" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">globally_editable_wiki</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">globally_editable_wiki</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.has_actions" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">has_actions</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">has_actions</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.has_issues" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">has_issues</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">has_issues</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.has_packages" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">has_packages</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">has_packages</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.has_projects" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">has_projects</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">has_projects</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.has_pull_requests" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">has_pull_requests</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">has_pull_requests</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.has_releases" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">has_releases</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">has_releases</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.has_wiki" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">has_wiki</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">has_wiki</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n"><span title="pydantic.Field">Field</span></span><span class="p">(</span><span class="n"><span title="pydantic.Field(default)">default</span></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n"><span title="pydantic.Field(description)">description</span></span><span class="o">=</span><span class="s1">'is the wiki enabled'</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.has_wiki_contents" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">has_wiki_contents</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">has_wiki_contents</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n"><span title="pydantic.Field">Field</span></span><span class="p">(</span><span class="n"><span title="pydantic.Field(default)">default</span></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n"><span title="pydantic.Field(description)">description</span></span><span class="o">=</span><span class="s1">'have wiki pages ever been created'</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.html_url" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">html_url</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">html_url</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.id" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">id</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nb">id</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.ignore_whitespace_conflicts" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">ignore_whitespace_conflicts</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">ignore_whitespace_conflicts</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.internal" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">internal</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">internal</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.internal_tracker" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">internal_tracker</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">internal_tracker</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="&lt;span class=&quot;doc doc-object-name doc-class-name&quot;&gt;InternalTracker&lt;/span&gt;" href="../internal_tracker/#pyfj._generated.models.internal_tracker.InternalTracker">InternalTracker</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.language" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">language</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">language</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.languages_url" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">languages_url</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">languages_url</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.link" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">link</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">link</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.mirror" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">mirror</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">mirror</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.mirror_interval" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">mirror_interval</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">mirror_interval</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.mirror_updated" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">mirror_updated</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">mirror_updated</span><span class="p">:</span> <span class="n"><span title="datetime.datetime">datetime</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.name" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">name</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">name</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.object_format_name" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">object_format_name</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">object_format_name</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="&lt;span class=&quot;doc doc-object-name doc-class-name&quot;&gt;RepositoryObjectFormatName&lt;/span&gt;" href="./#pyfj._generated.models.repository.RepositoryObjectFormatName">RepositoryObjectFormatName</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n"><span title="pydantic.Field">Field</span></span><span class="p">(</span>
+    <span class="n"><span title="pydantic.Field(default)">default</span></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n"><span title="pydantic.Field(description)">description</span></span><span class="o">=</span><span class="s2">"ObjectFormatName of the underlying git repository"</span>
+<span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.open_issues_count" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">open_issues_count</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">open_issues_count</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.open_pr_counter" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">open_pr_counter</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">open_pr_counter</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.original_url" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">original_url</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">original_url</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.owner" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">owner</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">owner</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="&lt;span class=&quot;doc doc-object-name doc-class-name&quot;&gt;User&lt;/span&gt;" href="../user/#pyfj._generated.models.user.User">User</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.parent" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">parent</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">parent</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="&lt;span class=&quot;doc doc-object-name doc-class-name&quot;&gt;Repository&lt;/span&gt;" href="./#pyfj._generated.models.repository.Repository">Repository</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.permissions" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">permissions</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">permissions</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="&lt;span class=&quot;doc doc-object-name doc-class-name&quot;&gt;Permission&lt;/span&gt;" href="../permission/#pyfj._generated.models.permission.Permission">Permission</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.private" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">private</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">private</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.release_counter" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">release_counter</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">release_counter</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.repo_transfer" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">repo_transfer</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">repo_transfer</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="&lt;span class=&quot;doc doc-object-name doc-class-name&quot;&gt;RepoTransfer&lt;/span&gt;" href="../repo_transfer/#pyfj._generated.models.repo_transfer.RepoTransfer">RepoTransfer</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.size" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">size</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">size</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.ssh_url" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">ssh_url</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">ssh_url</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.stars_count" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">stars_count</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">stars_count</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.template" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">template</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">template</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.topics" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">topics</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">topics</span><span class="p">:</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.updated_at" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">updated_at</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">updated_at</span><span class="p">:</span> <span class="n"><span title="datetime.datetime">datetime</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.url" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">url</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">url</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.watchers_count" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">watchers_count</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">watchers_count</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.website" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">website</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">website</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.wiki_branch" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">wiki_branch</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">wiki_branch</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.wiki_clone_url" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">wiki_clone_url</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">wiki_clone_url</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.Repository.wiki_ssh_url" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">wiki_ssh_url</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">wiki_ssh_url</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="pyfj._generated.models.repository.RepositoryObjectFormatName" class="doc doc-heading">
+            <span class="doc doc-object-name doc-class-name">RepositoryObjectFormatName</span>
+
+
+</h2>
+
+
+    <div class="doc doc-contents first">
+
+
+
+        <p>ObjectFormatName of the underlying git repository</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.RepositoryObjectFormatName.SHA1" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">SHA1</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">SHA1</span> <span class="o">=</span> <span class="s1">'sha1'</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="pyfj._generated.models.repository.RepositoryObjectFormatName.SHA256" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">SHA256</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">SHA256</span> <span class="o">=</span> <span class="s1">'sha256'</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div><h2 id="used-by">Used by</h2>
+<table>
+<thead>
+<tr>
+<th>Namespace</th>
+<th>Operations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../../namespaces/admin/users/"><code>admin.users</code></a></td>
+<td><a href="../../namespaces/admin/users/#pyfj._generated.api.admin.AdminUsers.create_repo"><code>create_repo</code></a></td>
+</tr>
+<tr>
+<td><a href="../../namespaces/misc/org/"><code>misc.org</code></a></td>
+<td><a href="../../namespaces/misc/org/#pyfj._generated.api.misc.MiscOrg.create_repo"><code>create_repo</code></a></td>
+</tr>
+<tr>
+<td><a href="../../namespaces/misc/repositories/"><code>misc.repositories</code></a></td>
+<td><a href="../../namespaces/misc/repositories/#pyfj._generated.api.misc.MiscRepositories.get"><code>get</code></a></td>
+</tr>
+<tr>
+<td><a href="../../namespaces/orgs/repos/"><code>orgs.repos</code></a></td>
+<td><a href="../../namespaces/orgs/repos/#pyfj._generated.api.orgs.OrgsRepos.create"><code>create</code></a> · <a href="../../namespaces/orgs/repos/#pyfj._generated.api.orgs.OrgsRepos.list"><code>list</code></a></td>
+</tr>
+<tr>
+<td><a href="../../namespaces/repos/"><code>repos</code></a></td>
+<td><a href="../../namespaces/repos/#pyfj._generated.api.repos.Repos.accept_transfer"><code>accept_transfer</code></a> · <a href="../../namespaces/repos/#pyfj._generated.api.repos.Repos.convert"><code>convert</code></a> · <a href="../../namespaces/repos/#pyfj._generated.api.repos.Repos.generate"><code>generate</code></a> · <a href="../../namespaces/repos/#pyfj._generated.api.repos.Repos.get"><code>get</code></a> · <a href="../../namespaces/repos/#pyfj._generated.api.repos.Repos.migrate"><code>migrate</code></a> · <a href="../../namespaces/repos/#pyfj._generated.api.repos.Repos.reject_transfer"><code>reject_transfer</code></a> · <a href="../../namespaces/repos/#pyfj._generated.api.repos.Repos.transfer"><code>transfer</code></a> · <a href="../../namespaces/repos/#pyfj._generated.api.repos.Repos.update"><code>update</code></a></td>
+</tr>
+<tr>
+<td><a href="../../namespaces/repos/forks/"><code>repos.forks</code></a></td>
+<td><a href="../../namespaces/repos/forks/#pyfj._generated.api.repos.ReposForks.create"><code>create</code></a> · <a href="../../namespaces/repos/forks/#pyfj._generated.api.repos.ReposForks.list"><code>list</code></a></td>
+</tr>
+<tr>
+<td><a href="../../namespaces/teams/repos/"><code>teams.repos</code></a></td>
+<td><a href="../../namespaces/teams/repos/#pyfj._generated.api.teams.TeamsRepos.get"><code>get</code></a> · <a href="../../namespaces/teams/repos/#pyfj._generated.api.teams.TeamsRepos.list"><code>list</code></a></td>
+</tr>
+<tr>
+<td><a href="../../namespaces/user/"><code>user</code></a></td>
+<td><a href="../../namespaces/user/#pyfj._generated.api.user.User.subscriptions"><code>subscriptions</code></a></td>
+</tr>
+<tr>
+<td><a href="../../namespaces/user/repos/"><code>user.repos</code></a></td>
+<td><a href="../../namespaces/user/repos/#pyfj._generated.api.user.UserRepos.create"><code>create</code></a> · <a href="../../namespaces/user/repos/#pyfj._generated.api.user.UserRepos.list"><code>list</code></a></td>
+</tr>
+<tr>
+<td><a href="../../namespaces/user/starred/"><code>user.starred</code></a></td>
+<td><a href="../../namespaces/user/starred/#pyfj._generated.api.user.UserStarred.list"><code>list</code></a></td>
+</tr>
+<tr>
+<td><a href="../../namespaces/users/"><code>users</code></a></td>
+<td><a href="../../namespaces/users/#pyfj._generated.api.users.Users.repos"><code>repos</code></a> · <a href="../../namespaces/users/#pyfj._generated.api.users.Users.starred"><code>starred</code></a> · <a href="../../namespaces/users/#pyfj._generated.api.users.Users.subscriptions"><code>subscriptions</code></a></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Erdem Halil — MIT License
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../../..","features":["content.action.view","content.code.copy","content.tabs.link","navigation.footer","navigation.indexes","navigation.instant","navigation.path","navigation.prune","navigation.top","navigation.tracking","search.highlight","toc.follow"],"redirect":null,"search":"../../../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":{"provider":"mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.8dcc8e9c.min.js"></script>
+      
+    
+  </body>
+</html>
