@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-import httpx
+import httpx2
 import pytest
 from harness import ADMIN_PASSWORD, ADMIN_USERNAME, USER_USERNAME
 
@@ -66,13 +66,13 @@ def test_token_and_basic_auth_are_mutually_exclusive(server: ForgejoServer) -> N
         pyfj.Forgejo(server.base_url, token=server.admin_token, auth=(ADMIN_USERNAME, ADMIN_PASSWORD))
 
 
-def test_injected_httpx_client_rejects_transport_arguments(server: ForgejoServer) -> None:
-    with httpx.Client() as injected, pytest.raises(TypeError, match="injected httpx client"):
+def test_injected_httpx2_client_rejects_transport_arguments(server: ForgejoServer) -> None:
+    with httpx2.Client() as injected, pytest.raises(TypeError, match="injected httpx2 client"):
         pyfj.Forgejo(server.base_url, client=injected, timeout=5.0)
 
 
-def test_injected_httpx_client_is_used(server: ForgejoServer) -> None:
-    with httpx.Client() as injected:
+def test_injected_httpx2_client_is_used(server: ForgejoServer) -> None:
+    with httpx2.Client() as injected:
         client = pyfj.Forgejo(server.base_url, token=server.admin_token, client=injected)
         try:
             assert client.user.get().login == ADMIN_USERNAME

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-import httpx
+import httpx2
 import pytest
 from _helpers import Handler, Issue, async_client, sync_client
 
@@ -18,17 +18,17 @@ def paginated_server(
     *,
     page_size: int,
     send_total_count: bool = True,
-) -> tuple[list[httpx.Request], Handler]:
+) -> tuple[list[httpx2.Request], Handler]:
     """Serve ``items`` in fixed-size pages; page 1 is ``page=1``."""
-    seen: list[httpx.Request] = []
+    seen: list[httpx2.Request] = []
 
-    def handler(request: httpx.Request) -> httpx.Response:
+    def handler(request: httpx2.Request) -> httpx2.Response:
         seen.append(request)
         page = int(request.url.params.get("page", "1"))
         start = (page - 1) * page_size
         window = items[start : start + page_size]
         headers = {"X-Total-Count": str(len(items))} if send_total_count else None
-        return httpx.Response(200, json=window, headers=headers, request=request)
+        return httpx2.Response(200, json=window, headers=headers, request=request)
 
     return seen, handler
 
@@ -58,9 +58,9 @@ def test_total_count_is_none_without_header() -> None:
 
 
 def test_total_count_is_none_when_header_is_malformed() -> None:
-    def handler(request: httpx.Request) -> httpx.Response:
+    def handler(request: httpx2.Request) -> httpx2.Response:
         headers = {"X-Total-Count": "many"}
-        return httpx.Response(200, json=_items(2), headers=headers, request=request)
+        return httpx2.Response(200, json=_items(2), headers=headers, request=request)
 
     with sync_client(handler) as client:
         paginated = client._paginate("GET", "/issues", model=Issue)
@@ -117,16 +117,16 @@ def test_iteration_stops_on_an_empty_page_despite_a_server_side_cap() -> None:
 
 
 def test_first_page_error_surfaces_at_call_time() -> None:
-    def handler(request: httpx.Request) -> httpx.Response:
-        return httpx.Response(404, json={"message": "no issues"}, request=request)
+    def handler(request: httpx2.Request) -> httpx2.Response:
+        return httpx2.Response(404, json={"message": "no issues"}, request=request)
 
     with sync_client(handler) as client, pytest.raises(NotFoundError):
         client._paginate("GET", "/issues", model=Issue)
 
 
 def test_invalid_page_payload_raises_decode_error() -> None:
-    def handler(request: httpx.Request) -> httpx.Response:
-        return httpx.Response(200, json={"not": "a list"}, request=request)
+    def handler(request: httpx2.Request) -> httpx2.Response:
+        return httpx2.Response(200, json={"not": "a list"}, request=request)
 
     with sync_client(handler) as client, pytest.raises(DecodeError):
         client._paginate("GET", "/issues", model=Issue)

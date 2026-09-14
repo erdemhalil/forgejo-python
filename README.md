@@ -29,7 +29,7 @@ with Forgejo("https://codeberg.org", token="...") as client:
 
 - **Complete**: every operation in the Forgejo 16 API is callable, generated from a vendored spec.
 - **Typed**: pydantic v2 models for every schema, annotations everywhere, `py.typed`.
-- **Dual**: `Forgejo` (sync) and `AsyncForgejo` (async) over httpx, identical surfaces.
+- **Dual**: `Forgejo` (sync) and `AsyncForgejo` (async) over httpx2, identical surfaces.
 - **Ergonomic**: resource namespaces (`client.repos.issues.create(...)`), keyword arguments, lazy `Paginated[T]` lists, typed exceptions.
 - **Reproducible**: the generated surface is committed and CI fails on drift from the spec.
 - **Tested against a real forge**: unit tests plus integration tests against a Forgejo container.

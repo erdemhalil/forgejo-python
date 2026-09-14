@@ -3,7 +3,7 @@
 Every error raised by pyfj derives from :class:`ForgejoError`::
 
     ForgejoError
-    ├── TransportError            network/timeout; wraps httpx.TransportError
+    ├── TransportError            network/timeout; wraps httpx2.TransportError
     ├── DecodeError               response did not match the Spec
     └── APIError                  any non-2xx; carries status_code, body, response
         ├── BadRequestError           400
@@ -21,7 +21,7 @@ Every error raised by pyfj derives from :class:`ForgejoError`::
 
 ``APIError.body`` holds the JSON-decoded body when the response could be
 parsed, and ``response.text`` otherwise. ``APIError.response`` is always the
-raw :class:`httpx.Response`, so callers can inspect headers or stream content.
+raw :class:`httpx2.Response`, so callers can inspect headers or stream content.
 """
 
 from __future__ import annotations
@@ -29,7 +29,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    import httpx
+    import httpx2
 
 __all__ = [
     "APIError",
@@ -58,7 +58,7 @@ class ForgejoError(Exception):
 class TransportError(ForgejoError):
     """The request produced no HTTP response: connection failure or timeout.
 
-    Wraps the underlying :class:`httpx.TransportError` (available as
+    Wraps the underlying :class:`httpx2.TransportError` (available as
     :attr:`cause`, and chained via ``raise ... from``).
     """
 
@@ -77,14 +77,14 @@ class DecodeError(ForgejoError):
     the documented JSON shape.
     """
 
-    def __init__(self, response: httpx.Response, reason: str) -> None:
+    def __init__(self, response: httpx2.Response, reason: str) -> None:
         request = response.request
         super().__init__(f"cannot decode {request.method} {request.url}: {reason}")
         self.response = response
         self.reason = reason
 
 
-def _parse_body(response: httpx.Response) -> object:
+def _parse_body(response: httpx2.Response) -> object:
     """Return the JSON-decoded body when possible, else the response text."""
     try:
         return response.json()
@@ -109,10 +109,10 @@ class APIError(ForgejoError):
     Attributes:
         status_code: the HTTP status code.
         body: the JSON-decoded body when possible, otherwise the response text.
-        response: the raw :class:`httpx.Response`.
+        response: the raw :class:`httpx2.Response`.
     """
 
-    def __init__(self, response: httpx.Response) -> None:
+    def __init__(self, response: httpx2.Response) -> None:
         self.response = response
         self.status_code = response.status_code
         self.body = _parse_body(response)
@@ -184,7 +184,7 @@ _SERVER_ERROR_MIN = 500
 _SERVER_ERROR_MAX = 600
 
 
-def api_error(response: httpx.Response) -> APIError:
+def api_error(response: httpx2.Response) -> APIError:
     """Build the mapped exception for a non-2xx response.
 
     Unmapped 4xx, 3xx, and informational statuses map to :class:`APIError`;

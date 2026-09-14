@@ -4,12 +4,12 @@ from __future__ import annotations
 
 from collections.abc import Callable
 
-import httpx
+import httpx2
 from pydantic import BaseModel
 
 from pyfj._runtime import AsyncForgejo, Forgejo
 
-Handler = Callable[[httpx.Request], httpx.Response]
+Handler = Callable[[httpx2.Request], httpx2.Response]
 
 
 class Issue(BaseModel):
@@ -19,13 +19,13 @@ class Issue(BaseModel):
     title: str
 
 
-def record_requests() -> tuple[list[httpx.Request], Handler]:
+def record_requests() -> tuple[list[httpx2.Request], Handler]:
     """A handler that records each request and answers ``200`` with no body."""
-    seen: list[httpx.Request] = []
+    seen: list[httpx2.Request] = []
 
-    def handler(request: httpx.Request) -> httpx.Response:
+    def handler(request: httpx2.Request) -> httpx2.Response:
         seen.append(request)
-        return httpx.Response(200, request=request)
+        return httpx2.Response(200, request=request)
 
     return seen, handler
 
@@ -45,7 +45,7 @@ def sync_client(
         auth=auth,
         otp=otp,
         sudo=sudo,
-        client=httpx.Client(transport=httpx.MockTransport(handler)),
+        client=httpx2.Client(transport=httpx2.MockTransport(handler)),
     )
 
 
@@ -64,5 +64,5 @@ def async_client(
         auth=auth,
         otp=otp,
         sudo=sudo,
-        client=httpx.AsyncClient(transport=httpx.MockTransport(handler)),
+        client=httpx2.AsyncClient(transport=httpx2.MockTransport(handler)),
     )

@@ -7,7 +7,7 @@ authors = [{ name = "Erdem Halil", email = "erdem-2001@windowslive.com" }]
 requires-python = ">=3.11"
 license = "MIT"
 license-files = ["LICENSE"]
-dependencies = ["httpx>=0.28.1", "pydantic>=2.7"]
+dependencies = ["httpx2>=2.0", "pydantic>=2.7"]
 keywords = ["forgejo", "forgejo-api", "api-client", "async", "gitea"]
 classifiers = [
     "Development Status :: 4 - Beta",

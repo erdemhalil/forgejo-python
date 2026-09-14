@@ -42,4 +42,4 @@ with Forgejo("https://codeberg.org", token="...", otp="123456") as client:
 
 ## Where credentials live
 
-Credentials are resolved once at construction and composed into the headers of each request. A client built with `client=` (an injected `httpx.Client`) still uses pyfj's credentials rather than letting the injected client's own auth flow run. The [clients reference](../reference/clients.md) documents the full constructor.
+Credentials are resolved once at construction and composed into the headers of each request. A client built with `client=` (an injected `httpx2.Client`) still uses pyfj's credentials rather than letting the injected client's own auth flow run. The [clients reference](../reference/clients.md) documents the full constructor.

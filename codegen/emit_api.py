@@ -8,7 +8,7 @@ formatted with the repository's configuration.
 Generated modules import only from ``pyfj._runtime``,
 ``pyfj._generated.models``, and the standard library. Namespace methods call
 the frozen ``_request`` / ``_paginate`` hooks and ``decode``; they never touch
-httpx directly. Response shapes outside ``decode``'s overloads (booleans,
+httpx2 directly. Response shapes outside ``decode``'s overloads (booleans,
 string lists, maps) are parsed with an inline JSON step that raises
 :class:`~pyfj._runtime.DecodeError` on failure.
 """

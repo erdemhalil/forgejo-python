@@ -9,10 +9,10 @@ import pytest
 from _helpers import async_client, record_requests, sync_client
 
 if TYPE_CHECKING:
-    import httpx
+    import httpx2
 
 
-def _sudo_headers(requests: list[httpx.Request]) -> list[str | None]:
+def _sudo_headers(requests: list[httpx2.Request]) -> list[str | None]:
     return [request.headers.get("Sudo") for request in requests]
 
 

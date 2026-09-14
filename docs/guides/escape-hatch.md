@@ -4,11 +4,11 @@ description: Reach endpoints newer than the vendored Spec with raw client.reques
 
 # Escape hatch
 
-The generated surface tracks the vendored Forgejo 16 Spec. When an endpoint is newer than the Spec — or you need the raw response for another reason — `client.request(...)` sends it and hands you the `httpx.Response`.
+The generated surface tracks the vendored Forgejo 16 Spec. When an endpoint is newer than the Spec — or you need the raw response for another reason — `client.request(...)` sends it and hands you the `httpx2.Response`.
 
 ## Raw requests
 
-`request(method, path, *, params=None, json=None, data=None, files=None, headers=None)` applies pyfj's session headers (credentials, `User-Agent`, and `Sudo`) and drops `None`-valued query parameters, but performs no status mapping and no decoding. Transport failures propagate as httpx exceptions:
+`request(method, path, *, params=None, json=None, data=None, files=None, headers=None)` applies pyfj's session headers (credentials, `User-Agent`, and `Sudo`) and drops `None`-valued query parameters, but performs no status mapping and no decoding. Transport failures propagate as httpx2 exceptions:
 
 ```python
 response = client.request("GET", "/repos/forgejo/forgejo/actions/tasks")
@@ -17,7 +17,7 @@ print(response.status_code)
 tasks = response.json()
 ```
 
-A leading slash is optional. Use `response.raise_for_status()` for httpx's own error handling; pyfj's [typed errors](errors.md) do not apply here.
+A leading slash is optional. Use `response.raise_for_status()` for httpx2's own error handling; pyfj's [typed errors](errors.md) do not apply here.
 
 ## Bodies and async
 

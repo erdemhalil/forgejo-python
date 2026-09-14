@@ -2,14 +2,14 @@
 
 from __future__ import annotations
 
-import httpx
+import httpx2
 import pytest
 from _helpers import Issue
 from pydantic import ValidationError
 
 from pyfj._runtime import DecodeError, decode
 
-_REQUEST = httpx.Request("GET", "https://forgejo.test/api/v1/repos/alice/demo")
+_REQUEST = httpx2.Request("GET", "https://forgejo.test/api/v1/repos/alice/demo")
 
 
 def _response(
@@ -19,11 +19,11 @@ def _response(
     text: str | None = None,
     content: bytes | None = None,
     content_type: str | None = None,
-) -> httpx.Response:
+) -> httpx2.Response:
     headers = {"Content-Type": content_type} if content_type is not None else None
     if content is not None:
-        return httpx.Response(status, content=content, headers=headers, request=_REQUEST)
-    return httpx.Response(status, json=json, text=text, headers=headers, request=_REQUEST)
+        return httpx2.Response(status, content=content, headers=headers, request=_REQUEST)
+    return httpx2.Response(status, json=json, text=text, headers=headers, request=_REQUEST)
 
 
 def test_model_round_trip() -> None:
@@ -63,7 +63,7 @@ def test_bytes_decodes_to_bytes() -> None:
 
 
 def test_invalid_json_raises_decode_error_with_cause() -> None:
-    response = httpx.Response(200, content=b"not json", request=_REQUEST)
+    response = httpx2.Response(200, content=b"not json", request=_REQUEST)
     with pytest.raises(DecodeError) as caught:
         decode(response, Issue)
     assert isinstance(caught.value.__cause__, ValueError)
@@ -149,7 +149,7 @@ def test_scalar_dict_int_rejects_json_boolean_value() -> None:
 
 
 def test_decode_error_message_names_request() -> None:
-    response = httpx.Response(200, content=b"nope", request=_REQUEST)
+    response = httpx2.Response(200, content=b"nope", request=_REQUEST)
     with pytest.raises(DecodeError) as caught:
         decode(response, Issue)
     assert "GET" in str(caught.value)

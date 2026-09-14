@@ -139,9 +139,10 @@ def test_docstring_entry_continuations_are_indented_below_the_entry(repo_root: P
     assert checked > 0
 
 
-def test_generated_api_never_imports_httpx(repo_root: Path) -> None:
+def test_generated_api_never_imports_httpx2(repo_root: Path) -> None:
     for path in _api_dir(repo_root).glob("*.py"):
         text = path.read_text(encoding="utf-8")
+        assert "import httpx2" not in text
         assert "import httpx" not in text
 
 

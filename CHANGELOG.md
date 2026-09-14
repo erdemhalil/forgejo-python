@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- **Breaking:** HTTP transport moved from `httpx` to `httpx2`. Requires `httpx2 2.0+`. Injected clients, raw `request(...)` responses, and `APIError.response` / `decode(...)` inputs are now `httpx2` types; rebuild injected `httpx.Client` / `AsyncClient` objects as `httpx2.Client` / `httpx2.AsyncClient` and update `except httpx.*` clauses. TLS verification now uses the OS trust store via `truststore` (`SSL_CERT_FILE`/`SSL_CERT_DIR` honored; `verify=` still explicit); network loggers are `httpx2` and `httpcore2.*`.
+
 ## [0.1.0] - 2026-09-14
 
 Initial release. Requires Python 3.11+, pydantic 2.7+, and httpx 0.28.1+.

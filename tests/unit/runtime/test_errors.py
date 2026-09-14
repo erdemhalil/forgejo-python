@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-import httpx
+import httpx2
 import pytest
 
 from pyfj._runtime import (
@@ -24,11 +24,11 @@ from pyfj._runtime import (
     api_error,
 )
 
-_REQUEST = httpx.Request("GET", "https://forgejo.test/api/v1/repos/alice/demo")
+_REQUEST = httpx2.Request("GET", "https://forgejo.test/api/v1/repos/alice/demo")
 
 
-def _response(status: int, *, json: object | None = None, text: str | None = None) -> httpx.Response:
-    return httpx.Response(status, json=json, text=text, request=_REQUEST)
+def _response(status: int, *, json: object | None = None, text: str | None = None) -> httpx2.Response:
+    return httpx2.Response(status, json=json, text=text, request=_REQUEST)
 
 
 @pytest.mark.parametrize(
@@ -116,17 +116,17 @@ def test_hierarchy() -> None:
         assert issubclass(subclass, APIError)
 
 
-def test_transport_error_wraps_httpx_error() -> None:
-    def handler(request: httpx.Request) -> httpx.Response:
+def test_transport_error_wraps_httpx2_error() -> None:
+    def handler(request: httpx2.Request) -> httpx2.Response:
         message = "connection refused"
-        raise httpx.ConnectError(message, request=request)
+        raise httpx2.ConnectError(message, request=request)
 
-    transport = httpx.MockTransport(handler)
-    http_client = httpx.Client(transport=transport)
+    transport = httpx2.MockTransport(handler)
+    http_client = httpx2.Client(transport=transport)
     with Forgejo("https://forgejo.test", client=http_client) as client, pytest.raises(TransportError) as caught:
         client._request("GET", "/version")
     error = caught.value
-    assert isinstance(error.cause, httpx.ConnectError)
+    assert isinstance(error.cause, httpx2.ConnectError)
     assert error.method == "GET"
     assert error.url == "https://forgejo.test/api/v1/version"
     assert error.__cause__ is error.cause
