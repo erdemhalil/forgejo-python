@@ -1190,7 +1190,7 @@
 <ul>
 <li>Every Operation in the Spec is callable and documented.</li>
 <li>Fully typed: pydantic v2 models for every schema, annotations everywhere, <code>py.typed</code>.</li>
-<li><code>Forgejo</code> and <code>AsyncForgejo</code> expose identical surfaces over httpx.</li>
+<li><code>Forgejo</code> and <code>AsyncForgejo</code> expose identical surfaces over httpx2.</li>
 <li>Ergonomic: resource namespaces, keyword arguments, lazy pagination, typed exceptions.</li>
 <li>Reproducible: the generated surface is committed; CI verifies it matches the Spec.</li>
 <li>Honest: every Operation is either generated or excluded with a documented reason.</li>
@@ -1198,15 +1198,15 @@
 <h2 id="non-goals-v1">Non-goals (v1)</h2>
 <ul>
 <li>OAuth2 authorization flows (token and basic auth only; the raw OAuth2 endpoints remain callable as Operations).</li>
-<li>Automatic retries or rate limiting (inject an httpx client for transport-level control).</li>
+<li>Automatic retries or rate limiting (inject an httpx2 client for transport-level control).</li>
 <li>Gitea-specific compatibility work (the API lineage is shared; differences are documented, not catered to).</li>
 <li>More than one supported Forgejo major at a time.</li>
 </ul>
 <h2 id="public-surface">Public surface</h2>
 <h3 id="clients">Clients</h3>
-<p><code>Forgejo</code> and <code>AsyncForgejo</code> are the entry points: context managers (<code>with</code> / <code>async with</code>, plus <code>close()</code> / <code>aclose()</code>) over httpx, with identical constructor arguments and methods. The constructor takes the instance root — <code>https://codeberg.org</code>, or a subpath mount such as <code>https://host/forgejo</code>; a URL that already ends in <code>/api/v1</code> is accepted and normalised, and invalid URLs raise immediately.</p>
+<p><code>Forgejo</code> and <code>AsyncForgejo</code> are the entry points: context managers (<code>with</code> / <code>async with</code>, plus <code>close()</code> / <code>aclose()</code>) over httpx2, with identical constructor arguments and methods. The constructor takes the instance root — <code>https://codeberg.org</code>, or a subpath mount such as <code>https://host/forgejo</code>; a URL that already ends in <code>/api/v1</code> is accepted and normalised, and invalid URLs raise immediately.</p>
 <p>Credentials are explicit arguments, never environment variables: <code>token=</code> is sent as <code>Authorization: token &lt;value&gt;</code>, <code>auth=(user, pass)</code> enables BasicAuth, and <code>otp=</code> sets <code>X-FORGEJO-OTP</code>; token and BasicAuth are mutually exclusive. Impersonation is client-scoped rather than a per-method argument — <code>sudo=</code> sets the constructor default, <code>client.sudo</code> reads or replaces it for the current context, and <code>client.sudo_as(username)</code> scopes an override to a <code>with</code> / <code>async with</code> block that restores the previous value on exit (nesting-safe). Overrides are context-local, not process-global: each client owns a <code>ContextVar</code>, so sibling asyncio tasks and threads are isolated, and child tasks created with <code>asyncio.create_task</code> inherit the value at creation time.</p>
-<p>Passing <code>client=</code> injects a preconfigured <code>httpx.Client</code> / <code>AsyncClient</code>; transport arguments (<code>timeout</code>, <code>verify</code>, ...) are rejected unless left at their defaults, so the injected client's own configuration applies and is not silently overridden. The generated <a href="../../reference/clients/">client reference</a> carries the full signatures.</p>
+<p>Passing <code>client=</code> injects a preconfigured <code>httpx2.Client</code> / <code>AsyncClient</code>; transport arguments (<code>timeout</code>, <code>verify</code>, ...) are rejected unless left at their defaults, so the injected client's own configuration applies and is not silently overridden. The generated <a href="../../reference/clients/">client reference</a> carries the full signatures.</p>
 <h3 id="namespaces">Namespaces</h3>
 <p>Operations are grouped into resource namespaces derived from the Spec's path structure — not from the Spec's tags, which bundle most of the surface into one.</p>
 <ul>
@@ -1264,7 +1264,7 @@ omitted:</p>
 </ul>
 <h3 id="errors">Errors</h3>
 <div class="highlight"><pre><span></span><code>ForgejoError
-├── TransportError            network/timeout; wraps httpx.TransportError
+├── TransportError            network/timeout; wraps httpx2.TransportError
 ├── DecodeError               response did not match the Spec
 └── APIError                  any non-2xx; carries status_code, body, response
     ├── BadRequestError           400
@@ -1280,7 +1280,7 @@ omitted:</p>
     ├── ServerError               5xx
     └── (other statuses map to APIError itself)
 </code></pre></div>
-<p><code>APIError</code> always carries the raw <code>httpx.Response</code>; <code>body</code> holds parsed JSON when possible, else text. Pydantic validation of user input raises pydantic's <code>ValidationError</code> (not wrapped). The generated <a href="../../reference/runtime/">errors and pagination reference</a> documents every class.</p>
+<p><code>APIError</code> always carries the raw <code>httpx2.Response</code>; <code>body</code> holds parsed JSON when possible, else text. Pydantic validation of user input raises pydantic's <code>ValidationError</code> (not wrapped). The generated <a href="../../reference/runtime/">errors and pagination reference</a> documents every class.</p>
 <h3 id="models">Models</h3>
 <ul>
 <li>pydantic v2, <code>extra="allow"</code> (new server fields do not break parsing), <code>populate_by_name=True</code>.</li>
@@ -1291,7 +1291,7 @@ omitted:</p>
 <li>Every model carries the Spec's description as a docstring; every field carries it as a pydantic <code>Field(description=...)</code> value (visible in <code>model_fields[...].description</code> and JSON Schema).</li>
 </ul>
 <h3 id="escape-hatch">Escape hatch</h3>
-<p><code>client.request(method, path, *, params=None, json=None, data=None, files=None, headers=None) -&gt; httpx.Response</code> returns the raw response without error mapping — for endpoints newer than the vendored Spec.</p>
+<p><code>client.request(method, path, *, params=None, json=None, data=None, files=None, headers=None) -&gt; httpx2.Response</code> returns the raw response without error mapping — for endpoints newer than the vendored Spec.</p>
 <h2 id="runtime">Runtime</h2>
 <h3 id="session-defaults-all-overridable">Session defaults (all overridable)</h3>
 <table>
@@ -1306,12 +1306,12 @@ omitted:</p>
 <tr>
 <td>Timeout</td>
 <td>30s</td>
-<td>httpx's 5s default is too tight for forge operations</td>
+<td>httpx2's 5s default is too tight for forge operations</td>
 </tr>
 <tr>
 <td>Retries</td>
 <td>none</td>
-<td>inject an httpx transport for connection-level retries</td>
+<td>inject an httpx2 transport for connection-level retries</td>
 </tr>
 <tr>
 <td>Redirects</td>
@@ -1320,7 +1320,7 @@ omitted:</p>
 </tr>
 <tr>
 <td>TLS</td>
-<td>verified</td>
+<td>verified via the OS trust store (<code>truststore</code>; <code>SSL_CERT_FILE</code>/<code>SSL_CERT_DIR</code> honored)</td>
 <td>custom CAs via <code>verify=ssl.SSLContext</code> (string paths are deprecated; the injected client remains the escape hatch for full transport control)</td>
 </tr>
 <tr>
@@ -1341,7 +1341,7 @@ omitted:</p>
 </tbody>
 </table>
 <h3 id="runtime-generated-contract">Runtime ↔ generated contract</h3>
-<p>Generated namespace methods never touch httpx. They build parameters and call the Client's request hook, which applies auth and session policy, then maps non-2xx responses to exceptions; decoding goes through a shared helper. The exact hook signatures are frozen in the module docstring of <code>src/pyfj/_runtime/client.py</code>; generated code binds to them.</p>
+<p>Generated namespace methods never touch httpx2. They build parameters and call the Client's request hook, which applies auth and session policy, then maps non-2xx responses to exceptions; decoding goes through a shared helper. The exact hook signatures are frozen in the module docstring of <code>src/pyfj/_runtime/client.py</code>; generated code binds to them.</p>
 <p>Sketch (the module docstring carries the full contract, including the namespace-binding contract):</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># sync</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span><span class="s2">"GET"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"/repos/</span><span class="si">{</span><span class="n">owner</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">repo</span><span class="si">}</span><span class="s2">/issues"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">query</span><span class="p">)</span>
@@ -1372,8 +1372,8 @@ omitted:</p>
 <td>latest is 2.13; generated code avoids APIs newer than 2.7</td>
 </tr>
 <tr>
-<td>httpx</td>
-<td>0.28.1</td>
+<td>httpx2</td>
+<td>2.0</td>
 <td>current stable line; older releases are out of support scope</td>
 </tr>
 </tbody>

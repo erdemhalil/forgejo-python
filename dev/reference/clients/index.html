@@ -1199,7 +1199,7 @@
     <span class="n">auth</span><span class="p">:</span> <span class="n"><span title="tuple">tuple</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n"><span title="str">str</span></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">otp</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">sudo</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">timeout</span><span class="p">:</span> <span class="n"><span title="float">float</span></span> <span class="o">|</span> <span class="n"><span title="httpx.Timeout">Timeout</span></span> <span class="o">=</span> <span class="n"><span title="pyfj._runtime.client._DEFAULT_TIMEOUT">_DEFAULT_TIMEOUT</span></span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="n"><span title="float">float</span></span> <span class="o">|</span> <span class="n"><span title="httpx2.Timeout">Timeout</span></span> <span class="o">=</span> <span class="n"><span title="pyfj._runtime.client._DEFAULT_TIMEOUT">_DEFAULT_TIMEOUT</span></span><span class="p">,</span>
     <span class="n">follow_redirects</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">=</span> <span class="n"><span title="pyfj._runtime.client._DEFAULT_FOLLOW_REDIRECTS">_DEFAULT_FOLLOW_REDIRECTS</span></span><span class="p">,</span>
     <span class="n">verify</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">|</span> <span class="n"><span title="ssl.SSLContext">SSLContext</span></span> <span class="o">=</span> <span class="n"><span title="pyfj._runtime.client._DEFAULT_VERIFY">_DEFAULT_VERIFY</span></span><span class="p">,</span>
     <span class="n">client</span><span class="p">:</span> <span class="n"><span title="pyfj._runtime.client._ClientT">_ClientT</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1277,7 +1277,7 @@ and threads are unaffected, and child tasks created with
     <span class="n">data</span><span class="p">:</span> <span class="n"><span title="collections.abc.Mapping">Mapping</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n"><span title="object">object</span></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">files</span><span class="p">:</span> <span class="n"><span title="collections.abc.Mapping">Mapping</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n"><span title="object">object</span></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">headers</span><span class="p">:</span> <span class="n"><span title="collections.abc.Mapping">Mapping</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n"><span title="str">str</span></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="httpx.Response">Response</span></span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="httpx2.Response">Response</span></span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -1305,7 +1305,7 @@ happens.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Close the underlying httpx client (also when it was injected).</p>
+        <p>Close the underlying httpx2 client (also when it was injected).</p>
 
 
     </div>
@@ -1362,7 +1362,7 @@ performs no I/O; the override is context-local (see :attr:<code>sudo</code>).</p
     <span class="n">auth</span><span class="p">:</span> <span class="n"><span title="tuple">tuple</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n"><span title="str">str</span></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">otp</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">sudo</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">timeout</span><span class="p">:</span> <span class="n"><span title="float">float</span></span> <span class="o">|</span> <span class="n"><span title="httpx.Timeout">Timeout</span></span> <span class="o">=</span> <span class="n"><span title="pyfj._runtime.client._DEFAULT_TIMEOUT">_DEFAULT_TIMEOUT</span></span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="n"><span title="float">float</span></span> <span class="o">|</span> <span class="n"><span title="httpx2.Timeout">Timeout</span></span> <span class="o">=</span> <span class="n"><span title="pyfj._runtime.client._DEFAULT_TIMEOUT">_DEFAULT_TIMEOUT</span></span><span class="p">,</span>
     <span class="n">follow_redirects</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">=</span> <span class="n"><span title="pyfj._runtime.client._DEFAULT_FOLLOW_REDIRECTS">_DEFAULT_FOLLOW_REDIRECTS</span></span><span class="p">,</span>
     <span class="n">verify</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">|</span> <span class="n"><span title="ssl.SSLContext">SSLContext</span></span> <span class="o">=</span> <span class="n"><span title="pyfj._runtime.client._DEFAULT_VERIFY">_DEFAULT_VERIFY</span></span><span class="p">,</span>
     <span class="n">client</span><span class="p">:</span> <span class="n"><span title="pyfj._runtime.client._ClientT">_ClientT</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1440,7 +1440,7 @@ and threads are unaffected, and child tasks created with
     <span class="n">data</span><span class="p">:</span> <span class="n"><span title="collections.abc.Mapping">Mapping</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n"><span title="object">object</span></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">files</span><span class="p">:</span> <span class="n"><span title="collections.abc.Mapping">Mapping</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n"><span title="object">object</span></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">headers</span><span class="p">:</span> <span class="n"><span title="collections.abc.Mapping">Mapping</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n"><span title="str">str</span></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="httpx.Response">Response</span></span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="httpx2.Response">Response</span></span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -1468,7 +1468,7 @@ happens.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Close the underlying httpx client (also when it was injected).</p>
+        <p>Close the underlying httpx2 client (also when it was injected).</p>
 
 
     </div>

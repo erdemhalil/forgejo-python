@@ -1655,7 +1655,7 @@
 <h1 id="errors-and-pagination">Errors and pagination</h1>
 <p>Non-2xx responses raise a typed exception; list operations return a lazy pagination wrapper.</p>
 <h2 id="errors">Errors</h2>
-<p>All exceptions descend from <code>ForgejoError</code>. <code>APIError</code> carries <code>status_code</code>, <code>body</code>, and the raw <code>httpx.Response</code>; transport failures raise <code>TransportError</code>, and responses that do not match the Spec raise <code>DecodeError</code>.</p>
+<p>All exceptions descend from <code>ForgejoError</code>. <code>APIError</code> carries <code>status_code</code>, <code>body</code>, and the raw <code>httpx2.Response</code>; transport failures raise <code>TransportError</code>, and responses that do not match the Spec raise <code>DecodeError</code>.</p>
 
 
 <div class="doc doc-object doc-class">
@@ -1741,7 +1741,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>the raw :class:<code>httpx.Response</code>.</p>
+                <p>the raw :class:<code>httpx2.Response</code>.</p>
               </div>
             </td>
           </tr>
@@ -1847,7 +1847,7 @@
 
 
         <p>The request produced no HTTP response: connection failure or timeout.</p>
-<p>Wraps the underlying :class:<code>httpx.TransportError</code> (available as
+<p>Wraps the underlying :class:<code>httpx2.TransportError</code> (available as
 :attr:<code>cause</code>, and chained via <code>raise ... from</code>).</p>
 
 

@@ -427,6 +427,34 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#unreleased" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        [Unreleased]
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[Unreleased]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Changed
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#010-2026-09-14" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -645,6 +673,34 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#unreleased" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        [Unreleased]
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[Unreleased]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Changed
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#010-2026-09-14" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -707,6 +763,11 @@
 
 
 <h1 id="changelog">Changelog</h1>
+<h2 id="unreleased">[Unreleased]</h2>
+<h3 id="changed">Changed</h3>
+<ul>
+<li><strong>Breaking:</strong> HTTP transport moved from <code>httpx</code> to <code>httpx2</code>. Requires <code>httpx2 2.0+</code>. Injected clients, raw <code>request(...)</code> responses, and <code>APIError.response</code> / <code>decode(...)</code> inputs are now <code>httpx2</code> types; rebuild injected <code>httpx.Client</code> / <code>AsyncClient</code> objects as <code>httpx2.Client</code> / <code>httpx2.AsyncClient</code> and update <code>except httpx.*</code> clauses. TLS verification now uses the OS trust store via <code>truststore</code> (<code>SSL_CERT_FILE</code>/<code>SSL_CERT_DIR</code> honored; <code>verify=</code> still explicit); network loggers are <code>httpx2</code> and <code>httpcore2.*</code>.</li>
+</ul>
 <h2 id="010-2026-09-14"><a href="https://github.com/erdemhalil/forgejo-python/releases/tag/v0.1.0">0.1.0</a> - 2026-09-14</h2>
 <p>Initial release. Requires Python 3.11+, pydantic 2.7+, and httpx 0.28.1+.</p>
 <h3 id="added">Added</h3>

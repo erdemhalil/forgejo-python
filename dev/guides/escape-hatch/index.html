@@ -908,15 +908,15 @@
 
 
 <h1 id="escape-hatch">Escape hatch</h1>
-<p>The generated surface tracks the vendored Forgejo 16 Spec. When an endpoint is newer than the Spec — or you need the raw response for another reason — <code>client.request(...)</code> sends it and hands you the <code>httpx.Response</code>.</p>
+<p>The generated surface tracks the vendored Forgejo 16 Spec. When an endpoint is newer than the Spec — or you need the raw response for another reason — <code>client.request(...)</code> sends it and hands you the <code>httpx2.Response</code>.</p>
 <h2 id="raw-requests">Raw requests</h2>
-<p><code>request(method, path, *, params=None, json=None, data=None, files=None, headers=None)</code> applies pyfj's session headers (credentials, <code>User-Agent</code>, and <code>Sudo</code>) and drops <code>None</code>-valued query parameters, but performs no status mapping and no decoding. Transport failures propagate as httpx exceptions:</p>
+<p><code>request(method, path, *, params=None, json=None, data=None, files=None, headers=None)</code> applies pyfj's session headers (credentials, <code>User-Agent</code>, and <code>Sudo</code>) and drops <code>None</code>-valued query parameters, but performs no status mapping and no decoding. Transport failures propagate as httpx2 exceptions:</p>
 <div class="highlight"><pre><span></span><code><span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">"GET"</span><span class="p">,</span> <span class="s2">"/repos/forgejo/forgejo/actions/tasks"</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
 <span class="n">tasks</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
 </code></pre></div>
-<p>A leading slash is optional. Use <code>response.raise_for_status()</code> for httpx's own error handling; pyfj's <a href="../errors/">typed errors</a> do not apply here.</p>
+<p>A leading slash is optional. Use <code>response.raise_for_status()</code> for httpx2's own error handling; pyfj's <a href="../errors/">typed errors</a> do not apply here.</p>
 <h2 id="bodies-and-async">Bodies and async</h2>
 <p>Send JSON bodies with <code>json=</code>, and form or multipart data with <code>data=</code> and <code>files=</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>

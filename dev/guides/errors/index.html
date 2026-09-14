@@ -908,10 +908,10 @@
 
 
 <h1 id="errors">Errors</h1>
-<p>Every HTTP, transport, or decode failure raises a typed exception descending from <code>ForgejoError</code>. The <a href="../escape-hatch/">escape hatch</a> is the exception to the rule: raw requests report whatever httpx reports.</p>
+<p>Every HTTP, transport, or decode failure raises a typed exception descending from <code>ForgejoError</code>. The <a href="../escape-hatch/">escape hatch</a> is the exception to the rule: raw requests report whatever httpx2 reports.</p>
 <h2 id="http-failures">HTTP failures</h2>
 <p>A non-2xx response raises an <code>APIError</code>. Common statuses have dedicated subclasses — <code>BadRequestError</code> (400), <code>UnauthorizedError</code> (401), <code>ForbiddenError</code> (403), <code>NotFoundError</code> (404), <code>MethodNotAllowedError</code> (405), <code>ConflictError</code> (409), <code>PreconditionFailedError</code> (412), <code>PayloadTooLargeError</code> (413), <code>UnprocessableEntityError</code> (422), and <code>LockedError</code> (423) — while every 5xx raises <code>ServerError</code> and any other status maps to <code>APIError</code> itself.</p>
-<p><code>APIError</code> carries the <code>status_code</code>, the parsed <code>body</code> (JSON when the response parses, otherwise the response text), and the raw <code>httpx.Response</code> as <code>response</code>:</p>
+<p><code>APIError</code> carries the <code>status_code</code>, the parsed <code>body</code> (JSON when the response parses, otherwise the response text), and the raw <code>httpx2.Response</code> as <code>response</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pyfj</span><span class="w"> </span><span class="kn">import</span> <span class="n">NotFoundError</span>
 
 <span class="k">try</span><span class="p">:</span>

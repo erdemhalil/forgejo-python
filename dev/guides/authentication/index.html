@@ -974,7 +974,7 @@
     <span class="n">user</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 </code></pre></div>
 <h2 id="where-credentials-live">Where credentials live</h2>
-<p>Credentials are resolved once at construction and composed into the headers of each request. A client built with <code>client=</code> (an injected <code>httpx.Client</code>) still uses pyfj's credentials rather than letting the injected client's own auth flow run. The <a href="../../reference/clients/">clients reference</a> documents the full constructor.</p>
+<p>Credentials are resolved once at construction and composed into the headers of each request. A client built with <code>client=</code> (an injected <code>httpx2.Client</code>) still uses pyfj's credentials rather than letting the injected client's own auth flow run. The <a href="../../reference/clients/">clients reference</a> documents the full constructor.</p>
 
 
 
