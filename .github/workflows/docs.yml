@@ -1,0 +1,96 @@
+name: Docs
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: docs
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: build
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-slim
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.1.0
+      - run: uv sync --locked --group docs
+      - run: uv run zensical build --strict
+
+  docs-drift:
+    name: docs-drift
+    runs-on: ubuntu-slim
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.1.0
+      - run: uv sync --locked --group docs
+
+      - name: Regenerate the reference pages
+        run: uv run python scripts/gen_docs.py
+
+      - name: Fail on tracked drift
+        run: git diff --exit-code -- docs/reference docs/contributing.md docs/changelog.md
+
+      - name: Fail on untracked generated files
+        run: |
+          untracked="$(git ls-files --others --exclude-standard -- docs/reference docs/contributing.md docs/changelog.md)"
+          if [ -n "$untracked" ]; then
+            echo "gen_docs left untracked files:"
+            echo "$untracked"
+            exit 1
+          fi
+
+  deploy:
+    name: deploy
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-slim
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@v10.1.0
+      - run: uv sync --locked --group docs
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Fetch the versioned docs branch
+        run: git fetch origin gh-pages --depth=1 || true
+
+      - name: Verify the docs build
+        run: uv run zensical build --strict
+
+      - name: Deploy
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ "${GITHUB_REF_TYPE}" == "tag" ]]; then
+            version="${GITHUB_REF_NAME#v}"
+            uv run mike deploy --push --update-aliases "${version%.*}" stable
+            uv run mike set-default --push stable
+          else
+            existed=no
+            if git ls-remote --exit-code origin gh-pages >/dev/null 2>&1; then
+              existed=yes
+            fi
+
+            uv run mike deploy --push --update-aliases dev
+
+            # The first deployment makes dev the default; releases take over.
+            if [[ "${existed}" == "no" ]]; then
+              uv run mike set-default --push dev
+            fi
+          fi

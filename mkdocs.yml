@@ -1,0 +1,81 @@
+site_name: pyfj
+site_url: https://erdemhalil.github.io/forgejo-python/
+site_description: A fully typed Python client for the Forgejo API — async-first, with a complete sync mirror.
+repo_url: https://github.com/erdemhalil/forgejo-python
+repo_name: erdemhalil/forgejo-python
+edit_uri: edit/main/docs/
+
+# Invalid links and anchors fail every build, including local ones.
+strict: true
+
+theme:
+  name: material
+  variant: modern
+  favicon: assets/images/favicon.svg
+  icon:
+    logo: lucide/braces
+  palette:
+    # Automatic (system preference)
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: lucide/sun-moon
+        name: Switch to light mode
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: lucide/sun
+        name: Switch to dark mode
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: lucide/moon
+        name: Switch to system preference
+  features:
+    - content.action.view
+    - content.code.copy
+    - content.tabs.link
+    - navigation.footer
+    - navigation.indexes
+    - navigation.instant
+    - navigation.path
+    - navigation.prune
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - toc.follow
+
+copyright: "Copyright &copy; 2026 Erdem Halil — MIT License"
+
+extra:
+  version:
+    provider: mike
+
+markdown_extensions:
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+plugins:
+  - awesome-nav
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src]
+          options:
+            show_source: false
+            show_bases: false
+            show_root_heading: true
+            show_root_full_path: false
+            show_signature_annotations: true
+            signature_crossrefs: true
+            separate_signature: true
+            line_length: 120
+            show_labels: false
+            # Pydantic fields carry no docstrings; show them anyway and filter the model plumbing.
+            show_if_no_docstring: true
+            filters:
+              - "!^_"
+              - "!^model_config$"
+              - "!^model_computed_fields$"

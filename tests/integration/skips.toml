@@ -1,0 +1,214 @@
+# Operations that the smoke suite does not exercise, each with a reason.
+#
+# The completeness test requires every generated operation to be exercised in
+# `smoke.py`, listed here, or excluded in `codegen/registry.toml`. `kind`
+# separates harness infrastructure gaps from coverage that is still pending:
+#   infrastructure - the harness cannot provide what the operation needs
+#   pending        - exercisable with more harness work; not written yet
+
+[[skips]]
+operation = "ActionRun"
+kind = "infrastructure"
+reason = "Requires a completed Actions workflow run; no Actions runner is registered in the harness."
+
+[[skips]]
+operation = "CancelActionRun"
+kind = "infrastructure"
+reason = "Requires a queued or running Actions workflow run; no Actions runner is registered in the harness."
+
+[[skips]]
+operation = "DeleteActionRun"
+kind = "infrastructure"
+reason = "Requires a completed Actions workflow run; no Actions runner is registered in the harness."
+
+[[skips]]
+operation = "ListActionRunArtifacts"
+kind = "infrastructure"
+reason = "Requires a workflow run that produced artifacts; no Actions runner is registered in the harness."
+
+[[skips]]
+operation = "ListActionRunJobs"
+kind = "infrastructure"
+reason = "Requires a workflow run with jobs; no Actions runner is registered in the harness."
+
+[[skips]]
+operation = "repoGetActionRunLogs"
+kind = "infrastructure"
+reason = "Requires a workflow run with logs; no Actions runner is registered in the harness."
+
+[[skips]]
+operation = "DeleteActionArtifact"
+kind = "infrastructure"
+reason = "Requires an Actions artifact produced by a workflow run; none exists without a runner."
+
+[[skips]]
+operation = "DownloadActionArtifact"
+kind = "infrastructure"
+reason = "Requires an Actions artifact produced by a workflow run; none exists without a runner."
+
+[[skips]]
+operation = "GetActionArtifact"
+kind = "infrastructure"
+reason = "Requires an Actions artifact produced by a workflow run; none exists without a runner."
+
+[[skips]]
+operation = "repoGetActionJobLogs"
+kind = "infrastructure"
+reason = "Requires an Actions job with logs; no Actions runner is registered in the harness."
+
+[[skips]]
+operation = "activitypubInstanceActorInbox"
+kind = "infrastructure"
+reason = "ActivityPub federation endpoint: needs a remote instance delivering activities."
+
+[[skips]]
+operation = "activitypubPersonInbox"
+kind = "infrastructure"
+reason = "ActivityPub federation endpoint: needs a remote instance delivering activities."
+
+[[skips]]
+operation = "activitypubRepositoryInbox"
+kind = "infrastructure"
+reason = "ActivityPub federation endpoint: needs a remote instance delivering activities."
+
+[[skips]]
+operation = "activitypubPersonActivity"
+kind = "infrastructure"
+reason = "Requires an activity object federated from a remote ActivityPub actor."
+
+[[skips]]
+operation = "activitypubPersonActivityNote"
+kind = "infrastructure"
+reason = "Requires a federated activity note from a remote ActivityPub actor."
+
+[[skips]]
+operation = "activitypubInstanceActorOutbox"
+kind = "infrastructure"
+reason = "ActivityPub federation is disabled in the harness; the route also requires HTTP-signature-signed requests."
+
+[[skips]]
+operation = "activitypubPerson"
+kind = "infrastructure"
+reason = "ActivityPub federation is disabled in the harness; the route also requires HTTP-signature-signed requests."
+
+[[skips]]
+operation = "activitypubPersonFeed"
+kind = "infrastructure"
+reason = "ActivityPub federation is disabled in the harness; the route also requires HTTP-signature-signed requests."
+
+[[skips]]
+operation = "activitypubRepository"
+kind = "infrastructure"
+reason = "ActivityPub federation is disabled in the harness; the route also requires HTTP-signature-signed requests."
+
+[[skips]]
+operation = "activitypubRepositoryOutbox"
+kind = "infrastructure"
+reason = "ActivityPub federation is disabled in the harness; the route also requires HTTP-signature-signed requests."
+
+[[skips]]
+operation = "adminAdoptRepository"
+kind = "infrastructure"
+reason = "Requires an unadopted repository directory on disk; the harness only creates repositories through the API."
+
+[[skips]]
+operation = "adminDeleteUnadoptedRepository"
+kind = "infrastructure"
+reason = "Requires an unadopted repository directory on disk; the harness only creates repositories through the API."
+
+[[skips]]
+operation = "getPackage"
+kind = "infrastructure"
+reason = "Requires a published package in the instance registry; the harness publishes none."
+
+[[skips]]
+operation = "deletePackage"
+kind = "infrastructure"
+reason = "Requires a published package in the instance registry; the harness publishes none."
+
+[[skips]]
+operation = "listPackageFiles"
+kind = "infrastructure"
+reason = "Requires a published package in the instance registry; the harness publishes none."
+
+[[skips]]
+operation = "linkPackage"
+kind = "infrastructure"
+reason = "Requires a published package in the instance registry; the harness publishes none."
+
+[[skips]]
+operation = "unlinkPackage"
+kind = "infrastructure"
+reason = "Requires a published package in the instance registry; the harness publishes none."
+
+
+
+
+
+
+
+
+[[skips]]
+operation = "repoTestHook"
+kind = "pending"
+reason = "Delivers a test payload synchronously; needs a reachable webhook receiver in the harness."
+
+[[skips]]
+operation = "userCurrentActivityPubFollow"
+kind = "infrastructure"
+reason = "Requires a remote ActivityPub actor to follow."
+
+[[skips]]
+operation = "userVerifyGPGKey"
+kind = "infrastructure"
+reason = "Requires GPG key material plus a valid proof-of-possession signature; the harness has no GPG keyring."
+
+[[skips]]
+operation = "userCurrentPostGPGKey"
+kind = "infrastructure"
+reason = "Requires an armored GPG key with a valid signature; the harness has no GPG keyring."
+
+[[skips]]
+operation = "userCurrentGetGPGKey"
+kind = "infrastructure"
+reason = "Requires a registered GPG key; the harness registers none."
+
+[[skips]]
+operation = "userCurrentDeleteGPGKey"
+kind = "infrastructure"
+reason = "Requires a registered GPG key; the harness registers none."
+
+[[skips]]
+operation = "acceptRepoTransfer"
+kind = "infrastructure"
+reason = "Forgejo 16 completes user-directed transfers immediately, so no pending transfer exists to accept."
+
+[[skips]]
+operation = "rejectRepoTransfer"
+kind = "infrastructure"
+reason = "Forgejo 16 completes user-directed transfers immediately, so no pending transfer exists to reject."
+
+[[skips]]
+operation = "activitypubInstanceActor"
+kind = "infrastructure"
+reason = "ActivityPub federation is disabled in the harness; the observed @context array-vs-string mismatch is recorded but not re-verified while federation is off."
+
+[[skips]]
+operation = "getNodeInfo"
+kind = "infrastructure"
+reason = "Nodeinfo is served only when ActivityPub federation is enabled; the harness disables it."
+
+[[skips]]
+operation = "repoSearchRunJobs"
+kind = "infrastructure"
+reason = "No Actions runner produces repository jobs; for an empty list Forgejo returns JSON null while the Spec types an array, so decoding raises (pinned by a scenario test)."
+
+[[skips]]
+operation = "userSearchRunJobs"
+kind = "infrastructure"
+reason = "No Actions runner produces user jobs; for an empty list Forgejo returns JSON null while the Spec types an array, so decoding raises (pinned by a scenario test)."
+
+[[skips]]
+operation = "getSSHSigningKey"
+kind = "infrastructure"
+reason = "The container generates no SSH signing key, so /signing-key.ssh is always 404."

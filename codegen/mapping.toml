@@ -1,0 +1,331 @@
+# Curated overrides for the naming algorithm (docs/development/codegen.md).
+#
+# Namespace overrides are keyed by a path prefix ("/user",
+# "/repos/{owner}/{repo}/transfer"):
+#   name = "..."  renames the segment at that prefix
+#   skip = true   drops the segment from namespace paths (action prefixes that
+#                 would otherwise shadow the method)
+# Method overrides are keyed by operationId (stable across Spec refreshes):
+#   name = "..."        replaces the derived method name
+#   deprecated = true   forces the deprecated flag (the Spec flag normally wins)
+# Model overrides are keyed by definition name; build_ir validates them.
+#
+# Every entry exists because the derived name was wrong, ambiguous, or
+# collided; codegen/naming-report.md shows the resulting surface.
+
+# --- Action prefixes flattened into methods ---------------------------------
+
+# POST /repos/{owner}/{repo}/pulls/{index}/merge -> repos.pulls.merge(...)
+[namespaces."/repos/{owner}/{repo}/pulls/{index}/merge"]
+skip = true
+
+[methods.repoMergePullRequest]
+name = "merge"
+
+# POST /repos/{owner}/{repo}/issues/{index}/pin -> repos.issues.pin(...)
+[namespaces."/repos/{owner}/{repo}/issues/{index}/pin"]
+skip = true
+
+[methods.pinIssue]
+name = "pin"
+
+[methods.unpinIssue]
+name = "unpin"
+
+[methods.moveIssuePin]
+name = "move"
+
+# POST /repos/{owner}/{repo}/transfer -> repos.transfer(...)
+[namespaces."/repos/{owner}/{repo}/transfer"]
+skip = true
+
+[methods.repoTransfer]
+name = "transfer"
+
+[methods.acceptRepoTransfer]
+name = "accept_transfer"
+
+[methods.rejectRepoTransfer]
+name = "reject_transfer"
+
+# PUT /orgs/{org}/block/{username} -> orgs.block(org, username)
+[namespaces."/orgs/{org}/block"]
+skip = true
+
+[methods.orgBlockUser]
+name = "block"
+
+[namespaces."/orgs/{org}/unblock"]
+skip = true
+
+[methods.orgUnblockUser]
+name = "unblock"
+
+[namespaces."/user/block"]
+skip = true
+
+[methods.userBlockUser]
+name = "block"
+
+[namespaces."/user/unblock"]
+skip = true
+
+[methods.userUnblockUser]
+name = "unblock"
+
+# POST /packages/{owner}/{type}/{name}/-/link/{repo_name} -> packages.link(...)
+[namespaces."/packages/{owner}/{type}/{name}/-/link"]
+skip = true
+
+# GET /repos/{owner}/{repo}/compare/{basehead} -> repos.compare(basehead)
+[namespaces."/repos/{owner}/{repo}/compare"]
+skip = true
+
+[methods.repoCompareDiff]
+name = "compare"
+
+# --- Collisions: distinct endpoints sharing a derived namespace/method ------
+
+# packages/{owner} lists packages while packages/{owner}/{type}/... gets one.
+[methods.listPackages]
+name = "list"
+
+# The repo-wide comment endpoints and the deprecated issue-scoped ones share
+# repos.issues.comments.
+[methods.issueGetRepoComments]
+name = "list_all"
+
+[methods.issueDeleteCommentDeprecated]
+name = "delete_for_issue"
+
+[methods.issueEditCommentDeprecated]
+name = "update_for_issue"
+
+# Repository contents: the batch endpoint vs. the single-file POST.
+[methods.repoChangeFiles]
+name = "change_files"
+
+# Pull requests: {index}/merge, {index}/update, and {base}/{head} would all
+# collide with the pulls CRUD methods.
+[methods.repoPullRequestIsMerged]
+name = "is_merged"
+
+[methods.repoCancelScheduledAutoMerge]
+name = "cancel_auto_merge"
+
+[methods.repoUpdatePullRequest]
+name = "update_branch"
+
+[methods.repoGetPullRequestByBaseHead]
+name = "get_by_base_head"
+
+# Issue labels/times: delete-all vs. delete-one share the derived name.
+[methods.issueClearLabels]
+name = "clear"
+
+[methods.issueResetTime]
+name = "reset"
+
+# Topics: PUT on the collection replaces, PUT on an item adds.
+[methods.repoAddTopic]
+name = "add"
+
+[methods.repoDeleteTopic]
+name = "remove"
+
+# Flags: PUT on the collection replaces, PUT on an item adds.
+[methods.repoAddFlag]
+name = "add"
+
+[methods.repoDeleteFlag]
+name = "remove"
+
+[methods.repoDeleteAllFlags]
+name = "delete_all"
+
+# Diff/patch downloads live beside the item GET ({sha}.{diffType}).
+[methods.repoDownloadCommitDiffOrPatch]
+name = "download"
+
+[methods.repoDownloadPullDiffOrPatch]
+name = "download"
+
+# Actions.
+[methods.DownloadActionArtifact]
+name = "download"
+
+[methods.DispatchWorkflow]
+name = "dispatch"
+
+[methods.repoApplyDiffPatch]
+name = "apply_diff_patch"
+
+# --- Singleton resources that the resource rule would call "list" -----------
+
+[methods.userGetCurrent]
+name = "get"
+
+[methods.getUserSettings]
+name = "get"
+
+[methods.userCurrentCheckSubscription]
+name = "get"
+
+[methods.adminGetUserQuota]
+name = "get"
+
+[methods.orgGetQuota]
+name = "get"
+
+[methods.userGetQuota]
+name = "get"
+
+[methods.repoGetIssueConfig]
+name = "get"
+
+[methods.repoSyncForkDefaultInfo]
+name = "get"
+
+[methods.repoSyncForkBranchInfo]
+name = "get_branch"
+
+[methods.repoSyncForkBranch]
+name = "sync_branch"
+
+[methods.repoListStatuses]
+name = "list"
+
+# --- Ambiguous action leaves ------------------------------------------------
+
+[methods.adminCreateOrg]
+name = "create_org"
+
+[methods.adminCreateRepo]
+name = "create_repo"
+
+[methods.adminSetUserQuotaGroups]
+name = "set_groups"
+
+[methods.repoUpdateAvatar]
+name = "update"
+
+[methods.orgUpdateAvatar]
+name = "update"
+
+[methods.userUpdateAvatar]
+name = "update"
+
+[methods.repoCreateWikiPage]
+name = "create"
+
+[methods.renderMarkdownRaw]
+name = "render_raw"
+
+[methods.repoTestHook]
+name = "test"
+
+[methods.repoDismissPullReview]
+name = "dismiss"
+
+[methods.repoUnDismissPullReview]
+name = "undismiss"
+
+# Deprecated alias of POST /orgs/{org}/repos; it creates a repository.
+[methods.createOrgRepoDeprecated]
+name = "create_repo"
+
+# GET .../commits/{sha}/pull is a lookup, not the pulls namespace.
+[methods.repoGetCommitPullRequest]
+name = "pull_request"
+
+# GET /notifications/new reports the unread count.
+[methods.notifyNewAvailable]
+name = "new_count"
+
+# Publicize/conceal are membership visibility actions, not generic edits.
+[methods.orgPublicizeMember]
+name = "publicize"
+
+[methods.orgConcealMember]
+name = "conceal"
+
+# ActivityPub: parameter-scoped resources read as `person` / `repository`.
+[namespaces."/activitypub/repository-id"]
+name = "repository"
+
+[namespaces."/activitypub/user-id"]
+name = "person"
+
+[methods.activitypubInstanceActor]
+name = "get"
+
+[methods.activitypubPersonInbox]
+name = "inbox"
+
+[methods.activitypubPersonFeed]
+name = "outbox"
+
+[methods.activitypubRepositoryInbox]
+name = "inbox"
+
+[methods.activitypubRepositoryOutbox]
+name = "outbox"
+
+# --- Membership style PUT/DELETE pairs --------------------------------------
+
+[methods.userCurrentPutFollow]
+name = "add"
+
+[methods.userCurrentDeleteFollow]
+name = "remove"
+
+[methods.userCurrentPutStar]
+name = "add"
+
+[methods.userCurrentDeleteStar]
+name = "remove"
+
+[methods.issueAddSubscription]
+name = "add"
+
+[methods.issueDeleteSubscription]
+name = "remove"
+
+[methods.repoAddCollaborator]
+name = "add"
+
+[methods.repoDeleteCollaborator]
+name = "remove"
+
+[methods.repoAddTeam]
+name = "add"
+
+[methods.repoDeleteTeam]
+name = "remove"
+
+[methods.repoAddPushMirror]
+name = "create"
+
+[methods.orgAddTeamMember]
+name = "add"
+
+[methods.orgRemoveTeamMember]
+name = "remove"
+
+[methods.orgAddTeamRepository]
+name = "add"
+
+[methods.orgRemoveTeamRepository]
+name = "remove"
+
+[methods.adminAddRuleToQuotaGroup]
+name = "add"
+
+[methods.adminRemoveRuleFromQuotaGroup]
+name = "remove"
+
+[methods.adminAddUserToQuotaGroup]
+name = "add"
+
+[methods.adminRemoveUserFromQuotaGroup]
+name = "remove"

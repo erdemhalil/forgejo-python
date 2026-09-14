@@ -1,0 +1,6 @@
+# Naming overrides for tests/unit/codegen/data/mini_spec.json.
+
+# GET /widgets/{id}.{format} collides with GET /widgets/{id} on the derived
+# method name; the synthetic spec is not the real surface, so one override.
+[methods.widgetDownload]
+name = "download"

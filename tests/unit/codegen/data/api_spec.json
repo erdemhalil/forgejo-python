@@ -1,0 +1,341 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API Mini",
+    "version": "1.0.0",
+    "description": "Synthetic Spec exercising the API emitter's quirk table."
+  },
+  "basePath": "/api/v1",
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "security": [{"BasicAuth": []}],
+  "securityDefinitions": {"BasicAuth": {"type": "basic"}},
+  "definitions": {
+    "Thing": {
+      "description": "A thing.",
+      "type": "object",
+      "required": ["id", "name"],
+      "properties": {
+        "id": {"type": "integer", "format": "int64", "description": "Thing id."},
+        "name": {"type": "string", "description": "Thing name."},
+        "created_at": {"type": "string", "format": "date-time", "description": "Creation time."}
+      }
+    },
+    "CreateThingOptions": {
+      "description": "Options for creating a thing.",
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {"type": "string", "description": "Name."},
+        "description": {"type": "string", "description": "Description."},
+        "owner": {"type": "string", "description": "Optional owner; collides with a path parameter."}
+      }
+    },
+    "EditThingOptions": {
+      "description": "Options for editing a thing.",
+      "type": "object",
+      "properties": {
+        "name": {"type": "string", "description": "New name."},
+        "description": {"type": "string", "description": "New description."}
+      }
+    },
+    "CreateOrgOptions": {
+      "description": "Options for creating an organization.",
+      "type": "object",
+      "required": ["username"],
+      "properties": {
+        "username": {"type": "string", "description": "New organization name."},
+        "description": {"type": "string", "description": "Description."}
+      }
+    },
+    "SearchResults": {
+      "description": "A wrapper around search results.",
+      "type": "object",
+      "properties": {
+        "data": {"type": "array", "items": {"$ref": "#/definitions/Thing"}},
+        "total": {"type": "integer", "format": "int64"}
+      }
+    },
+    "ThingList": {
+      "description": "An alias for a list of things.",
+      "type": "array",
+      "items": {"$ref": "#/definitions/Thing"}
+    },
+    "FreeFormThing": {
+      "description": "A fieldless, free-form body.",
+      "type": "object"
+    }
+  },
+  "paths": {
+    "/widgets": {
+      "get": {
+        "operationId": "widgetList",
+        "summary": "List widgets.",
+        "parameters": [
+          {"name": "page", "in": "query", "type": "integer", "format": "int64"},
+          {"name": "limit", "in": "query", "type": "integer", "format": "int64"},
+          {"name": "state", "in": "query", "type": "string", "enum": ["open", "closed"]}
+        ],
+        "responses": {"200": {"description": "A page of things.", "schema": {"type": "array", "items": {"$ref": "#/definitions/Thing"}}}}
+      },
+      "post": {
+        "operationId": "widgetCreate",
+        "summary": "Create a widget.",
+        "parameters": [
+          {"name": "body", "in": "body", "required": true, "schema": {"$ref": "#/definitions/CreateThingOptions"}}
+        ],
+        "responses": {
+          "201": {"description": "Created.", "schema": {"$ref": "#/definitions/Thing"}},
+          "422": {"description": "Validation failed."}
+        }
+      }
+    },
+    "/widgets/fork": {
+      "post": {
+        "operationId": "widgetFork",
+        "summary": "Fork a widget.",
+        "responses": {"202": {"description": "Forked.", "schema": {"$ref": "#/definitions/Thing"}}}
+      }
+    },
+    "/widgets/{id}": {
+      "parameters": [
+        {"name": "id", "in": "path", "required": true, "type": "integer", "format": "int64", "description": "Thing id."}
+      ],
+      "delete": {
+        "operationId": "widgetDelete",
+        "summary": "Delete a widget.",
+        "produces": ["application/json", "text/html"],
+        "responses": {"204": {"description": "Deleted."}}
+      },
+      "put": {
+        "operationId": "widgetEdit",
+        "summary": "Edit a widget.",
+        "parameters": [
+          {"name": "body", "in": "body", "schema": {"$ref": "#/definitions/EditThingOptions"}}
+        ],
+        "responses": {"200": {"description": "Edited.", "schema": {"$ref": "#/definitions/Thing"}}}
+      }
+    },
+    "/widgets/{id}/status": {
+      "parameters": [
+        {"name": "id", "in": "path", "required": true, "type": "integer", "format": "int64"}
+      ],
+      "get": {
+        "operationId": "widgetStatus",
+        "summary": "Read a widget status.",
+        "responses": {"205": {"description": "Reset required.", "schema": {"$ref": "#/definitions/Thing"}}}
+      }
+    },
+    "/widgets/{id}/refresh": {
+      "parameters": [
+        {"name": "id", "in": "path", "required": true, "type": "integer", "format": "int64"}
+      ],
+      "post": {
+        "operationId": "widgetRefresh",
+        "summary": "Refresh a widget.",
+        "responses": {
+          "201": {"description": "Refreshed.", "schema": {"$ref": "#/definitions/Thing"}},
+          "204": {"description": "Nothing to do."}
+        }
+      }
+    },
+    "/widgets/{id}/free": {
+      "parameters": [
+        {"name": "id", "in": "path", "required": true, "type": "integer", "format": "int64"}
+      ],
+      "post": {
+        "operationId": "widgetFreeForm",
+        "summary": "Post a free-form body.",
+        "parameters": [
+          {"name": "body", "in": "body", "schema": {"$ref": "#/definitions/FreeFormThing"}}
+        ],
+        "responses": {"202": {"description": "Accepted."}}
+      }
+    },
+    "/widgets/{id}/member": {
+      "parameters": [
+        {"name": "id", "in": "path", "required": true, "type": "integer", "format": "int64"}
+      ],
+      "get": {
+        "operationId": "widgetIsMember",
+        "summary": "Check widget membership.",
+        "responses": {
+          "204": {"description": "Is a member."},
+          "303": {"description": "Redirect to the public member."},
+          "404": {"description": "Not a member."}
+        }
+      }
+    },
+    "/widgets/{id}/report": {
+      "parameters": [
+        {"name": "id", "in": "path", "required": true, "type": "integer", "format": "int64"}
+      ],
+      "get": {
+        "operationId": "widgetReport",
+        "summary": "Render a widget report.",
+        "produces": ["text/plain"],
+        "responses": {"200": {"description": "Plain text report.", "schema": {"type": "string"}}}
+      }
+    },
+    "/widgets/{id}/archive": {
+      "parameters": [
+        {"name": "id", "in": "path", "required": true, "type": "integer", "format": "int64"}
+      ],
+      "get": {
+        "operationId": "widgetArchive",
+        "summary": "Download a widget archive.",
+        "produces": ["application/zip", "application/gzip"],
+        "responses": {"200": {"description": "The archive."}}
+      }
+    },
+    "/widgets/{id}/log": {
+      "parameters": [
+        {"name": "id", "in": "path", "required": true, "type": "integer", "format": "int64"}
+      ],
+      "get": {
+        "operationId": "widgetLog",
+        "summary": "Read a widget log.",
+        "produces": ["text/plain"],
+        "responses": {
+          "200": {"description": "Full log.", "schema": {"type": "string"}},
+          "206": {"description": "Partial log.", "schema": {"type": "string"}}
+        }
+      }
+    },
+    "/widgets/{id}/attachment": {
+      "parameters": [
+        {"name": "id", "in": "path", "required": true, "type": "integer", "format": "int64"}
+      ],
+      "post": {
+        "operationId": "widgetUploadAttachment",
+        "summary": "Upload a widget attachment.",
+        "consumes": ["multipart/form-data"],
+        "parameters": [
+          {"name": "name", "in": "query", "type": "string", "description": "Attachment name."},
+          {"name": "updated_at", "in": "query", "type": "string", "format": "date-time"},
+          {"name": "attachment", "in": "formData", "required": true, "type": "file"},
+          {"name": "external_url", "in": "formData", "type": "string", "description": "External URL."}
+        ],
+        "responses": {"201": {"description": "Uploaded.", "schema": {"$ref": "#/definitions/Thing"}}}
+      }
+    },
+    "/widgets/{id}.{format}": {
+      "parameters": [
+        {"name": "id", "in": "path", "required": true, "type": "integer", "format": "int64"},
+        {"name": "format", "in": "path", "required": true, "type": "string", "enum": ["raw", "diff"]}
+      ],
+      "get": {
+        "operationId": "widgetDownload",
+        "summary": "Download a widget rendering.",
+        "produces": ["application/octet-stream"],
+        "responses": {"200": {"description": "Rendered bytes."}}
+      }
+    },
+    "/widgets/{id}/info": {
+      "parameters": [
+        {"name": "id", "in": "path", "required": true, "type": "integer", "format": "int64"}
+      ],
+      "get": {
+        "operationId": "widgetInfo",
+        "summary": "List widget info.",
+        "responses": {"200": {"description": "Info entries.", "schema": {"$ref": "#/definitions/ThingList"}}}
+      }
+    },
+    "/orgs/{owner}/things": {
+      "parameters": [
+        {"name": "owner", "in": "path", "required": true, "type": "string"}
+      ],
+      "post": {
+        "operationId": "thingCreateInOrg",
+        "summary": "Create a thing for an owner.",
+        "parameters": [
+          {"name": "body", "in": "body", "required": true, "schema": {"$ref": "#/definitions/CreateThingOptions"}}
+        ],
+        "responses": {"201": {"description": "Created.", "schema": {"$ref": "#/definitions/Thing"}}}
+      }
+    },
+    "/orgs/{owner}/things/{id}": {
+      "parameters": [
+        {"name": "owner", "in": "path", "required": true, "type": "string"},
+        {"name": "id", "in": "path", "required": true, "type": "integer", "format": "int64"}
+      ],
+      "patch": {
+        "operationId": "thingEditInOrg",
+        "summary": "Edit a thing for an owner.",
+        "parameters": [
+          {"name": "body", "in": "body", "schema": {"$ref": "#/definitions/CreateThingOptions"}}
+        ],
+        "responses": {"200": {"description": "Edited.", "schema": {"$ref": "#/definitions/Thing"}}}
+      }
+    },
+    "/users/{username}/orgs": {
+      "parameters": [
+        {"name": "username", "in": "path", "required": true, "type": "string"}
+      ],
+      "post": {
+        "operationId": "userCreateOrg",
+        "summary": "Create an organization for a user.",
+        "parameters": [
+          {"name": "body", "in": "body", "required": true, "schema": {"$ref": "#/definitions/CreateOrgOptions"}}
+        ],
+        "responses": {"201": {"description": "Created.", "schema": {"$ref": "#/definitions/Thing"}}}
+      }
+    },
+    "/admin/reports/summary": {
+      "get": {
+        "operationId": "adminReportSummary",
+        "summary": "Read a boolean report.",
+        "responses": {"200": {"description": "The summary flag.", "schema": {"type": "boolean"}}}
+      }
+    },
+    "/admin/reports/flags": {
+      "get": {
+        "operationId": "adminReportFlags",
+        "summary": "Read a list of flags.",
+        "responses": {"200": {"description": "Flag names.", "schema": {"type": "array", "items": {"type": "string"}}}}
+      }
+    },
+    "/admin/reports/languages": {
+      "get": {
+        "operationId": "adminReportLanguages",
+        "summary": "Read language statistics.",
+        "responses": {
+          "200": {
+            "description": "Bytes per language.",
+            "schema": {"type": "object", "additionalProperties": {"type": "integer", "format": "int64"}}
+          }
+        }
+      }
+    },
+    "/admin/search": {
+      "get": {
+        "operationId": "adminSearch",
+        "summary": "Search wrapped results.",
+        "parameters": [
+          {"name": "q", "in": "query", "required": true, "type": "string", "description": "Query string."},
+          {"name": "page", "in": "query", "type": "integer", "format": "int64"},
+          {"name": "limit", "in": "query", "type": "integer", "format": "int64"}
+        ],
+        "responses": {"200": {"description": "Search results.", "schema": {"$ref": "#/definitions/SearchResults"}}}
+      }
+    },
+    "/version": {
+      "get": {
+        "operationId": "getVersion",
+        "summary": "Read the version.",
+        "responses": {"200": {"description": "Version text.", "schema": {"type": "string"}}}
+      }
+    },
+    "/users/{username}/old": {
+      "parameters": [
+        {"name": "username", "in": "path", "required": true, "type": "string"}
+      ],
+      "get": {
+        "operationId": "userOld",
+        "summary": "Read a legacy user record.",
+        "deprecated": true,
+        "responses": {"200": {"description": "The user.", "schema": {"$ref": "#/definitions/Thing"}}}
+      }
+    }
+  }
+}

@@ -1,0 +1,134 @@
+[project]
+name = "forgejo-python"
+version = "0.1.0"
+description = "A modern Python client for the Forgejo API"
+readme = "README.md"
+authors = [{ name = "Erdem Halil", email = "erdem-2001@windowslive.com" }]
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = ["httpx>=0.28.1", "pydantic>=2.7"]
+keywords = ["forgejo", "forgejo-api", "api-client", "async", "gitea"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+
+[project.urls]
+Repository = "https://github.com/erdemhalil/forgejo-python"
+Documentation = "https://erdemhalil.github.io/forgejo-python"
+Issues = "https://github.com/erdemhalil/forgejo-python/issues"
+Changelog = "https://github.com/erdemhalil/forgejo-python/blob/main/CHANGELOG.md"
+
+[build-system]
+requires = ["uv_build>=0.12.13,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+# The distribution is forgejo-python; the import package stays pyfj.
+module-name = "pyfj"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "pytest-asyncio>=0.24",
+    "ruff>=0.16.7",
+    "testcontainers>=4",
+    "ty>=0.0.80",
+]
+docs = [
+    "mike",
+    "mkdocstrings-python>=2.0.8",
+    "zensical>=0.0.62",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra -m 'not integration'"
+markers = [
+    "integration: requires Docker and a real Forgejo instance; excluded by default",
+]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+# Golden fixtures are expected generator output, not project code.
+extend-exclude = ["tests/unit/codegen/golden"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
+
+[tool.ruff.lint]
+select = [
+    "E",     # pycodestyle errors
+    "W",     # pycodestyle warnings
+    "F",     # Pyflakes
+    "I",     # isort
+    "UP",    # pyupgrade
+    "B",     # flake8-bugbear
+    "SIM",   # flake8-simplify
+    "C4",    # flake8-comprehensions
+    "ASYNC", # flake8-async
+    "RUF",   # Ruff-specific rules
+    "T20",   # flake8-print
+    "RET",   # flake8-return
+    "PIE",   # flake8-pie
+    "FA",    # flake8-future-annotations
+    "TC",    # flake8-type-checking
+    "YTT",   # flake8-2020
+    "S",     # flake8-bandit
+    "BLE",   # flake8-blind-except
+    "DTZ",   # flake8-datetimez
+    "T10",   # flake8-debugger
+    "INT",   # flake8-gettext
+    "ISC",   # flake8-implicit-str-concat
+    "LOG",   # flake8-logging
+    "G",     # flake8-logging-format
+    "PYI",   # flake8-pyi
+    "PT",    # flake8-pytest-style
+    "PTH",   # flake8-use-pathlib
+    "FLY",   # flake8-flynt
+    "N",     # pep8-naming
+    "FURB",  # refurb
+    "TRY",   # tryceratops
+    "PERF",  # perflint
+    "ERA",   # eradicate
+    "A",     # flake8-builtins
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Tests assert and use literal credentials/status codes by nature.
+"tests/**" = ["S101", "S105", "S106", "D"]
+# Generated API method parameters mirror the Spec's names (`id`, `type`, ...)
+"src/pyfj/_generated/api/**" = ["A002"]
+# Generated models import their field types at runtime because pydantic resolves annotations
+"src/pyfj/_generated/models/**" = ["TC001", "TC003"]
+
+[tool.ty.src]
+# Golden fixtures are expected generator output
+exclude = ["tests/unit/codegen/golden/**"]
+
+[tool.ty.rules]
+dynamic-function-decorator-return = "error"
+missing-type-argument = "error"
+possibly-unresolved-reference = "warn"
+unsound-return-statement = "error"
+
+[tool.uv.sources]
+mike = { git = "https://github.com/squidfunk/mike.git" }

@@ -1,0 +1,64 @@
+name: Code checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: code-checks-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: lint
+    runs-on: ubuntu-slim
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.1.0
+      - run: uv sync --locked
+      - run: uv run ruff check .
+
+  format:
+    name: format
+    runs-on: ubuntu-slim
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.1.0
+      - run: uv sync --locked
+      - run: uv run ruff format --check .
+
+  typecheck:
+    name: typecheck
+    runs-on: ubuntu-slim
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.1.0
+      - run: uv sync --locked
+      - run: uv run ty check
+
+  codegen-drift:
+    name: codegen-drift
+    runs-on: ubuntu-slim
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.1.0
+      - run: uv sync --locked
+
+      - name: Regenerate the surface
+        run: uv run python -m codegen
+
+      - name: Fail on tracked drift
+        run: git diff --exit-code
+
+      - name: Fail on untracked generated files
+        run: |
+          untracked="$(git ls-files --others --exclude-standard -- src/pyfj/_generated)"
+          if [ -n "$untracked" ]; then
+            echo "codegen left untracked files under src/pyfj/_generated:"
+            echo "$untracked"
+            exit 1
+          fi

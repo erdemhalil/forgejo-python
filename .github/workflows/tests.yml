@@ -1,0 +1,50 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  unit:
+    name: unit (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13", "3.14"]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.1.0
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: uv sync --locked
+      - run: uv run pytest
+
+  integration:
+    name: integration
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      # Empty by default: the harness then tries codeberg.org and falls back
+      # to data.forgejo.org. Set the repository variable to pin an image
+      PYFJ_TEST_IMAGE: ${{ vars.PYFJ_TEST_IMAGE }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.1.0
+      - run: uv sync --locked
+
+      - name: Pre-pull the Forgejo image
+        run: |
+          docker pull "${PYFJ_TEST_IMAGE:-codeberg.org/forgejo/forgejo:16}" \
+            || docker pull data.forgejo.org/forgejo/forgejo:16
+
+      - name: Run integration tests
+        run: uv run pytest -m integration

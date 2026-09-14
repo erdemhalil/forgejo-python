@@ -1,0 +1,267 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Mini API",
+    "version": "1.0.0",
+    "description": "Synthetic Swagger 2.0 Spec used by the generator tests."
+  },
+  "basePath": "/api/v1",
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "security": [{"BasicAuth": []}],
+  "securityDefinitions": {"BasicAuth": {"type": "basic"}},
+  "parameters": {
+    "Page": {
+      "name": "page",
+      "in": "query",
+      "description": "page number of results to return (1-based)",
+      "type": "integer",
+      "format": "int64",
+      "default": 1
+    },
+    "WidgetID": {
+      "name": "id",
+      "in": "path",
+      "description": "id of the widget",
+      "type": "integer",
+      "format": "int64",
+      "required": true
+    }
+  },
+  "responses": {
+    "WidgetList": {
+      "description": "A list of widgets",
+      "schema": {"type": "array", "items": {"$ref": "#/definitions/Widget"}}
+    },
+    "WidgetResponse": {
+      "description": "One widget",
+      "schema": {"$ref": "#/definitions/Widget"}
+    },
+    "Empty": {"description": "No content"}
+  },
+  "definitions": {
+    "Widget": {
+      "description": "A widget in the mini Spec.",
+      "type": "object",
+      "required": ["id", "name"],
+      "properties": {
+        "id": {"type": "integer", "format": "int64", "description": "Unique widget id."},
+        "name": {"type": "string", "description": "Display name."},
+        "state": {"$ref": "#/definitions/State"},
+        "kind": {
+          "type": "string",
+          "enum": ["standard", "deluxe", "limited-edition"],
+          "description": "Widget kind."
+        },
+        "priority": {"type": "integer", "enum": [1, 2, 3], "description": "Sort priority."},
+        "created_at": {"type": "string", "format": "date-time", "description": "Creation timestamp."},
+        "birthday": {"type": "string", "format": "date", "description": "Launch date."},
+        "labels": {"type": "array", "items": {"type": "string"}, "description": "Labels."},
+        "parts": {"type": "array", "items": {"$ref": "#/definitions/Part"}},
+        "scores": {"type": "array", "items": {}, "description": "Heterogeneous scores."},
+        "attributes": {
+          "type": "object",
+          "additionalProperties": {"type": "string"},
+          "description": "Free-form attributes."
+        },
+        "anything": {
+          "type": "object",
+          "additionalProperties": {},
+          "description": "Arbitrary values."
+        },
+        "metadata": {"type": "object", "description": "Unmodelled metadata."},
+        "owner": {"$ref": "#/definitions/Owner"},
+        "parent": {"$ref": "#/definitions/Widget"},
+        "detail": {
+          "type": "object",
+          "description": "Inline detail.",
+          "properties": {
+            "note": {"type": "string", "description": "A note."},
+            "weight": {"type": "integer", "format": "int64"}
+          }
+        },
+        "@context": {"type": "string", "description": "JSON-LD context."},
+        "_links": {"$ref": "#/definitions/Links"},
+        "CamelCase": {"type": "string", "description": "Wire name that differs from the Python field."}
+      }
+    },
+    "Part": {
+      "description": "A widget part.",
+      "type": "object",
+      "properties": {"name": {"type": "string", "description": "Part name."}}
+    },
+    "Owner": {
+      "description": "A widget owner.",
+      "type": "object",
+      "properties": {"login": {"type": "string", "description": "Login name."}}
+    },
+    "Links": {
+      "description": "Links to related resources.",
+      "type": "object",
+      "properties": {"self": {"type": "string", "description": "Canonical URL."}}
+    },
+    "State": {"type": "string", "description": "Widget state alias."},
+    "Duration": {"type": "integer", "format": "int64", "description": "A duration alias."},
+    "Labels": {"type": "array", "items": {"type": "string"}, "description": "A label list alias."},
+    "WidgetAlias": {"$ref": "#/definitions/Widget", "description": "Alias for Widget."},
+    "Priority": {"type": "integer", "description": "Priority levels.", "enum": [1, 2, 3]},
+    "Config": {
+      "type": "object",
+      "description": "Free-form config.",
+      "additionalProperties": {"type": "string"}
+    },
+    "EmptyModel": {"type": "object", "description": "An object with no declared properties."},
+    "WrappedDoc": {
+      "type": "object",
+      "description": "WrappedDoc carries a deliberately long one-line description so that the generated class docstring must wrap across several physical lines without dropping any of the words in the Spec description.",
+      "properties": {
+        "detail": {
+          "type": "string",
+          "description": "This field description is also deliberately long enough to require the emitter to wrap it into several implicitly concatenated string chunks while keeping every single word from the Spec."
+        },
+        "notes": {
+          "type": "string",
+          "description": "First line of the notes.\nSecond line of the notes."
+        }
+      }
+    }
+  },
+  "paths": {
+    "/widgets": {
+      "get": {
+        "operationId": "widgetList",
+        "summary": "List widgets",
+        "tags": ["widget"],
+        "produces": ["application/json"],
+        "parameters": [
+          {"$ref": "#/parameters/Page"},
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort order.",
+            "type": "string",
+            "enum": ["alpha", "recent"],
+            "default": "alpha"
+          },
+          {
+            "name": "labels",
+            "in": "query",
+            "description": "Label ids.",
+            "type": "array",
+            "items": {"type": "integer", "format": "int64"},
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {"200": {"$ref": "#/responses/WidgetList"}}
+      },
+      "post": {
+        "operationId": "widgetCreate",
+        "summary": "Create a widget",
+        "tags": ["widget"],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "The widget to create.",
+            "schema": {"$ref": "#/definitions/Widget"}
+          }
+        ],
+        "responses": {
+          "201": {"$ref": "#/responses/WidgetResponse"},
+          "422": {"description": "Validation failed."}
+        }
+      }
+    },
+    "/widgets/{id}": {
+      "parameters": [{"$ref": "#/parameters/WidgetID"}],
+      "get": {
+        "operationId": "widgetGet",
+        "summary": "Get a widget",
+        "tags": ["widget"],
+        "responses": {
+          "200": {"$ref": "#/responses/WidgetResponse"},
+          "404": {"description": "Not found."}
+        }
+      },
+      "delete": {
+        "operationId": "widgetDelete",
+        "summary": "Delete a widget",
+        "tags": ["widget"],
+        "responses": {"204": {"$ref": "#/responses/Empty"}}
+      },
+      "put": {
+        "operationId": "widgetUpdateDeprecated",
+        "summary": "Update a widget (deprecated)",
+        "deprecated": true,
+        "tags": ["widget"],
+        "responses": {"200": {"$ref": "#/responses/WidgetResponse"}}
+      }
+    },
+    "/widgets/{id}/report": {
+      "get": {
+        "operationId": "widgetReport",
+        "summary": "Render a widget report",
+        "produces": ["text/plain"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of the widget",
+            "type": "integer",
+            "format": "int64",
+            "required": true
+          }
+        ],
+        "responses": {"200": {"description": "Report text.", "schema": {"type": "string"}}}
+      }
+    },
+    "/widgets/{id}.{format}": {
+      "get": {
+        "operationId": "widgetDownload",
+        "summary": "Download a widget attachment",
+        "produces": ["application/octet-stream"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of the widget",
+            "type": "integer",
+            "format": "int64",
+            "required": true
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "description": "attachment format",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {"200": {"description": "Attachment bytes.", "schema": {"type": "file"}}}
+      }
+    },
+    "/widgets/search": {
+      "get": {
+        "operationId": "widgetSearch",
+        "summary": "Search widgets",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Search results.",
+            "schema": {
+              "type": "object",
+              "title": "WidgetSearchResults",
+              "properties": {
+                "items": {"type": "array", "items": {"$ref": "#/definitions/Widget"}},
+                "total": {"type": "integer", "format": "int64"}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

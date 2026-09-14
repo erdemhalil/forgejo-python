@@ -1,0 +1,10 @@
+# Operations excluded from generation, each with a reason. The completeness
+# test enforces that every Operation is either generated or listed here.
+
+# The Spec requires the automatic Actions job token
+# (Authorization: Bearer {{ forgejo.token }}) for this endpoint; pyfj only
+# sends user token/Basic credentials, so the generated method could never
+# succeed.
+[[exclusions]]
+operation = "getActionsRun"
+reason = "Requires the automatic Actions job token; not usable with user credentials."
